@@ -1,12 +1,18 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <rp-footer></rp-footer>
   </div>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    'rp-footer': Footer
+  }
 }
 </script>
 
@@ -101,62 +107,6 @@ export default {
 }
 .dropdown {
 	display: inline-block;
-}
-
-
-footer {
-	background: #323237;
-	padding: 15px 15px 5px 15px;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-footer .disclaimer {
-	margin-top: 10px;
-	font-size: 10px;
-}
-#footer-top {
-	border-bottom: .5px solid white;
-	padding: 0px;
-}
-.bottom-menu {
-	float: left;
-	font-size: 12px;
-	padding: 0px 10px 0px 10px;
-}
-.bottom-menu .header {
-	font-size: 16px;
-	font-weight: bold;
-}
-.bottom-menu li {
-	list-style-type: none;
-	margin-bottom: 8px;
-}
-#footer-bottom {
-	text-align: center;
-	padding: 15px 15px 5px 15px;
-}
-#footer-bottom a {
-	font-size: 14px;
-}
-.copyright {
-	font-weight: lighter;
-	margin-top: 8px;
-}
-footer a {
-	padding: 10px;
-}
-#footer-bottom .disclaimer a {
-  padding: 0;
-  font-size: inherit;
-}
-#video-attribution {
-  display: none;
-}
-/* Attribution should only be visible on the home page. */
-#home #video-attribution {
-  display: block;
 }
 
 
