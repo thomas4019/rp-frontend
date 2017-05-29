@@ -3,9 +3,9 @@
     <div id="footer-top" class="container">
       <ul class="bottom-menu" style="padding-right: 20px;">
         <li class="header">Company</li>
-        <li><router-link to="about">About</router-link></li>
+        <li><router-link to="/about">About</router-link></li>
         <li><a href="https://angel.co/racepass">Careers</a></li>
-        <li><router-link to="contact">Contact</router-link></li>
+        <li><router-link to="/contact">Contact</router-link></li>
       </ul>
       <ul class="bottom-menu" style="padding-left: 10px;">
         <li class="header">Support</li>
