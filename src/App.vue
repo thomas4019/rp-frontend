@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style>
-
 @import 'base.css';
 
 /* VARIOUS ELEMENTS */
