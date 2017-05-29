@@ -6,7 +6,7 @@
       <h4 class="modal-title">Modal title</h4>
     </div>
     <div slot="modal-body" class="modal-body">...</div>
-</modal>
+  </modal>
 
   <h1 v-if="page != 1">One-time registration for all your races</h1>
   <form id="p2" name="p2" v-if="page == 2" data-parsley-validate="">
