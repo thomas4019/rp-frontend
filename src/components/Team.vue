@@ -1,0 +1,97 @@
+<template>
+  <section id="team" class="solo-noborder row">
+    <div id="team-menu" class="col-sm-3" style="padding: 5px 5px 40px 5px; text-align: right;">
+      <router-link to="/about">About us</router-link>
+      <router-link to="/team">Meet the team</router-link>
+    </div>
+    <div class="hidden-xs divider2 col-sm-1">
+    </div>
+    <div id="about-body" class="col-sm-8" style="padding: 0px 40px 40px 40px;">
+      <h1>Meet our team</h1>
+      <div class="team-row">
+        <div class="left-img">
+          <img src="static/imgs/profiles/chase.jpg" />
+        </div>
+        <div class="right">
+          <h2>Chase Rigby | Co-founder</h2>
+          <p>Chase credits his wife and Ironman in-laws for getting him addicted to the sport. Currently, he is training in his new role as father, pushing his 6 month-old daughter in a jogger for the Palm Springs Half Marathon. Chase heads up Racepass forming strategy, partnerships and operations. He's spent the last four years at Google developing products for Search and Pokémon GO at Niantic Labs. </p>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="left-img">
+          <img src="static/imgs/profiles/tom.jpg" />
+        </div>
+        <div class="right">
+          <h2>Tom Hammel | Co-founder</h2>
+          <p>After years of running track, Tom rediscovered love for racing after reading What I Talk About When I Talk About Running and is training for his first trail race, the Golden Gate Headlands Half Marathon. Tom oversees product design and growth. He's spent the last four years at Google designing tools and agency relationships with such clients as Forever 21 & Wpromote.</p>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="left-img">
+          <img src="static/imgs/profiles/hansen.jpg" />
+        </div>
+        <div class="right">
+          <h2>Thomas Hansen | Co-founder</h2>
+          <p>Racing runs in Thomas' blood, his father organized and directed local races for years. Right now, Thomas is training for the Yosemite Half Marathon. Thomas is the technical expert behind Racepass. As a software engineer at Google, he works magic with big data and machine learning to scale platforms.</p>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="left-img">
+          <img src="static/imgs/profiles/kendall.jpg" />
+        </div>
+        <div class="right">
+          <h2>Kendall Yoder | Operations</h2>
+          <p>Kendall loves anything competitive, and running in races and triathlons is at the top of the list. Though not the fastest on the course, she'll always cross the finish line for a frozen yogurt reward. Kendall is overseeing Operations and Community Management, and she's spent the last 4 years at Google in Product recruitment.</p>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="left-img">
+          <img src="static/imgs/profiles/david.jpg" />
+        </div>
+        <div class="right">
+          <h2>David Hughes | Engineering</h2>
+          <p>For David, running has always been about the community, the awesome people you meet along the way. (Fun fact: David met his wife on a race course!) He has spent the last several years as a software engineer at Google in New York City.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+export default {
+  name: 'rp-team'
+}
+</script>
+
+<style scoped>
+#team img {
+  width: 134px;
+  height: 134px;
+  border-radius: 67px;
+  margin-top: 25px;
+}
+#team .left-img {
+  margin-right: 40px;
+}
+.team-row {
+  display: flex;
+}
+#team-menu a {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 22px;
+  color: #D8D8D8;
+  display: block;
+  margin-bottom: 20px;
+  white-space: nowrap;
+  margin-right: 35px;
+}
+#team-menu a.active {
+  color: #0DFFAE;
+}
+.divider2 {
+  border-right: 1px solid #979797;
+  height: 725px;
+  width: 1px;
+}
+</style>
