@@ -10,6 +10,8 @@ import Team from '@/components/Team'
 import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
+import Login from '@/components/Login'
+import Payment from '@/components/Payment'
 
 Vue.use(Router)
 
@@ -37,6 +39,11 @@ export default new Router({
       component: Faq
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
       path: '/privacy',
       name: 'Privacy',
       component: Privacy
@@ -50,6 +57,11 @@ export default new Router({
       path: '/race-directors',
       name: 'RaceDirectors',
       component: RaceDirectors
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     },
     {
       path: '/team',

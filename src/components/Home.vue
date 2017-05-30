@@ -1,6 +1,6 @@
 <template>
-  <div id="home" ng-init="full_mode = false;" ng-app="landing" ng-controller="LandingController as landing">
-    <div id="promo"><a id="freeTrial" ng-click="landing.buy('freeTrial')">Try Racepass free</a></div>
+  <div id="home" ng-init="full_mode = false;">
+    <div id="promo"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
     <!--#include virtual="/includes/login_modal.html" -->
     <!--#include virtual="/includes/anon_header.html" -->
     <div id="banner1">
@@ -14,6 +14,10 @@
         <button ng-click="landing.findRaces()">Find my next race</button>
       </div>
     </div>
+    <modal classes="rp-modal" :height="350" :width="700" name="login">
+      <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
+      <login :isCreation="isCreation" />
+    </modal>
     <div style="text-align: center; padding: 22px 10px; border-bottom: 1px solid #979797; color: #9B9B9B;">
       No race lotteries
       <span style="color: #4A4A4A; padding: 0px 5px;">•</span>
@@ -65,7 +69,7 @@
     <section id="choose-pass">
       <div id="pass-header" class="callout">Let's get you up and running</div>
       <div class="info">Each pass buys you a pre-set number of races for the year. No matter which types of race you pick, if it's a 5k or a Marathon, Racepass covers the full registration cost of your races.</div>
-      <div id="pass-wrapper" class="container row">
+      <slick ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
         <div class="pass-container">
           <div class="pass pass-side">
             <div class="pass-title">Contender</div>
@@ -79,7 +83,7 @@
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
             </div>
-             <a id="buy1" ng-click="landing.buy('3races')" class="pass-buy"><button>Buy Contender</button></a>
+             <a id="buy1" @click="buy('3races')" class="pass-buy"><button>Buy Contender</button></a>
           </div>
         </div>
         <div class="pass-container">
@@ -95,7 +99,7 @@
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
             </div>
-            <a id="buy2" ng-click="landing.buy('5races')" class="pass-buy"><button>Buy Athlete</button></a>
+            <a id="buy2" @click="buy('5races')" class="pass-buy"><button>Buy Athlete</button></a>
           </div>
         </div>
         <div class="pass-bordered">
@@ -117,7 +121,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </slick>
       <div class="info">
         <p>If you decide you don't want to use all your races, don't sweat it, we've got you covered.</p>
         <p><a href="/faq"><em>Learn more.</em></a></p>
@@ -177,87 +181,137 @@
 
 <script>
 import rp from '../rp'
+import Login from '@/components/Login'
+import Slick from 'vue-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 export default {
   name: 'home',
+  components: {
+    'login': Login,
+    Slick
+  },
+  methods: {
+    buy (type) {
+      localStorage.buyType = type
+      this.isCreation = true
+      this.$modal.show('login')
+    }
+  },
   data () {
     return {
+      isCreation: false,
       passPrices: rp.passPrices,
+      slickOptions: {
+        dots: true,
+        centerMode: true,
+        initialSlide: 1,
+        variableWidth: true,
+        infinite: false,
+        responsive: [{
+          breakpoint: 2500,
+          settings: {
+            infinite: true,
+            slidesToShow: 3,
+            variableWidth: false
+          },
+        },
+        {
+          breakpoint: 1000,
+          settings: {
+            slidesToShow: 1
+          },
+        }
+        ],
+      },
     }
   }
 }
 </script>
 
+<style>
+.slick-dots button:before {
+  color: #F7F7F7 !important;
+  height: 30px;
+  width: 30px;
+}
+.slick-slide{
+  width: 350px;
+}
+</style>
+
 <style scoped>
 #promo {
-	background-color: #323237;
-	font-size: 18px;
-	height: 38px;
-	line-height: 38px;
-	position: fixed;
-	text-align: center;
-	width: 100%;
-	z-index: 1000;
+  background-color: #323237;
+  font-size: 18px;
+  height: 38px;
+  line-height: 38px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: 1000;
 }
 #promo a {
-	color: #0dffae;
-	cursor: pointer;
-	font-weight: bold;
-	text-decoration: none;
+  color: #0dffae;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
 }
 ﻿#landing-nav {
-	padding-bottom: 0px;
+  padding-bottom: 0px;
 }
 #navbar-primary-collapse {
-	padding-right: 0px;
-	overflow: hidden;
+  padding-right: 0px;
+  overflow: hidden;
 }
 #primary-menu {
-	float: right;
-	font-size: 14px;
-	padding-bottom: 25px;
+  float: right;
+  font-size: 14px;
+  padding-bottom: 25px;
 }
 #primary-menu a {
-	margin-left: 19px;
-	padding: 0px;
-	padding-top: 15px;
+  margin-left: 19px;
+  padding: 0px;
+  padding-top: 15px;
 }
 #primary-menu a:hover {
-	background: transparent;
+  background: transparent;
 }
 #primary-menu a:focus {
-	background: transparent;
-	color: inherit;
+  background: transparent;
+  color: inherit;
 }
 #primary-menu li.mbutton a {
-	border: 2px solid #0DFFAE;
-	border-radius: 8px;
-	margin-left: 20px;
-	margin-top: 4px;
-	width: 121.78px;
-	padding: 6px;
-	text-align: center;
-	height: 35px;
-	color: #0DFFAE;
-	margin-left: 15px;
-	font-weight: 900;
+  border: 2px solid #0DFFAE;
+  border-radius: 8px;
+  margin-left: 20px;
+  margin-top: 4px;
+  width: 121.78px;
+  padding: 6px;
+  text-align: center;
+  height: 35px;
+  color: #0DFFAE;
+  margin-left: 15px;
+  font-weight: 900;
 }
 #primary-menu li.mbutton-filled a {
-	background: linear-gradient(180deg, #1EFFD7 0%, #0DFFAE 100%);
-	color: black;
-	margin-left: 30px;
+  background: linear-gradient(180deg, #1EFFD7 0%, #0DFFAE 100%);
+  color: black;
+  margin-left: 30px;
 }
 #primary-menu li.mbutton-filled a:hover {
-	background: linear-gradient(180deg, #2EFFF7 0%, #2DFFBE 100%);
+  background: linear-gradient(180deg, #2EFFF7 0%, #2DFFBE 100%);
 }
 #primary-menu li.mbutton-hollow a {
-	border: .5px solid #0DFFAE;
-	width: 70px;
-	cursor: pointer;
+  border: .5px solid #0DFFAE;
+  width: 70px;
+  cursor: pointer;
 }
 #primary-menu li.mbutton-hollow a:hover {
-	background: #0DFFAE;
-	color: black;
-	transition: .2s;
+  background: #0DFFAE;
+  color: black;
+  transition: .2s;
 }
 /* These styles only apply when narrow width*/
 .navbar-custom .navbar-toggle {
@@ -271,88 +325,88 @@ export default {
     background-color: #888888;
 }
 @media screen and (max-width: 930px) {
-	#primary-menu li.mbutton-filled a {
+  #primary-menu li.mbutton-filled a {
         position: relative;
         left: -15px;
         width: 120px;
     }
-	#primary-menu li.mbutton-hollow a {
+  #primary-menu li.mbutton-hollow a {
         width: 120px;
     }
 }
 
 #banner1 {
-	height: 500px;
-	position: relative;
-	overflow: hidden;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
 }
 #banner1 video {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	width: 100%;
-	min-width: 850px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  min-width: 850px;
 }
 #banner1 #find-races-panel {
-	z-index: 100;
-	position: relative;
-	margin-top: 150px;
-	text-align: center;
+  z-index: 100;
+  position: relative;
+  margin-top: 150px;
+  text-align: center;
 }
 #find-races-panel .title {
-	font-size: 36px;
-	font-weight: 500;
-	text-align: center;
-	line-height: 49px;
-	color: #FFFFFF;
-	text-shadow: 0 0 6px rgba(0,0,0,0.5);
-	margin-bottom: 12px;
+  font-size: 36px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 49px;
+  color: #FFFFFF;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+  margin-bottom: 12px;
 }
 #find-races-panel .subtitle {
-	font-size: 20px;
-	font-weight: bold;
-	line-height: 27px;
-	color: #d8d8d8;
-	text-shadow: 0 0 6px rgba(0,0,0,0.5);
-	margin: 0 auto 30px auto;
-	max-width: 400px;
-	padding: 0px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 27px;
+  color: #d8d8d8;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+  margin: 0 auto 30px auto;
+  max-width: 400px;
+  padding: 0px 10px;
 }
 #find-races-panel button {
-	font-weight: 900;
-	padding: 10px 15px;
+  font-weight: 900;
+  padding: 10px 15px;
 }
 #find-races-panel input {
-	color: #0DFFAE;
-	border: none;
-	border-bottom: 1.5px solid #0DFFAE;
-	border-radius: 0px;
-	font-weight: 900;
-	width: 150px;
-	height: 24px;
-	margin-left: 10px;
-	padding-left: 0px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	background-color: transparent;
+  color: #0DFFAE;
+  border: none;
+  border-bottom: 1.5px solid #0DFFAE;
+  border-radius: 0px;
+  font-weight: 900;
+  width: 150px;
+  height: 24px;
+  margin-left: 10px;
+  padding-left: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: transparent;
 }
 #find-races-panel input:focus {
-	 outline: none;
+   outline: none;
 }
 #banner1 .container {
-	z-index: 100;
-	position: relative;
+  z-index: 100;
+  position: relative;
 }
 #banner1 .text {
-	width: 400px;
-	margin-top: 25px;
-	margin-bottom: 30px;
-	font-size: 36px;
-	font-weight: 500;
-	line-height: 49px;
-	color: #F7F7F7;
-	text-shadow: 0 0 6px rgba(0,0,0,0.5);
+  width: 400px;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 49px;
+  color: #F7F7F7;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
 }
 @media screen and (max-width: 600px) {
     #banner1 .text {
@@ -360,339 +414,329 @@ export default {
     }
 }
 #banner1 .textbox {
-	padding-top: 5%;
-	margin-left: 10%;
-	font-size: 28px;
-	max-width: 303.83px;
+  padding-top: 5%;
+  margin-left: 10%;
+  font-size: 28px;
+  max-width: 303.83px;
 
 }
 .input-row {
-	display: flex;
-	width: 100%;
+  display: flex;
+  width: 100%;
 }
 .input-row input {
-	width: 0; /* actual width controlled by flex*/
-	font-size: 14px;
-	height: 40px;
+  width: 0; /* actual width controlled by flex*/
+  font-size: 14px;
+  height: 40px;
 }
 #field-email {
-	flex: 3;
-	margin: 0px 10px 10px 0px;
-	background-color: #F7F7F7;
-	border-radius: 8px;
+  flex: 3;
+  margin: 0px 10px 10px 0px;
+  background-color: #F7F7F7;
+  border-radius: 8px;
 }
 #field-zip {
-	flex: 1;
-	margin: 0px 0px 10px 0px;
-	background-color: #F7F7F7;
-	border-radius: 8px;
+  flex: 1;
+  margin: 0px 0px 10px 0px;
+  background-color: #F7F7F7;
+  border-radius: 8px;
 }
 #find-button {
-	font-size: 14px;
-	height: 46.24px;
-	color: #10383D;
+  font-size: 14px;
+  height: 46.24px;
+  color: #10383D;
 }
 #separator-row {
-	display: flex;
-	text-align: center;
-	margin: 8px 3px;
-	font-size: 14px;
-	font-weight: 900;
-	line-height: 19px;
-	color: #F7F7F7;
+  display: flex;
+  text-align: center;
+  margin: 8px 3px;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 19px;
+  color: #F7F7F7;
 }
 .hbar {
-	flex: 3;
+  flex: 3;
 }
 .container {
-	max-width: 1000px !important;
+  max-width: 1000px !important;
 }
 #find-disclaimer {
-	padding: 8px 35px 0px 35px;
-	height: 24px;
-	font-family: Avenir;
-	font-size: 9px;
-	font-weight: 500;
-	text-align: center;
-	line-height: 12px;
-	color: #F7F7F7;
+  padding: 8px 35px 0px 35px;
+  height: 24px;
+  font-family: Avenir;
+  font-size: 9px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 12px;
+  color: #F7F7F7;
 }
 
 /* Styles for 3 column main features */
 #selling-points-wrapper {
-	margin: 0px 25px 0px 25px;
+  margin: 0px 25px 0px 25px;
 }
 #selling-points {
-	color: #F7F7F7;
-	padding: 20px 0px;
-	text-align: center;
+  color: #F7F7F7;
+  padding: 20px 0px;
+  text-align: center;
 }
 #selling-points h3 {
-	font-size: 22px;
-	margin: 10px 0px;
+  font-size: 22px;
+  margin: 10px 0px;
 
 }
 .selling-point {
-	padding: 20px;
+  padding: 20px;
 }
 #selling-points p {
-	line-height: 25px;
-	margin: 0px;
-	color: #ABAEB7;
+  line-height: 25px;
+  margin: 0px;
+  color: #ABAEB7;
 }
 .selling-icon {
-	margin: 21px auto;
-	display: block;
-	width: 80px;
-	height: 80px;
-	text-align: center;
+  margin: 21px auto;
+  display: block;
+  width: 80px;
+  height: 80px;
+  text-align: center;
 }
 .selling-icon img {
-	height: 80px;
+  height: 80px;
 }
 .point-ch {
-	margin-top: 31px;
+  margin-top: 31px;
 }
 
 .button-row {
-	width: 100%;
-	text-align: center;
-	margin: 40px 0px 40px 0px;
+  width: 100%;
+  text-align: center;
+  margin: 40px 0px 40px 0px;
 }
 .button-continue {
-	border: 1px solid #979797;
-	border-radius: 100px;
-	font-weight: 300;
-	padding: 15px 15px;
-	display: inline-block;
-	color: #F7F7F7;
-	cursor: pointer;
+  border: 1px solid #979797;
+  border-radius: 100px;
+  font-weight: 300;
+  padding: 15px 15px;
+  display: inline-block;
+  color: #F7F7F7;
+  cursor: pointer;
 }
 .button-continue-icon {
-	font-size: 36px;
-	color: #979797;
-	line-height: .6;
-	font-weight: lighter;
+  font-size: 36px;
+  color: #979797;
+  line-height: .6;
+  font-weight: lighter;
 }
 
 /** Race Logos Section */
 #race-logos-wrapper {
-	width: 100%;
-	overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 #race-logos {
-	background: #F7F7F7;
-	width: 10000px;
-	margin-left: -50px;
-	/*transition: 1.5s linear;*/
+  background: #F7F7F7;
+  width: 10000px;
+  margin-left: -50px;
+  /*transition: 1.5s linear;*/
 }
 .race-logo {
-	opacity: .75;
-	margin: 0px;
-	/*filter: grayscale(100%);*/
-	padding: 15px 25px;
+  opacity: .75;
+  margin: 0px;
+  /*filter: grayscale(100%);*/
+  padding: 15px 25px;
 }
 
 
 #m-search-wrapper {
-	padding: 14px 18px 10px 17px;
-	width: 100%;
-	position: relative;
-	pointer-events: auto;
+  padding: 14px 18px 10px 17px;
+  width: 100%;
+  position: relative;
+  pointer-events: auto;
 }
 #pac-input {
-	font-size: 16px;
-	width: 100%;
-	z-index: 11;
-	padding-right: 80px;
+  font-size: 16px;
+  width: 100%;
+  z-index: 11;
+  padding-right: 80px;
 }
 #search-icon {
-	position: absolute;
-	top: 6px;
-	right: 45px;
-	padding: 15px;
-	z-index: 20;
-	font-size: 18px;
-	color: rgba(103,103,103,0.84);
+  position: absolute;
+  top: 6px;
+  right: 45px;
+  padding: 15px;
+  z-index: 20;
+  font-size: 18px;
+  color: rgba(103,103,103,0.84);
 }
 #search-close {
-	position: absolute;
-	top: 12px;
-	right: 30px;
-	padding: 10px;
-	z-index: 20;
-	font-family: Arial;
-	font-size: 18px;
-	font-weight: 100;
-	line-height: 25px;
-	color: rgba(103,103,103,0.84);
-	cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 30px;
+  padding: 10px;
+  z-index: 20;
+  font-family: Arial;
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 25px;
+  color: rgba(103,103,103,0.84);
+  cursor: pointer;
 }
 
 #m-filter-wrapper {
-	display: flex;
-	font-size: 14px;
-	padding: 3px 8px 11px 8px;
+  display: flex;
+  font-size: 14px;
+  padding: 3px 8px 11px 8px;
 }
 
 #m-filter-wrapper .filter {
-	padding-left: 13px;
-	padding-right: 13px;
+  padding-left: 13px;
+  padding-right: 13px;
 }
 .filter .header {
-	font-weight: 300;
-	line-height: 19px;
-	color: #D6D6D6;
+  font-weight: 300;
+  line-height: 19px;
+  color: #D6D6D6;
 }
 .filter .value {
-	font-weight: 900;
-	line-height: 19px;
-	color: #D8D8D8;
+  font-weight: 900;
+  line-height: 19px;
+  color: #D8D8D8;
 }
 .value.selected {
-	color: #0DFFAE;
+  color: #0DFFAE;
 }
 
 .filter-options {
-	height: 52px;
-	border-top: 0.5px solid #979797;
-	border-bottom: 0.5px solid #979797;
+  height: 52px;
+  border-top: 0.5px solid #979797;
+  border-bottom: 0.5px solid #979797;
 }
 .values {
-	list-style-type: none;
-	display: flex;
-	padding: 0px;
+  list-style-type: none;
+  display: flex;
+  padding: 0px;
 }
 .values li {
-	margin-left: 7px;
-	width: 30px;
-	height: 12px;
-	font-family: Avenir;
-	font-size: 10px;
-	font-weight: 500;
-	line-height: 12px;
-	color: #0DFFAE;
+  margin-left: 7px;
+  width: 30px;
+  height: 12px;
+  font-family: Avenir;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  color: #0DFFAE;
 }
 
 
 /* Choose your pass page */
 #choose-pass {
-	font-size: 36px;
-	margin: 0px 25px 0px 25px;
+  font-size: 36px;
+  margin: 0px 25px 0px 25px;
 }
 
 #choose-pass .info {
-	color: #D8D8D8;
-	font-size: 14px;
-	margin: 0 auto 30px auto;
-	text-align: center;
-	width: 50%;
+  color: #D8D8D8;
+  font-size: 14px;
+  margin: 0 auto 30px auto;
+  text-align: center;
+  width: 50%;
 }
 
 #pass-header {
 }
 
 #pass-wrapper {
-	flex-direction: row;
-	text-align: center;
-	font-size: 20px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 50px;
-	padding: 0px;
+  flex-direction: row;
+  text-align: center;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  padding: 0px;
 }
 .pass-container {
-	padding: 10px;
-	margin-top: 5px;
+  padding: 10px;
+  margin-top: 5px;
 }
 .pass {
-	/*margin: 30px 10px 0px 10px;*/
-	height: 425px;
-	background-color: #323237;
-	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
-	border-radius: 4px;
-	display: inline-block;
-	width: 100%;
+  /*margin: 30px 10px 0px 10px;*/
+  height: 425px;
+  background-color: #323237;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
+  border-radius: 4px;
+  display: inline-block;
+  width: 100%;
 }
 :not(.pass-bordered) > .pass-container {
-	margin-top: 40px;
+  margin-top: 40px;
 }
 .pass-bordered {
-	border: 2px solid #0DFFAE;
-	border-radius: 14px;
-	padding: 5px;
+  border: 2px solid #0DFFAE;
+  border-radius: 14px;
+  padding: 5px;
 }
 .pass-title {
-	height: 36px;
-	font-family: Avenir;
-	font-size: 26px;
-	font-weight: 900;
-	text-align: center;
-	line-height: 36px;
-	color: #0DFFAE;
-	margin: 47px auto 29px auto;
+  height: 36px;
+  font-family: Avenir;
+  font-size: 26px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 36px;
+  color: #0DFFAE;
+  margin: 47px auto 29px auto;
 }
 .pass-count {
-	font-size: 18px;
-	padding: 0px 15px;
+  font-size: 18px;
+  padding: 0px 15px;
 }
 .pass p {
-	margin: 0px 0px 15px 0px;
+  margin: 0px 0px 15px 0px;
 }
 .pass-body {
-	height: 225px;
-	background-color: #6A6A6A;
-	font-weight: 900;
-	font-size: 16px;
-	border-radius: 2px;
-	padding: 20px 5px 20px 5px;
-	margin: 0px 23px;
+  height: 225px;
+  background-color: #6A6A6A;
+  font-weight: 900;
+  font-size: 16px;
+  border-radius: 2px;
+  padding: 20px 5px 20px 5px;
+  margin: 0px 23px;
 }
 .pass-top {
-	height: 120px;
+  height: 120px;
 }
 .pass-price-row {
-	margin-top: 27px;
+  margin-top: 27px;
 }
 .pass-price {
-	font-size: 24px;
-	font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 .pass-buy {
-	display: block;
-	margin: 10px 55px 5px 55px;
-	padding: 6px;
-	font-size: 16px;
-	height: 40px;
+  display: block;
+  margin: 10px 55px 5px 55px;
+  padding: 6px;
+  font-size: 16px;
+  height: 40px;
 }
 .pass-buy button {
-	width: 100%;
+  width: 100%;
 }
-.slick-dots button:before {
-	color: #F7F7F7 !important;
-	height: 30px;
-	width: 30px;
-}
-.slick-slide{
-	width: 350px;
-}
-
-
 
 #faq {
-	max-width: 920px !important;
+  max-width: 920px !important;
 }
 .qa {
-	border: 1px solid #979797;
-	border-radius: 8px;
-	font-size: 18px;
-	margin: 10px 20px;
-	padding: 17px 12px 10px 40px;
-	cursor: pointer;
+  border: 1px solid #979797;
+  border-radius: 8px;
+  font-size: 18px;
+  margin: 10px 20px;
+  padding: 17px 12px 10px 40px;
+  cursor: pointer;
 }
 .answer {
-	font-size: 16px;
-	color: #ABAEB7;
+  font-size: 16px;
+  color: #ABAEB7;
 }
 .qa .question::after {
     color: #0DFFAE;
@@ -705,11 +749,11 @@ export default {
     float: right;
 }
 #faq-full .button-continue {
-	height: 43px;
-	border: 1px solid #F7F7F7;
-	border-radius: 100px;
-	font-family: Avenir;
-	padding: 11px;
+  height: 43px;
+  border: 1px solid #F7F7F7;
+  border-radius: 100px;
+  font-family: Avenir;
+  padding: 11px;
 }
 
 </style>
