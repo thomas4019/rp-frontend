@@ -1,5 +1,5 @@
 <template>
-  <section class="solo-noborder">
+  <section class="solo-noborder" v-once>
     <div>
       <p class="c17"><span class="c19 c26 c13"></span></p>
     </div>
