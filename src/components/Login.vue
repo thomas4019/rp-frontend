@@ -36,7 +36,6 @@
 /* global FB:true */
 import rp from '../rp'
 import toastr from 'toastr'
-//  import { FB } from 'fb'
 export default {
   name: 'login',
   props: {
@@ -72,8 +71,8 @@ export default {
         'password': this.password,
       }
       rp.post('user/register', data)
-        .then(function (result) {
-          self.pwdLogin(success)
+        .then((result) => {
+          this.pwdLogin(success)
         }, function (err) {
           if (err.status === 409) {
             toastr.error('An account with this email already exists.')

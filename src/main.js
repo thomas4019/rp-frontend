@@ -6,11 +6,20 @@ import router from './router'
 import vmodal from 'vue-js-modal'
 import VeeValidate from 'vee-validate'
 import 'toastr/toastr.scss'
+import VueAnalytics from 'vue-analytics'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
 
 Vue.use(VeeValidate)
 Vue.use(vmodal)
+
+Vue.use(VueAnalytics, {
+  id: 'UA-80881338-1',
+  router
+})
 
 /* eslint-disable no-new */
 new Vue({

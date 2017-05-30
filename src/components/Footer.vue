@@ -20,7 +20,7 @@
       <router-link to="/privacy">Privacy Policy</router-link>
       <div class="copyright">2017 Racepass Inc. 450 Franklin Street, Mountain View, CA 94041</div>
       <p class="container disclaimer">All names, logos, and brands of third parties (e.g., race organizers) listed on our site are trademarks of their respective owners. Racepass and its products and services are not endorsed by, sponsored by, or affiliated with these third parties.  Our use of these names, logos, and brands is for identification purposes only, and does not imply any such endorsement, sponsorship, or affiliation.</p>
-      <p v-show="showAttribution" class="container disclaimer">
+      <p v-if="$route.path=='/'" class="container disclaimer">
         <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">CC BY</a> footage from
         <a href="https://www.youtube.com/watch?v=B3ne77AoLog" target="_blank">BGM 2016 - Drone Teaser</a>,
         <a href="https://www.youtube.com/watch?v=thXGgK_APFU" target="_blank">United NYC Half 2016</a>,
@@ -35,12 +35,6 @@
 <script>
 export default {
   name: 'rp-footer',
-  props: {
-    showAttribution: {
-      type: Boolean,
-      default: true
-    }
-  },
 }
 </script>
 

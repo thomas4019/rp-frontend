@@ -9,6 +9,7 @@ import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
 import Login from '@/components/Login'
+import Payment from '@/components/Payment'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/profile',
       name: 'UserProfile',
       component: UserProfile
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     },
     {
       path: '/team',
