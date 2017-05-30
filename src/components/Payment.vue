@@ -125,7 +125,7 @@
           <tr>
             <td>
               12 Month Subscription
-              {{start_date}} - {{end_date}}
+              {{ start_date | moment("MM/DD/YYYY") }} - {{ end_date | moment("MM/DD/YYYY") }}
             </td>
             <td>
               ${{baseCost}}
@@ -295,20 +295,21 @@ export default {
           console.log(tokenizeErr)
           return
         }
+
         var paymentData = {
           passType: this.passType,
           payment_method_nonce: payload.nonce,
           promo: this.promoCode,
           base_cost: this.baseCost,
           final_cost: this.finalCost,
-          start_date: new Date(),
-          end_date: new Date().setDate(new Date().getDate() + 365),
+          start_date: this.start_date,
+          end_date: this.end_date
         }
         rp.post('purchase', paymentData)
           .then((data) => {
             delete paymentData.payment_method_nonce
-            paymentData.details = data.transaction_id
-            window.localStorage.payment = JSON.stringify(paymentData)
+              /* this.$ga.require('ecommerce')
+            console.log(this.$ga)
             this.$ga('ecommerce:addTransaction', {
               'id': data.transaction_id,        // Transaction ID. Required.
               'affiliation': 'racepass',        // Affiliation or store name.
@@ -322,7 +323,7 @@ export default {
               'price': this.cost_per_event,
               'quantity': this.num_races,
             })
-            this.ga('ecommerce:send')
+            this.ga('ecommerce:send') */
             this.paymentComplete = true
             this.cardDetails = data.cc
             this.transaction_id = data.transaction_id
@@ -387,6 +388,8 @@ export default {
       paymentComplete: false,
       baseCost: 0,
       finalCost: 0,
+      start_date: new Date(),
+      end_date: new Date().setDate(new Date().getDate() + 365)
     }
   }
 }

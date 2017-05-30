@@ -15,6 +15,7 @@ Vue.config.productionTip = false
 
 Vue.use(VeeValidate)
 Vue.use(vmodal)
+Vue.use(require('vue-moment'))
 
 Vue.use(VueAnalytics, {
   id: 'UA-80881338-1',
