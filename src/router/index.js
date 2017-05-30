@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import About from '@/components/About'
 import Copyright from '@/components/Copyright'
+import Faq from '@/components/Faq'
 import Privacy from '@/components/Privacy'
 import Team from '@/components/Team'
 import Terms from '@/components/Terms'
@@ -28,6 +29,11 @@ export default new Router({
       path: '/copyright',
       name: 'Copyright',
       component: Copyright
+    },
+    {
+      path: '/faq',
+      name: 'Faq',
+      component: Faq
     },
     {
       path: '/privacy',
