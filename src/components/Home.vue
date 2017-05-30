@@ -151,10 +151,10 @@
         <span slot="question">When does Racepass membership begin?</span>
         <span slot="answer">You can begin signing up for races immediately after completing your purchase.</span>
       </rp-question>
-      <div ng-if="!landing.faq_expanded" ng-click="landing.faq_expanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
+      <div v-show="!isFaqExpanded" @click="isFaqExpanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
         <div class="button-continue">More FAQs</div>
       </div>
-      <div ng-if="landing.faq_expanded" id="faq-more">
+      <div v-show="isFaqExpanded" id="faq-more">
         <rp-question id="q5">
           <span slot="question">Does my Racepass auto-renew?</span>
           <span slot="answer">Racepass will allow you to auto-renew your membership. If you choose to not auto-renew, you can opt out through your subscription settings in your profile.</span>
@@ -173,8 +173,8 @@
         </rp-question>
       </div>
     </div>
-    <div ng-if="landing.faq_expanded" id="faq-full" style="margin-bottom:75px;" class="button-row">
-      <a href="faq"><div class="button-continue">See full list of FAQs</div></a>
+    <div v-show="isFaqExpanded" id="faq-full" style="margin-bottom:75px;" class="button-row">
+      <router-link to="/faq"><div class="button-continue">See full list of FAQs</div></router-link>
     </div>
   </div>
 </template>
@@ -204,6 +204,7 @@ export default {
   data () {
     return {
       isCreation: false,
+      isFaqExpanded: false,
       passPrices: rp.passPrices,
       slickOptions: {
         dots: true,
