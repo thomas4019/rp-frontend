@@ -5,6 +5,7 @@ import About from '@/components/About'
 import Copyright from '@/components/Copyright'
 import Faq from '@/components/Faq'
 import Privacy from '@/components/Privacy'
+import RaceDirectors from '@/components/RaceDirectors'
 import Team from '@/components/Team'
 import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
@@ -44,6 +45,11 @@ export default new Router({
       path: '/profile',
       name: 'UserProfile',
       component: UserProfile
+    },
+    {
+      path: '/race-directors',
+      name: 'RaceDirectors',
+      component: RaceDirectors
     },
     {
       path: '/team',
