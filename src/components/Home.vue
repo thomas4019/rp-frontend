@@ -131,46 +131,46 @@
       <div class="callout">
         Any questions running through your mind?
       </div>
-      <div class="qa collapsed" data-target="#q1" data-toggle="collapse">
-        <div class="question">What is Racepass?</div>
-        <div id="q1" class="answer collapse">Racepass is a subscription-based annual pass that helps runners run as many races as they can muster.</div>
-      </div>
-      <div class="qa collapsed" data-target="#q2" data-toggle="collapse">
-        <div class="question">Where can I use Racepass?</div>
-        <div id="q2" class="answer collapse">Racepass can be used at over 5,000 race events across the nation and more are being added everyday. For complete race listings please see racepass.com/map.</div>
-      </div>
-      <div class="qa collapsed" data-target="#q3" data-toggle="collapse">
-        <div class="question">How many races can I run?</div>
-        <div id="q3" class="answer collapse">Each Racepass plan has its own limitations. Please see our pricing page for complete plan details.</div>
-      </div>
-              <div class="qa collapsed" data-target="#q6" data-toggle="collapse">
-          <div class="question">What are the benefits of Racepass?</div>
-          <div id="q6" class="answer collapse">Racepass eliminates the administrative headache of finding, registering and recruiting friends for races. It also allows you to run as many races as you can, tracking your times to help you train and run faster. It also provides you the flexibility to change or cancel races and not have to lose your money. See our cancelation policy below for more details.</div>
-        </div>
-      <div class="qa collapsed" data-target="#q4" data-toggle="collapse">
-        <div class="question">When does Racepass membership begin?</div>
-        <div id="q4" class="answer collapse">You can begin signing up for races immediately after completing your purchase.</div>
-      </div>
+      <rp-question id="q1">
+        <span slot="question">What is Racepass?</span>
+        <span slot="answer">Racepass is a subscription-based annual pass that helps runners run as many races as they can muster.</span>
+      </rp-question>
+      <rp-question id="q2">
+        <span slot="question">Where can I use Racepass?</span>
+        <span slot="answer">Racepass can be used at over 5,000 race events across the nation and more are being added everyday. For complete race listings please see racepass.com/map.</span>
+      </rp-question>
+      <rp-question id="q3">
+        <span slot="question">How many races can I run?</span>
+        <span slot="answer">Each Racepass plan has its own limitations. Please see our pricing page for complete plan details.</span>
+      </rp-question>
+      <rp-question id="q6">
+        <span slot="question">What are the benefits of Racepass?</span>
+        <span slot="answer">Racepass eliminates the administrative headache of finding, registering and recruiting friends for races. It also allows you to run as many races as you can, tracking your times to help you train and run faster. It also provides you the flexibility to change or cancel races and not have to lose your money. See our cancelation policy below for more details.</span>
+      </rp-question>
+      <rp-question id="q4">
+        <span slot="question">When does Racepass membership begin?</span>
+        <span slot="answer">You can begin signing up for races immediately after completing your purchase.</span>
+      </rp-question>
       <div ng-if="!landing.faq_expanded" ng-click="landing.faq_expanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
         <div class="button-continue">More FAQs</div>
       </div>
       <div ng-if="landing.faq_expanded" id="faq-more">
-        <div class="qa collapsed" data-target="#q5" data-toggle="collapse">
-          <div class="question">Does my Racepass auto-renew?</div>
-          <div id="q5" class="answer collapse">Racepass will allow you to auto-renew your membership. If you choose to not auto-renew, you can opt out through your subscription settings in your profile.</div>
-        </div>
-        <div class="qa collapsed" data-target="#q7" data-toggle="collapse">
-          <div class="question">Where can I use Racepass?</div>
-          <div id="q7" class="answer collapse">Racepass can be used at over 5,000 race events across the nation and more are being added everyday.</div>
-        </div>
-        <div class="qa collapsed" data-target="#q8" data-toggle="collapse">
-          <div class="question">How many races can I run?</div>
-          <div id="q8" class="answer collapse">Each Racepass plan is different. Check out our pricing tiers for complete plan details.</div>
-        </div>
-        <div class="qa collapsed" data-target="#q9" data-toggle="collapse">
-          <div class="question">Is there a cancellation policy?</div>
-          <div id="q9" class="answer collapse">Flexibility is a good thing. You can cancel your Racepass at anytime! To cancel your Racepass, head to your subscription settings in your profile.</div>
-        </div>
+        <rp-question id="q5">
+          <span slot="question">Does my Racepass auto-renew?</span>
+          <span slot="answer">Racepass will allow you to auto-renew your membership. If you choose to not auto-renew, you can opt out through your subscription settings in your profile.</span>
+        </rp-question>
+        <rp-question id="q7">
+          <span slot="question">Where can I use Racepass?</span>
+          <span slot="answer">Racepass can be used at over 5,000 race events across the nation and more are being added everyday.</span>
+        </rp-question>
+        <rp-question id="q8">
+          <span slot="question">How many races can I run?</span>
+          <span slot="answer">Each Racepass plan is different. Check out our pricing tiers for complete plan details.</span>
+        </rp-question>
+        <rp-question id="q9">
+          <span slot="question">Is there a cancellation policy?</span>
+          <span slot="answer">Flexibility is a good thing. You can cancel your Racepass at anytime! To cancel your Racepass, head to your subscription settings in your profile.</span>
+        </rp-question>
       </div>
     </div>
     <div ng-if="landing.faq_expanded" id="faq-full" style="margin-bottom:75px;" class="button-row">
@@ -183,6 +183,7 @@
 import rp from '../rp'
 import Login from '@/components/Login'
 import Slick from 'vue-slick'
+import Question from '@/components/Question'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
@@ -190,6 +191,7 @@ export default {
   name: 'home',
   components: {
     'login': Login,
+    'rp-question': Question,
     Slick
   },
   methods: {
@@ -725,28 +727,6 @@ export default {
 
 #faq {
   max-width: 920px !important;
-}
-.qa {
-  border: 1px solid #979797;
-  border-radius: 8px;
-  font-size: 18px;
-  margin: 10px 20px;
-  padding: 17px 12px 10px 40px;
-  cursor: pointer;
-}
-.answer {
-  font-size: 16px;
-  color: #ABAEB7;
-}
-.qa .question::after {
-    color: #0DFFAE;
-    content: "-";
-    float: right;
-}
-.collapsed .question::after {
-    color: #0DFFAE;
-    content: "+";
-    float: right;
 }
 #faq-full .button-continue {
   height: 43px;
