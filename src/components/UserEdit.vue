@@ -1,6 +1,8 @@
 <template>
+<div>
+  <app-header/>
 <div id="registration" class="container">
-
+  
   <modal classes="rp-modal" :height="500" :width="700" name="medical-form">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="hideMedical()"><span aria-hidden="true">&times;</span></button>
     <h2>Let us know any medical information a race might need
@@ -152,16 +154,19 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
     <div class="dots" ng-class="{'dots-filled': page >= 4}"></div>
   </div>
 </div>
+</div>
 </template>
 
 <script>
 import rp from '../rp'
 import moment from 'moment'
 import MaskedInput from 'vue-masked-input'
+import AppHeader from '@/components/AppHeader'
 export default {
   name: 'user-edit',
   components: {
     'masked-input': MaskedInput,
+    'app-header': AppHeader,
   },
   mounted: function () {
     var self = this
