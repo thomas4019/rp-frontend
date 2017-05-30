@@ -14,6 +14,24 @@ export default {
     'rp-footer': Footer
   }
 }
+
+/*eslint-disable*/
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '1732893076927842',
+		xfbml      : true,
+		version    : 'v2.8'
+	});
+	FB.AppEvents.logPageView();
+};
+
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
 
 <style>
@@ -111,71 +129,6 @@ export default {
 
 
 /* LOGIN */
-.modal-dialog {
-	width: auto;
-	max-width: 800px;
-}
-.modal-backdrop {
-   background-color: white;
-}
-#login-container input {
-	margin: 8px 20px 8px 0px;
-}
-#login-container button {
-	margin-right: 0px;
-}
-#medical-container h1 {
-	font-size: 18px;
-	font-weight: 500;
-	text-align: center;
-	line-height: 25px;
-	color: #ABAEB7;
-	margin-bottom: 20px;
-}
-.modal-container {
-	padding: 25px;
-	background-color: #24272A;
-	min-height: 400px;
-	border-radius: 3px;
-	margin: 25px;
-}
-.modal-inner {
-	width: 425px;
-	margin: 10px auto 15px auto;
-}
-.login-panel {
-	display: flex;
-}
-#fb-login-container {
-	margin-top: 50px;
-}
-#login-divider {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	margin-top: 35px;
-}
-@media screen and (max-width: 750px) {
-	.login-panel {
-		display: block;
-	}
-	.vbar {
-		display: none;
-	}
-	#fb-login-container {
-		margin-top: 25px;
-	}
-	#login-divider {
-		margin-top: 15px;
-	}
-}
-#login-button {
-	float: right;
-	padding: 10px;
-	width: 100px;
-	margin-top: 5px;
-	margin-right: -7px;
-}
 
 /* Parsley CSS */
 input.parsley-success,

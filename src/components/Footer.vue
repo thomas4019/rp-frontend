@@ -35,12 +35,12 @@
 <script>
 export default {
   name: 'rp-footer',
-  data () {
-    return {
-      // TODO: this should only be true on the home page
-      showAttribution: true
+  props: {
+    showAttribution: {
+      type: Boolean,
+      default: true
     }
-  }
+  },
 }
 </script>
 

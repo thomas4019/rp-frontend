@@ -3,11 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vmodal from 'vue-js-modal'
+import VeeValidate from 'vee-validate'
+import 'toastr/toastr.scss'
 
 Vue.config.productionTip = false
+
+Vue.use(VeeValidate)
+Vue.use(vmodal)
 
 /* eslint-disable no-new */
 new Vue({
@@ -16,5 +19,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-Vue.use(BootstrapVue)

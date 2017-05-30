@@ -8,6 +8,7 @@ import Team from '@/components/Team'
 import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/copyright',
       name: 'Copyright',
       component: Copyright
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/privacy',
