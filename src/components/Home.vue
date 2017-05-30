@@ -124,7 +124,7 @@
       </slick>
       <div class="info">
         <p>If you decide you don't want to use all your races, don't sweat it, we've got you covered.</p>
-        <p><a href="/faq"><em>Learn more.</em></a></p>
+        <p><router-link to="/faq"><em>Learn more.</em></router-link></p>
       </div>
     </section>
     <div id="faq" class="container">
