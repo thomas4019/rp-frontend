@@ -1,5 +1,5 @@
 <template>
-  <div id="home" ng-init="full_mode = false;">
+  <div id="home">
     <div id="promo"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
     <div id="banner1">
       <video poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
@@ -16,11 +16,11 @@
       <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
       <login :isCreation="isCreation" />
     </modal>
-    <div style="text-align: center; padding: 22px 10px; border-bottom: 1px solid #979797; color: #9B9B9B;">
+    <div style="text-align: center; padding: 22px 10px; border-bottom: 1px solid #979797; color: #9b9b9b;">
       No race lotteries
-      <span style="color: #4A4A4A; padding: 0px 5px;">•</span>
+      <span style="color: #4a4a4a; padding: 0px 5px;">•</span>
       No commitments
-      <span style="color: #4A4A4A; padding: 0px 5px;">•</span>
+      <span style="color: #4a4a4a; padding: 0px 5px;">•</span>
       Cancel anytime
     </div>
     <div id="selling-points-wrapper">
@@ -74,8 +74,8 @@
             <div class="pass-body">
               <div class="pass-top">
                 <div class="pass-count">Covers registration for <em>three</em> Races</div>
-                <br>
-                <div class="distances">26.2 • 13.1<br>
+                <br />
+                <div class="distances">26.2 • 13.1<br />
                   10k • 5k • Fun Runs
                 </div>
               </div>
@@ -90,8 +90,8 @@
             <div class="pass-body">
               <div class="pass-top">
                 <div class="pass-count">Covers registration for <em>five</em> Races</div>
-                <br>
-                <div class="distances">26.2 • 13.1<br>
+                <br />
+                <div class="distances">26.2 • 13.1<br />
                   10k • 5k • Fun Runs
                 </div>
               </div>
@@ -108,8 +108,8 @@
               <div class="pass-body">
                 <div class="pass-top">
                   <div class="pass-count">Covers registration for <em>unlimited</em> Races</div>
-                  <br>
-                  <div class="distances">26.2 • 13.1<br>
+                  <br />
+                  <div class="distances">26.2 • 13.1<br />
                     10k • 5k • Fun Runs
                   </div>
                 </div>
@@ -263,82 +263,6 @@ body {
   font-weight: bold;
   text-decoration: none;
 }
-#landing-nav {
-  padding-bottom: 0px;
-}
-#navbar-primary-collapse {
-  padding-right: 0px;
-  overflow: hidden;
-}
-#primary-menu {
-  float: right;
-  font-size: 14px;
-  padding-bottom: 25px;
-}
-#primary-menu a {
-  margin-left: 19px;
-  padding: 0px;
-  padding-top: 15px;
-}
-#primary-menu a:hover {
-  background: transparent;
-}
-#primary-menu a:focus {
-  background: transparent;
-  color: inherit;
-}
-#primary-menu li.mbutton a {
-  border: 2px solid #0DFFAE;
-  border-radius: 8px;
-  margin-left: 20px;
-  margin-top: 4px;
-  width: 121.78px;
-  padding: 6px;
-  text-align: center;
-  height: 35px;
-  color: #0DFFAE;
-  margin-left: 15px;
-  font-weight: 900;
-}
-#primary-menu li.mbutton-filled a {
-  background: linear-gradient(180deg, #1EFFD7 0%, #0DFFAE 100%);
-  color: black;
-  margin-left: 30px;
-}
-#primary-menu li.mbutton-filled a:hover {
-  background: linear-gradient(180deg, #2EFFF7 0%, #2DFFBE 100%);
-}
-#primary-menu li.mbutton-hollow a {
-  border: .5px solid #0DFFAE;
-  width: 70px;
-  cursor: pointer;
-}
-#primary-menu li.mbutton-hollow a:hover {
-  background: #0DFFAE;
-  color: black;
-  transition: .2s;
-}
-/* These styles only apply when narrow width*/
-.navbar-custom .navbar-toggle {
-    border-color: #dddddd;
-}
-.navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
-    background-color: #dddddd;
-}
-.navbar-custom .navbar-toggle .icon-bar {
-    background-color: #888888;
-}
-@media screen and (max-width: 930px) {
-  #primary-menu li.mbutton-filled a {
-        position: relative;
-        left: -15px;
-        width: 120px;
-    }
-  #primary-menu li.mbutton-hollow a {
-        width: 120px;
-    }
-}
 
 #banner1 {
   height: 500px;
@@ -489,7 +413,6 @@ body {
 #selling-points h3 {
   font-size: 22px;
   margin: 10px 0px;
-
 }
 .selling-point {
   padding: 20px;

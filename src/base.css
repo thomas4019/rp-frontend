@@ -241,22 +241,6 @@ section.solo {
 	margin-bottom: 10px;
 }
 
-#landing-nav {
-	padding: 15px 15px 8px 0px;
-	margin-bottom: 0px;
-}
-#home #landing-nav {
-	padding-top: 53px;
-}
-#logo {
-	width: 160px;
-	margin-top: 3px;
-	margin-left: 15px;
-}
-#logo-mini {
-	height: 32px;
-}
-
 /* LOGIN */
 #fb-login {
 	height: 47.45px;
