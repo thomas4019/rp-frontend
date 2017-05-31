@@ -47,7 +47,7 @@ export default {
   white-space: nowrap;
   margin-right: 35px;
 }
-#team-menu a.active {
+#team-menu a:active {
   color: #0DFFAE;
 }
 #about-body h1 {
@@ -64,5 +64,10 @@ export default {
   border-right: 1px solid #979797;
   height: 640px;
   width: 1px;
+}
+@media screen and (max-width: 800px) {
+  .divider2 {
+    display: none;
+  }
 }
 </style>

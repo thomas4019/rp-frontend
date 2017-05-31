@@ -2,7 +2,7 @@
   <section id="team" class="solo-noborder row" v-once>
     <div id="team-menu" class="col-sm-3" style="padding: 5px 5px 40px 5px; text-align: right;">
       <router-link to="/about">About us</router-link>
-      <router-link to="/team">Meet the team</router-link>
+      <router-link class="active" to="/team">Meet the team</router-link>
     </div>
     <div class="hidden-xs divider2 col-sm-1">
     </div>
@@ -93,5 +93,10 @@ export default {
   border-right: 1px solid #979797;
   height: 725px;
   width: 1px;
+}
+@media screen and (max-width: 800px) {
+  .divider2 {
+    display: none;
+  }
 }
 </style>

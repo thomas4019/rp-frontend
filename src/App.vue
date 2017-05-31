@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <rp-header></rp-header>
     <router-view></router-view>
     <rp-footer></rp-footer>
   </div>
@@ -7,10 +8,12 @@
 
 <script>
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 
 export default {
   name: 'app',
   components: {
+    'rp-header': Header,
     'rp-footer': Footer
   }
 }
