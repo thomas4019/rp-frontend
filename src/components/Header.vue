@@ -31,11 +31,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #landing-nav {
+  height: 87px;
 	padding: 15px 15px 8px 0px;
 	margin-bottom: 0px;
-  overflow: none;
+  overflow: hidden;
 }
 #logo {
 	width: 160px;
@@ -50,12 +51,16 @@ export default {
   padding-left: 10px;
 }
 #primary-menu li {
-  display: inline;
+  display: inline-block;
+  height: 30px;
   margin-left: 5px;
 }
 @media screen and (max-width: 800px) {
   #primary-menu li.hide-on-mobile {
     display: none;
   }
+}
+.hollow {
+  cursor: pointer;
 }
 </style>
