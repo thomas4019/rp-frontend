@@ -1,8 +1,6 @@
 <template>
   <div id="home" ng-init="full_mode = false;">
     <div id="promo"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
-    <!--#include virtual="/includes/login_modal.html" -->
-    <!--#include virtual="/includes/anon_header.html" -->
     <div id="banner1">
       <video poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
         <source src="/static/videos/promo4.mp4" type="video/mp4">
@@ -14,7 +12,7 @@
         <button ng-click="landing.findRaces()">Find my next race</button>
       </div>
     </div>
-    <modal classes="rp-modal" :height="350" :width="700" name="login">
+    <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
       <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
       <login :isCreation="isCreation" />
     </modal>
@@ -242,6 +240,9 @@ export default {
 .slick-slide{
   width: 350px;
 }
+body {
+  margin-top: 38px;
+}
 </style>
 
 <style scoped>
@@ -251,6 +252,7 @@ export default {
   height: 38px;
   line-height: 38px;
   position: fixed;
+  top: 0px;
   text-align: center;
   width: 100%;
   z-index: 1000;
@@ -261,7 +263,7 @@ export default {
   font-weight: bold;
   text-decoration: none;
 }
-﻿#landing-nav {
+#landing-nav {
   padding-bottom: 0px;
 }
 #navbar-primary-collapse {
