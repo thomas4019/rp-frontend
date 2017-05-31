@@ -56,6 +56,9 @@ nav {
 	display: flex;
 	border-bottom: 0.5px solid #4A4A4A;
 }
+#logo-mini {
+	height: 32px;
+}
 #menu-left {
 	padding: 15px 15px 0px 15px;
 	border-right: 0.5px solid #4A4A4A;
