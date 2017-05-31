@@ -10,7 +10,7 @@
       <li id="menu-about"><router-link to="/about">About</router-link></li>
       <li class="hide-on-mobile" id="menu-find-races"><a href="/#choose-from">Find Races</a></li>
       <li class="hide-on-mobile" id="menu-explore-passes"><a href="/#choose-pass">Explore Passes</a></li>
-      <li class="hide-on-mobile" id="menu-faq"><a href="/#faq">FAQ</a></li>
+      <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
       <li id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
       <li id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
       <li role="separator" class="divider"></li>
