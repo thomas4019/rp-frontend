@@ -1,6 +1,6 @@
 <template>
 <div>
-  <modal classes="rp-modal" :adaptive="true" :height="350" width="60%" name="login-header">
+  <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login-header">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login-header')"><span aria-hidden="true">&times;</span></button>
     <login :isCreation="false" />
   </modal>

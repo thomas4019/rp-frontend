@@ -12,7 +12,7 @@
         <button ng-click="landing.findRaces()">Find my next race</button>
       </div>
     </div>
-    <modal classes="rp-modal" :height="350" :width="700" name="login">
+    <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
       <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
       <login :isCreation="isCreation" />
     </modal>

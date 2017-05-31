@@ -128,46 +128,47 @@ export default {
 
 <style>
 #login-container {
-  width: 600px;
+  max-width: 650px;
   margin: 10px auto;
 }
 #login-container input {
-	margin: 8px 20px 8px 0px;
+  margin: 8px 20px 8px 0px;
 }
 #login-container button {
-	margin-right: 0px;
+  margin-right: 0px;
 }
 .login-panel {
-	display: flex;
+  display: flex;
 }
 #fb-login-container {
-	margin-top: 50px;
+  margin-top: 50px;
 }
 #login-divider {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 35px;
 }
 @media screen and (max-width: 750px) {
-	.login-panel {
-		display: block;
-	}
-	.vbar {
-		display: none;
-	}
-	#fb-login-container {
-		margin-top: 25px;
-	}
-	#login-divider {
-		margin-top: 15px;
-	}
+  .login-panel {
+    display: block;
+    padding-right: 25px;
+  }
+  .vbar {
+    display: none;
+  }
+  #fb-login-container {
+    margin-top: 25px;
+  }
+  #login-divider {
+    margin-top: 15px;
+  }
 }
 #login-button {
-	float: right;
-	padding: 10px;
-	width: 100px;
-	margin-top: 5px;
-	margin-right: -7px;
+  float: right;
+  padding: 10px;
+  width: 100px;
+  margin-top: 5px;
+  margin-right: -7px;
 }
 </style>
