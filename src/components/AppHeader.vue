@@ -1,9 +1,9 @@
 <template>
   <nav>
     <div id="menu-left" class="menu-section">
-      <a href="#/">
-        <img id="logo-mini" src="imgs/rplogo.jpg" />
-      </a>
+      <router-link to="/app/profile">
+        <img id="logo-mini" src="../assets/rplogo.jpg" />
+      </router-link>
     </div>
     <div id="menu-middle" class="menu-section">
     <div  v-if="results && search_focus" id="search-results">

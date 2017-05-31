@@ -49,7 +49,7 @@ export default new Router({
       component: Privacy
     },
     {
-      path: '/profile',
+      path: '/app/profile',
       name: 'UserProfile',
       component: UserProfile
     },
@@ -74,7 +74,7 @@ export default new Router({
       component: Terms
     },
     {
-      path: '/useredit',
+      path: '/app/useredit',
       name: 'UserEdit',
       component: UserEdit
     }
