@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <rp-header></rp-header>
+    <rp-header v-if="!$route.path.includes('/app')"></rp-header>
+    <rp-app-header v-if="$route.path.includes('/app')"></rp-app-header>
     <router-view></router-view>
     <rp-footer></rp-footer>
   </div>
@@ -9,11 +10,13 @@
 <script>
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import AppHeader from '@/components/AppHeader'
 
 export default {
   name: 'app',
   components: {
     'rp-header': Header,
+    'rp-app-header': AppHeader,
     'rp-footer': Footer
   }
 }

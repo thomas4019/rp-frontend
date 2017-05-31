@@ -27,7 +27,8 @@
     "vue-masked-input": "^0.5.1",
     "vue-moment": "^2.0.2",
     "vue-router": "^2.3.1",
-    "vue-slick": "^1.1.5"
+    "vue-slick": "^1.1.5",
+    "vue2-google-maps": "^0.7.5"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

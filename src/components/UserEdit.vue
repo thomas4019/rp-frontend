@@ -1,7 +1,6 @@
 <template>
 <div>
-  <app-header/>
-<div id="registration" class="container">
+  <div id="registration" class="container">
   
   <modal classes="rp-modal" :height="500" :width="700" name="medical-form">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="hideMedical()"><span aria-hidden="true">&times;</span></button>
@@ -161,12 +160,10 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
 import rp from '../rp'
 import moment from 'moment'
 import MaskedInput from 'vue-masked-input'
-import AppHeader from '@/components/AppHeader'
 export default {
   name: 'user-edit',
   components: {
     'masked-input': MaskedInput,
-    'app-header': AppHeader,
   },
   mounted: function () {
     var self = this
