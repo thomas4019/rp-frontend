@@ -5,6 +5,7 @@ import About from '@/components/About'
 import Contact from '@/components/Contact'
 import Copyright from '@/components/Copyright'
 import Faq from '@/components/Faq'
+import Partnerships from '@/components/Partnerships'
 import Privacy from '@/components/Privacy'
 import RaceDirectors from '@/components/RaceDirectors'
 import Team from '@/components/Team'
@@ -48,6 +49,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/partnerships',
+      name: 'Partnerships',
+      component: Partnerships
     },
     {
       path: '/privacy',
