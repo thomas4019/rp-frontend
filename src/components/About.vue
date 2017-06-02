@@ -35,26 +35,26 @@ export default {
   font-size: 14px;
   font-weight: 900;
   line-height: 19px;
-  color: #D8D8D8;
+  color: #d8d8d8;
 }
 #team-menu a {
   font-size: 16px;
   font-weight: 900;
   line-height: 22px;
-  color: #D8D8D8;
+  color: #d8d8d8;
   display: block;
   margin-bottom: 20px;
   white-space: nowrap;
   margin-right: 35px;
 }
-#team-menu a:active {
-  color: #0DFFAE;
+#team-menu a.router-link-active {
+  color: #0dffae;
 }
 #about-body h1 {
   margin-bottom: 20px;
 }
 #about-body p.story {
-  color: #F7F7F7;
+  color: #f7f7f7;
 }
 #signatures img {
   margin-top: 20px;

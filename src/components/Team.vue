@@ -2,7 +2,7 @@
   <section id="team" class="solo-noborder row" v-once>
     <div id="team-menu" class="col-sm-3" style="padding: 5px 5px 40px 5px; text-align: right;">
       <router-link to="/about">About us</router-link>
-      <router-link class="active" to="/team">Meet the team</router-link>
+      <router-link to="/team">Meet the team</router-link>
     </div>
     <div class="hidden-xs divider2 col-sm-1">
     </div>
@@ -80,14 +80,14 @@ export default {
   font-size: 16px;
   font-weight: 900;
   line-height: 22px;
-  color: #D8D8D8;
+  color: #d8d8d8;
   display: block;
   margin-bottom: 20px;
   white-space: nowrap;
   margin-right: 35px;
 }
-#team-menu a.active {
-  color: #0DFFAE;
+#team-menu a.router-link-active {
+  color: #0dffae;
 }
 .divider2 {
   border-right: 1px solid #979797;
