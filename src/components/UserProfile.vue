@@ -61,80 +61,79 @@ export default {
   components: {
     'race-table': RaceTable,
   },
-  mounted: function () {
-    localStorage.lat = localStorage.lat || '43'
-    localStorage.lng = localStorage.lng || '-113'
-    rp.get('nearby_races?limit=8&lat=' + localStorage.lat + '&lng=' + localStorage.lng)
-      .then(function (response) {
-        console.log(response)
-        this.upcoming_races = response
-      }.bind(this))
-
-    rp.get('user/me')
-      .then(function (response) {
-        console.log(response)
-        if (!response.address || !response.address.line1) {
-          // $location.path('/registration')
-        }
-        if (!response.paymentSkipped && !response.passType) {
-          // $location.path('/payment')
-        }
-        this.user = response
-        this.passName = rp.passNames[this.user.passType]
-        this.age = rp.calculateAge(new Date(this.user.date_of_birth))
-        if (this.user.facebook_id) {
-          this.photo = 'https://graph.facebook.com/' + this.user.facebook_id +
-                        '/picture?type=large&w‌​idth=720&height=720'
-        } else {
-          this.photo = 'imgs/profiles/default-user-avatar.png'
-        }
-        this.my_races = response.race_listings
-        var now = new Date().toISOString()
-        var cutoff = new Date()
-        cutoff.setDate(cutoff.getDate() + 1)
-        this.cancel_cutoff = cutoff.toISOString()
-        this.registered_races = response.race_listings.filter(function (race) {
-          return race.datetime > now
-        })
-        this.completed_races = response.race_listings.filter(function (race) {
-          return race.datetime <= now
-        })
-        if (this.user.passType === 'unlimited') {
-          this.racesLeft = 'unlimited'
-        } else {
-          this.racesLeft = rp.passRaceCount[this.user.passType] - this.my_races.length
-        }
-        this.my_race_signup_ids = response.race_signup_ids
-        if (this.user.address && this.user.address.coordinates) {
-          localStorage.lat = this.user.address.coordinates.lat
-          localStorage.lng = this.user.address.coordinates.lng
-          localStorage.city = this.user.address.city
-        }
-      }.bind(this), function (err) {
-        if (err.status === 404) {
-          // user is not found, maybe old or invalid token
-          delete localStorage.uid
-          delete localStorage.token
-          window.location = '/'
-        }
+  computed: {
+    user () {
+      console.log(this.$store.state.user)
+      return this.$store.state.user || { address: { coordinates: {} }, race_listings: [] }
+    },
+    passName () {
+      return rp.passNames[this.user.passType]
+    },
+    age () {
+      return rp.calculateAge(new Date(this.user.date_of_birth))
+    },
+    photo () {
+      return this.$store.state.photo
+    },
+    registered_races () {
+      var now = new Date().toISOString()
+      return this.user.race_listings.filter(function (race) {
+        return race.datetime > now
       })
+    },
+    completed_races () {
+      var now = new Date().toISOString()
+      return this.user.race_listings.filter(function (race) {
+        return race.datetime <= now
+      })
+    },
+    cancel_cutoff () {
+      var cutoff = new Date()
+      cutoff.setDate(cutoff.getDate() + 1)
+      return cutoff.toISOString()
+    },
+    racesLeft () {
+      if (this.user.passType === 'unlimited') {
+        return 'unlimited'
+      } else {
+        return rp.passRaceCount[this.user.passType] - this.user.race_listings.length
+      }
+    }
+  },
+  /* asyncComputed: {
+    upcoming_races () {
+      var user = this.$store.state.user
+      if (!user) {
+        return []
+      }
+      console.log(123)
+      console.log(this.$store.state.user)
+      var lat = user.address.coordinates.lat
+      var lng = user.address.coordinates.lng
+      return this.http.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
+    }
+  }, */
+  mounted: function () {
+    this.$store.dispatch('getSuggestedRaces')
+    /* console.log('cccccccc')
+    console.log(this.user)
+    console.log('bababab')
+    this.$router.go('/registration')
+    if (!this.user.address || !this.user.address.line1) {
+      console.log(1231231)
+      console.log(this.$router)
+      this.$router.go('/registration')
+    */
+    /* if (!response.paymentSkipped && !response.passType) {
+      // $location.path('/payment')
+    } */
   },
   data () {
     return {
-      user: {
-        address: {
-        }
-      },
       test: function () {
         alert(123)
       },
-      age: '',
-      photo: '',
-      passName: '',
-      cancel_cutoff: '',
-      registered_races: '',
-      completed_races: '',
-      upcoming_races: '',
+      upcoming_races: []
     }
   }
 }

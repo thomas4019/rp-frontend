@@ -1,7 +1,7 @@
 <template>
   <section id="about" class="solo-noborder row" v-once>
     <div id="team-menu" class="col-sm-3" style="padding: 5px 5px 40px 5px; text-align: right;">
-      <router-link to="/about">About us</router-link>
+      <router-link class="active" to="/about">About us</router-link>
       <router-link to="/team">Meet the team</router-link>
     </div>
     <div class="hidden-xs divider2 col-sm-1">

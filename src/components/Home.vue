@@ -243,9 +243,6 @@ export default {
 .slick-slide{
   width: 350px;
 }
-body {
-  margin-top: 38px;
-}
 </style>
 
 <style scoped>

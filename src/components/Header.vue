@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-bind:class="{ onHome: $route.path == '/' }">
   <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login-header">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login-header')"><span aria-hidden="true">&times;</span></button>
     <login :isCreation="false" />
@@ -37,6 +37,9 @@ export default {
 	padding: 15px 15px 8px 0px;
 	margin-bottom: 0px;
   overflow: hidden;
+}
+.onHome {
+  margin-top: 38px;
 }
 #logo {
 	width: 160px;

@@ -24,8 +24,8 @@
         <input required v-model="email" class="full" type="email" placeholder="Your email" /><br>
         <input required v-model="password" class="full" type="password" placeholder="Choose a password" />
         <div>
-            <button v-if="isCreation" @click="pwdRegister()" id="login-button">Register</button>
-            <button v-if="!isCreation" @click="pwdLogin()" id="login-button">Login</button>
+            <button type="button" v-if="isCreation" @click="pwdRegister()" id="login-button">Register</button>
+            <button type="button" v-if="!isCreation" @click="pwdLogin()" id="login-button">Login</button>
         </div>
       </form>
     </div>
@@ -93,10 +93,10 @@ export default {
         'fbAccessToken': fbAccessToken,
       }
       rp.post('user/fblogin', data)
-        .then(function (result) {
-          window.localStorage.token = result.token
-          window.localStorage.uid = result.uid
-          window.location = '/app'
+        .then((result) => {
+          this.$store.commit('login', result)
+          this.$store.commit('loadUser')
+          this.$router.push('/app/profile')
         }, function (err) {
           if (err.status === 404) {
             // if no account try creating one
@@ -113,10 +113,15 @@ export default {
         'password': this.password,
       }
       rp.post('user/login', data)
-        .then(function (result) {
-          window.localStorage.token = result.token
-          window.localStorage.uid = result.uid
-          window.location = '/app'
+        .then((result) => {
+          if (result.token) {
+            this.$store.commit('login', result)
+            this.$store.commit('loadUser')
+            this.$router.push('/app/profile')
+          } else {
+            toastr.error(result.error || 'error logging in')
+          }
+          // window.location = '/app'
         }, function (result) {
           result = result || {}
           toastr.error(result.error || 'error logging in')

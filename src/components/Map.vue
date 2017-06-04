@@ -9,6 +9,7 @@
   <gmap-cluster>
     <gmap-marker 
       v-for="m in markers"
+      :key="m"
       :position.sync="m.position"
       :clickable="true"
       :draggable="true"
@@ -67,11 +68,7 @@
           url: '/static/imgs/mapiconA2x.png',
           scaledSize: {width: 20, height: 34},
         },
-        markers: [{
-          position: {lat: 10.0, lng: 10.0}
-        }, {
-          position: {lat: 11.0, lng: 11.0}
-        }]
+        markers: []
       }
     }
   }
