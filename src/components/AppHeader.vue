@@ -2,7 +2,7 @@
   <nav>
     <div id="menu-left" class="menu-section">
       <router-link to="/app/profile">
-        <img id="logo-mini" src="../assets/rplogo.jpg" />
+        <img id="logo-mini" src="/static/imgs/rplogo.jpg" />
       </router-link>
     </div>
     <div id="menu-middle" class="menu-section">

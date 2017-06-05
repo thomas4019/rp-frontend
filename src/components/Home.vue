@@ -30,17 +30,17 @@
         </div>
         <div class="row">
           <div class="col-sm-4 selling-point">
-            <div class="selling-icon"><img src="static/imgs/discover.png" /></div>
+            <div class="selling-icon"><img src="/static/imgs/discover.png" /></div>
             <h3>Discover</h3>
             <p>Search more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
           </div>
           <div class="col-sm-4 selling-point">
-            <div class="selling-icon"><img src="static/imgs/register.png" /></div>
+            <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
             <p>Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
           </div>
           <div class="col-sm-4 selling-point">
-            <div class="selling-icon"><img src="static/imgs/race.png" /></div>
+            <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
             <h3>Race</h3>
             <p>Get your racing bib, show up at the starting line &amp; finish. Track all your race results and photos from one dash.</p>
           </div>

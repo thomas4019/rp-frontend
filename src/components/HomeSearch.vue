@@ -2,8 +2,8 @@
   <div id="home-search">
     <FilterRow />
     <div id="switcher">
-      <img src="../assets/GreenPin.png" @click="mode='map'" />
-      <img src="../assets/Menu.png"  @click="mode='list'" />
+      <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
+      <img src="/static/imgs/Menu.png"  @click="mode='list'" />
     </div>
     <RpMap v-if="mode == 'map'"/>
     <RaceList v-if="mode != 'map'" />

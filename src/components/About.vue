@@ -16,9 +16,9 @@
       <p class="story">More importantly, we wanted a product that reflected the community aspect of the sport. That’s why we added the ability to form teams with your social circles and compete on leaderboards. In our experience, running races with friends is just a lot more fun.</p>
       <p class="story">All in all, we’re glad you’re here and share our passion for the sport. We’re working hard to make running more accessible, but Racepass is just getting off the ground, and we’ve got a long way to go. We’ll need as much help and feedback to get this right, but like the old adage says; it’s not a sprint, its a marathon ;)</p>
       <div id="signatures">
-        <img src="static/imgs/signatures/chase.png" />
-        <img src="static/imgs/signatures/tom.png" />
-        <img src="static/imgs/signatures/thomas.png" />
+        <img src="/static/imgs/signatures/chase.png" />
+        <img src="/static/imgs/signatures/tom.png" />
+        <img src="/static/imgs/signatures/thomas.png" />
       </div>
     </div>
   </section>

@@ -5,7 +5,7 @@
     <login :isCreation="false" />
   </modal>
   <nav id="landing-nav">
-    <router-link to="/"><img src="../assets/logo2x.jpg" id="logo" /></router-link>
+    <router-link to="/"><img src="/static/imgs/logo2x.jpg" id="logo" /></router-link>
     <ul id="primary-menu">
       <li id="menu-about"><router-link to="/about">About</router-link></li>
       <li class="hide-on-mobile" id="menu-find-races"><a href="/#choose-from">Find Races</a></li>

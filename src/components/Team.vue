@@ -10,7 +10,7 @@
       <h1>Meet our team</h1>
       <div class="team-row">
         <div class="left-img">
-          <img src="static/imgs/profiles/chase.jpg" />
+          <img src="/static/imgs/profiles/chase.jpg" />
         </div>
         <div class="right">
           <h2>Chase Rigby | Co-founder</h2>
@@ -19,7 +19,7 @@
       </div>
       <div class="team-row">
         <div class="left-img">
-          <img src="static/imgs/profiles/tom.jpg" />
+          <img src="/static/imgs/profiles/tom.jpg" />
         </div>
         <div class="right">
           <h2>Tom Hammel | Co-founder</h2>
@@ -28,7 +28,7 @@
       </div>
       <div class="team-row">
         <div class="left-img">
-          <img src="static/imgs/profiles/hansen.jpg" />
+          <img src="/static/imgs/profiles/hansen.jpg" />
         </div>
         <div class="right">
           <h2>Thomas Hansen | Co-founder</h2>
@@ -37,7 +37,7 @@
       </div>
       <div class="team-row">
         <div class="left-img">
-          <img src="static/imgs/profiles/kendall.jpg" />
+          <img src="/static/imgs/profiles/kendall.jpg" />
         </div>
         <div class="right">
           <h2>Kendall Yoder | Operations</h2>
@@ -46,7 +46,7 @@
       </div>
       <div class="team-row">
         <div class="left-img">
-          <img src="static/imgs/profiles/david.jpg" />
+          <img src="/static/imgs/profiles/david.jpg" />
         </div>
         <div class="right">
           <h2>David Hughes | Engineering</h2>
