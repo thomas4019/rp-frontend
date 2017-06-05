@@ -6,16 +6,13 @@
     style="width: 100%; height: 450px"
     @bounds_changed="update"
   >
-  <gmap-cluster>
-    <gmap-marker 
-      v-for="m in markers"
-      :key="m"
-      :position.sync="m.position"
-      :clickable="true"
-      :draggable="true"
-      :icon="icon"
-    ></gmap-marker>
-  </gmap-cluster>
+  <gmap-marker 
+    v-for="m in markers"
+    :key="m"
+    :position.sync="m.position"
+    :clickable="true"
+    :icon="icon"
+  ></gmap-marker>
   </gmap-map>
 </template>
 
@@ -32,6 +29,18 @@
     }
   })
 
+  function pseudoRandom (race, o) {
+    var str = race.name + race.type
+    var hash = 0
+    if (str.length === 0) return hash
+    for (var i = 0; i < str.length; i++) {
+      var char = str.charCodeAt(i)
+      hash = hash * o + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return (hash / 1000 % 1)
+  }
+
   export default {
     name: 'rp-map',
     methods: {
@@ -40,8 +49,11 @@
           console.error('empty bounds')
           return
         }
+        var coarse = Math.abs(Math.max(b.f.f, b.f.b) - Math.min(b.f.f, b.f.b)) > 4
+
         var query = {
           status: 'visible',
+          is_primary: coarse,
           'location.coordinates.lat': {
             '$gt': Math.min(b.f.f, b.f.b),
             '$lt': Math.max(b.f.f, b.f.b),
@@ -54,15 +66,23 @@
         rp.get('race?limit=100000&query=' + JSON.stringify(query))
           .then((races) => {
             this.markers = races.map((race) => ({
-              'position': race.location.coordinates
+              'position': {
+                'lat': parseFloat(race.location.coordinates.lat) + (pseudoRandom(race, 31) - 0.5) / 50,
+                'lng': parseFloat(race.location.coordinates.lng) + (pseudoRandom(race, 71) - 0.5) / 50
+              }
             }))
           })
+      }
+    },
+    computed: {
+      center () {
+        return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: 122.41}
       }
     },
     data () {
       return {
         styles: MapStyles,
-        center: {lat: 10.0, lng: 10.0},
+        // center: {lat: 10.0, lng: 10.0},
         icon: {
           labelOrigin: {x: 15, y: 40},
           url: '/static/imgs/mapiconA2x.png',

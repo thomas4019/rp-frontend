@@ -6,6 +6,7 @@ export default new Vuex.Store({
     token: '',
     photo: '',
     user: {},
+    filters: {},
     selectedRace: {},
     selectionLocation: {},
   },
@@ -34,6 +35,9 @@ export default new Vuex.Store({
       state.token
       state.user = {}
       delete localStorage.token
+    },
+    updateFilters (state, filters) {
+      state.filters = filters
     }
   },
   actions: {

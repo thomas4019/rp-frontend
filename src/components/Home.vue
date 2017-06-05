@@ -59,7 +59,7 @@
     </div>
 
     <!-- TODO INSERT SEARCH HERE !-->
-    <rp-map />
+    <HomeSearch />
 
     <div class="button-row">
       <div id="choose-pass-button" class="button-continue">Choose your pass</div>
@@ -184,6 +184,7 @@ import Login from '@/components/Login'
 import Slick from 'vue-slick'
 import Question from '@/components/Question'
 import RpMap from '@/components/Map'
+import HomeSearch from '@/components/HomeSearch'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
@@ -193,6 +194,7 @@ export default {
     'login': Login,
     'rp-question': Question,
     'rp-map': RpMap,
+    HomeSearch,
     Slick
   },
   methods: {

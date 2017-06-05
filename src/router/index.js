@@ -14,6 +14,7 @@ import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
 import Login from '@/components/Login'
 import Payment from '@/components/Payment'
+import RaceSearch from '@/components/RaceSearch'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
       path: '/app/profile',
       name: 'UserProfile',
       component: UserProfile
+    },
+    {
+      path: '/app/search',
+      name: 'RaceSearch',
+      component: RaceSearch
     },
     {
       path: '/race-directors',
