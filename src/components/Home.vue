@@ -51,9 +51,6 @@
       <div class="button-continue">Find races near me</div>
       <div class="button-continue-icon">⌵</div>
     </div>
-    <div id="race-logos-wrapper">
-      <div id="race-logos"></div>
-    </div>
     <div id="choose-from" class="callout" style="margin: 16px 0 41px 0; padding-top:40px">
       Choose from over 5,000+ races anywhere in the world
     </div>
@@ -238,7 +235,7 @@ export default {
 
 <style>
 .slick-dots button:before {
-  color: #F7F7F7 !important;
+  color: #f7f7f7 !important;
   height: 30px;
   width: 30px;
 }
@@ -290,7 +287,7 @@ export default {
   font-weight: 500;
   text-align: center;
   line-height: 49px;
-  color: #FFFFFF;
+  color: #ffffff;
   text-shadow: 0 0 6px rgba(0,0,0,0.5);
   margin-bottom: 12px;
 }
@@ -308,99 +305,13 @@ export default {
   font-weight: 900;
   padding: 10px 15px;
 }
-#find-races-panel input {
-  color: #0DFFAE;
-  border: none;
-  border-bottom: 1.5px solid #0DFFAE;
-  border-radius: 0px;
-  font-weight: 900;
-  width: 150px;
-  height: 24px;
-  margin-left: 10px;
-  padding-left: 0px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  background-color: transparent;
-}
-#find-races-panel input:focus {
-   outline: none;
-}
-#banner1 .container {
-  z-index: 100;
-  position: relative;
-}
-#banner1 .text {
-  width: 400px;
-  margin-top: 25px;
-  margin-bottom: 30px;
-  font-size: 36px;
-  font-weight: 500;
-  line-height: 49px;
-  color: #F7F7F7;
-  text-shadow: 0 0 6px rgba(0,0,0,0.5);
-}
 @media screen and (max-width: 600px) {
     #banner1 .text {
         width: 290px;
     }
 }
-#banner1 .textbox {
-  padding-top: 5%;
-  margin-left: 10%;
-  font-size: 28px;
-  max-width: 303.83px;
-
-}
-.input-row {
-  display: flex;
-  width: 100%;
-}
-.input-row input {
-  width: 0; /* actual width controlled by flex*/
-  font-size: 14px;
-  height: 40px;
-}
-#field-email {
-  flex: 3;
-  margin: 0px 10px 10px 0px;
-  background-color: #F7F7F7;
-  border-radius: 8px;
-}
-#field-zip {
-  flex: 1;
-  margin: 0px 0px 10px 0px;
-  background-color: #F7F7F7;
-  border-radius: 8px;
-}
-#find-button {
-  font-size: 14px;
-  height: 46.24px;
-  color: #10383D;
-}
-#separator-row {
-  display: flex;
-  text-align: center;
-  margin: 8px 3px;
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 19px;
-  color: #F7F7F7;
-}
-.hbar {
-  flex: 3;
-}
 .container {
   max-width: 1000px !important;
-}
-#find-disclaimer {
-  padding: 8px 35px 0px 35px;
-  height: 24px;
-  font-family: Avenir;
-  font-size: 9px;
-  font-weight: 500;
-  text-align: center;
-  line-height: 12px;
-  color: #F7F7F7;
 }
 
 /* Styles for 3 column main features */
@@ -408,7 +319,7 @@ export default {
   margin: 0px 25px 0px 25px;
 }
 #selling-points {
-  color: #F7F7F7;
+  color: #f7f7f7;
   padding: 20px 0px;
   text-align: center;
 }
@@ -422,7 +333,7 @@ export default {
 #selling-points p {
   line-height: 25px;
   margin: 0px;
-  color: #ABAEB7;
+  color: #abaeb7;
 }
 .selling-icon {
   margin: 21px auto;
@@ -434,10 +345,6 @@ export default {
 .selling-icon img {
   height: 80px;
 }
-.point-ch {
-  margin-top: 31px;
-}
-
 .button-row {
   width: 100%;
   text-align: center;
@@ -449,7 +356,7 @@ export default {
   font-weight: 300;
   padding: 15px 15px;
   display: inline-block;
-  color: #F7F7F7;
+  color: #f7f7f7;
   cursor: pointer;
 }
 .button-continue-icon {
@@ -457,24 +364,6 @@ export default {
   color: #979797;
   line-height: .6;
   font-weight: lighter;
-}
-
-/** Race Logos Section */
-#race-logos-wrapper {
-  width: 100%;
-  overflow: hidden;
-}
-#race-logos {
-  background: #F7F7F7;
-  width: 10000px;
-  margin-left: -50px;
-  /*transition: 1.5s linear;*/
-}
-.race-logo {
-  opacity: .75;
-  margin: 0px;
-  /*filter: grayscale(100%);*/
-  padding: 15px 25px;
 }
 
 
@@ -526,15 +415,15 @@ export default {
 .filter .header {
   font-weight: 300;
   line-height: 19px;
-  color: #D6D6D6;
+  color: #d6d6d6;
 }
 .filter .value {
   font-weight: 900;
   line-height: 19px;
-  color: #D8D8D8;
+  color: #d8d8d8;
 }
 .value.selected {
-  color: #0DFFAE;
+  color: #0dffae;
 }
 
 .filter-options {
@@ -564,7 +453,6 @@ export default {
   font-size: 36px;
   margin: 0px 25px 0px 25px;
 }
-
 #choose-pass .info {
   color: #D8D8D8;
   font-size: 14px;
@@ -572,10 +460,6 @@ export default {
   text-align: center;
   width: 50%;
 }
-
-#pass-header {
-}
-
 #pass-wrapper {
   flex-direction: row;
   text-align: center;
@@ -590,7 +474,6 @@ export default {
   margin-top: 5px;
 }
 .pass {
-  /*margin: 30px 10px 0px 10px;*/
   height: 425px;
   background-color: #323237;
   box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
@@ -658,7 +541,7 @@ export default {
 }
 #faq-full .button-continue {
   height: 43px;
-  border: 1px solid #F7F7F7;
+  border: 1px solid #f7f7f7;
   border-radius: 100px;
   font-family: Avenir;
   padding: 11px;
