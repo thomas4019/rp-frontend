@@ -96,5 +96,8 @@ export default new Router({
       name: 'UserEdit',
       component: UserEdit
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return {x: 0, y: 0}
+  }
 })
