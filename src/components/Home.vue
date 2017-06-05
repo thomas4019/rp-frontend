@@ -323,6 +323,10 @@ export default {
   padding: 20px 0px;
   text-align: center;
 }
+#selling-points h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
 #selling-points h3 {
   font-size: 22px;
   margin: 10px 0px;
