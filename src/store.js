@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     updateFilters (state, filters) {
       state.filters = filters
+    },
+    search (state, text) {
+      state.search_text = text
     }
   },
   actions: {

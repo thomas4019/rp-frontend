@@ -7,7 +7,7 @@ import router from './router'
 import vmodal from 'vue-js-modal'
 import VeeValidate from 'vee-validate'
 import 'toastr/toastr.scss'
-import VueAnalytics from 'vue-analytics'
+// import VueAnalytics from 'vue-analytics'
 import AsyncComputed from 'vue-async-computed'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -22,10 +22,10 @@ Vue.use(AsyncComputed)
 Vue.use(require('vue-moment'))
 Vue.use(Vuex)
 
-Vue.use(VueAnalytics, {
+/* Vue.use(VueAnalytics, {
   id: 'UA-80881338-1',
   router
-})
+}) */
 
 var store = require('./store').default
 

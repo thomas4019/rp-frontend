@@ -16,8 +16,10 @@
       </div>
     </div>
     <div class="filter">
-      <div class="name">Location</div>
-      <div class="summary">Mountain View</div>
+      <div class="name">State</div>
+      <select>
+        <option>Utah</option>
+      </select>
     </div>
   </div>
 </template>
@@ -86,7 +88,7 @@ export default {
     border-radius: 5px;
     border: 0.5px solid #9B9B9B;
     width: 600px;
-    margin: auto;
+    margin: 20px auto 0px auto;
   }
   .filter {
     position: relative;

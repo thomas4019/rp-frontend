@@ -1,5 +1,6 @@
 <template>
  <section id="upcoming-races" class="container">
+   {{search_text}}
     <table class="race-table">
       <tr>
         <th>Type</th>
@@ -12,7 +13,7 @@
       <tr v-for="race in races">
         <td class="distance">{{race.distance | formatRaceDistance}}</td>
         <td class="race-name"><span>{{race.name}}</span></td>
-        <td>{{race.datetime | formatDate }} {{race.datetime}}</td>
+        <td>{{race.datetime | formatDate }}</td>
         <td>{{race.location.city}}, {{race.location.state}}</td>
         <td class="website">
           <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
@@ -52,6 +53,11 @@ export default {
             'position': race.location.coordinates
           })) */
         })
+    }
+  },
+  computed: {
+    search_text () {
+      return this.$store.state.search_text
     }
   },
   mounted () {

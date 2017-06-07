@@ -14,7 +14,7 @@
         </div>
       </div>
       <i class="fa fa-search" aria-hidden="true"></i>
-      <input ng-focus="search_focus = true" ng-blur="lostFocus()" v-model="search_text" ng-keyup="$event.keyCode == 13 && search()" ng-change="search()" id="menu-search" placeholder="Search races or locations" type="textbox" />
+      <input v-model="search_text" @change="searchUpdate()" @keyup="searchUpdate()" ng-keyup="$event.keyCode == 13 && search()" ng-change="search()" id="menu-search" placeholder="Search races or locations" type="textbox" />
     </div>
     <div id="menu-right" class="menu-section">
       <a class="link" href="/app#!/">Home</a>
@@ -45,6 +45,9 @@ export default {
       this.menu_open = !this.menu_open
       event.stopPropagation()
     },
+    searchUpdate () {
+      this.$store.commit('search', this.search_text)
+    }
   },
   computed: {
     photo () {
