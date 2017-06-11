@@ -1,6 +1,7 @@
 <template>
  <section id="upcoming-races" class="container">
    {{search_text}}
+    <RaceRegister ref="reg" />
     <table class="race-table">
       <tr>
         <th>Type</th>
@@ -18,10 +19,12 @@
         <td class="website">
           <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
         </td>
-        <td v-on:click="action(race)">
-          <button class="hollow">Register</button>
-          <i class="favorite fa fa-heart-o fa-2x" aria-hidden="true"></i>
-          <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
+        <td>
+          <button class="hollow" @click="register(race)">Register</button>
+          <i @click="toggleFavorite(race._id)" class="favorite fa fa-2x" :class="{  'fa-heart' : race.is_favorite, 'fa-heart-o': !race.is_favorite }" aria-hidden="true"></i>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
+            <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
+          </a>
         </td>
       </tr>
     </table>
@@ -32,31 +35,52 @@
 import Vue from 'vue'
 import rp from '../rp'
 import moment from 'moment'
+import RaceRegister from '@/components/RaceRegister'
 
 export default {
   name: 'race-list',
+  components: {
+    RaceRegister
+  },
   methods: {
     update () {
       var query = {
         status: 'visible',
+        $and: [],
         datetime: {
           $nin: ['', 'TBD']
         }
       }
+      this.$store.state.search_text.split(' ').forEach(function (word) {
+        query['$and'].push({'name': {'$regex': word, '$options': 'i'}})
+      })
       var orderby = {
         'datetime': 1
       }
       rp.get('race?limit=10&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
         .then((races) => {
           this.races = races
-          /* this.races = races.map((race) => ({
-            'position': race.location.coordinates
-          })) */
+          this.races.forEach((race) => {
+            race.is_favorite = this.$store.state.favorites[race._id]
+          })
         })
+    },
+    toggleFavorite (_id) {
+      if (this.$store.state.favorites[_id]) {
+        this.$store.commit('unfavorite', _id)
+      } else {
+        this.$store.commit('favorite', _id)
+      }
+      this.update()
+    },
+    register (race) {
+      this.$refs.reg.show()
+      this.$store.commit('selectRace', race)
     }
   },
   computed: {
     search_text () {
+      this.update()
       return this.$store.state.search_text
     }
   },

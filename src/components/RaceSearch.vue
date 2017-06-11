@@ -14,12 +14,14 @@
 import RpMap from '@/components/Map'
 import RaceList from '@/components/RaceList'
 import FilterRow from '@/components/FilterRow'
+import RaceRegister from '@/components/RaceRegister'
 export default {
   name: 'race-search',
   components: {
     RpMap,
     RaceList,
-    FilterRow
+    FilterRow,
+    RaceRegister
   },
   data () {
     return {

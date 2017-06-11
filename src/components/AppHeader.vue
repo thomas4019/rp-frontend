@@ -47,6 +47,9 @@ export default {
     },
     searchUpdate () {
       this.$store.commit('search', this.search_text)
+      if (this.$route.path !== '/app/search' && this.search_text) {
+        this.$router.push('/app/search')
+      }
     }
   },
   computed: {

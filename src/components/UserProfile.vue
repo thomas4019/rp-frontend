@@ -87,6 +87,12 @@ export default {
         return race.datetime <= now
       })
     },
+    favorite_races () {
+      var now = new Date().toISOString()
+      return this.user.race_listings.filter(function (race) {
+        return race.datetime <= now
+      })
+    },
     cancel_cutoff () {
       var cutoff = new Date()
       cutoff.setDate(cutoff.getDate() + 1)
