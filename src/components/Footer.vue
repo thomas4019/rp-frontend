@@ -1,5 +1,5 @@
 <template>
-  <footer v-once>
+  <footer>
     <div id="footer-top" class="container">
       <ul class="bottom-menu" style="padding-right: 20px;">
         <li class="header">Company</li>
