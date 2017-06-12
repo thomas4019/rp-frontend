@@ -20,6 +20,7 @@ Vue.use(VeeValidate)
 Vue.use(vmodal)
 Vue.use(AsyncComputed)
 Vue.use(require('vue-moment'))
+Vue.use(require('vue-scroll-to'))
 Vue.use(Vuex)
 
 /* Vue.use(VueAnalytics, {
