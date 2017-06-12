@@ -26,7 +26,7 @@ export default new Vuex.Store({
             state.photo = 'https://graph.facebook.com/' + state.user.facebook_id +
                           '/picture?type=large&w‌​idth=720&height=720'
           } else {
-            state.photo = 'imgs/profiles/default-user-avatar.png'
+            state.photo = '/static/imgs/profiles/default-user-avatar.png'
           }
           state.favorites = {
             '100': true,
