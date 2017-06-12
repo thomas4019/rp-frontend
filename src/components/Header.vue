@@ -8,13 +8,13 @@
     <router-link to="/"><img src="/static/imgs/logo2x.jpg" id="logo" /></router-link>
     <ul id="primary-menu">
       <li id="menu-about"><router-link to="/about">About</router-link></li>
-      <li class="hide-on-mobile" id="menu-find-races"><router-link to="/#choose-from">Find Races</router-link></li>
-      <li class="hide-on-mobile" id="menu-explore-passes"><router-link to="/#choose-pass">Explore Passes</router-link></li>
+      <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
+      <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
       <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
       <li id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
       <li id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
       <li role="separator" class="divider"></li>
-      <li class="hide-on-mobile"><router-link to="/#choose-pass"><div class="button">Get Racepass</div></router-link></li>
+      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div class="button">Get Racepass</div></router-link></li>
       <li role="separator" class="divider"></li>
       <li><button class="hollow" @click="$modal.show('login-header')">Login</button></li>
     </ul>
