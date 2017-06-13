@@ -179,8 +179,7 @@ export default {
     }
     rp.get('user/me')
       .then(function (response) {
-        console.log(response)
-        // self.data = response
+        self.data = response
         if (self.data.date_of_birth) {
           self.data.date_of_birth = moment(String(self.data.date_of_birth)).format('MM/DD/YYYY')
         }

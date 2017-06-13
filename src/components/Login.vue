@@ -22,7 +22,7 @@
         <div v-if="!isCreation">Login with your email and password:</div>
         <br>
         <input required v-model="email" class="full" type="email" placeholder="Your email" /><br>
-        <input required v-model="password" class="full" type="password" placeholder="Choose a password" />
+        <input required @keyup.enter="isCreation ? pwdRegister(): pwdLogin()" v-model="password" class="full" type="password" placeholder="Choose a password" />
         <div>
             <button type="button" v-if="isCreation" @click="pwdRegister()" id="login-button">Register</button>
             <button type="button" v-if="!isCreation" @click="pwdLogin()" id="login-button">Login</button>
@@ -95,7 +95,7 @@ export default {
       rp.post('user/fblogin', data)
         .then((result) => {
           this.$store.commit('login', result)
-          this.$store.commit('loadUser')
+          this.$store.dispatch('loadUser')
           this.$router.push('/app/profile')
         }, function (err) {
           if (err.status === 404) {
@@ -116,7 +116,7 @@ export default {
         .then((result) => {
           if (result.token) {
             this.$store.commit('login', result)
-            this.$store.commit('loadUser')
+            this.$store.dispatch('loadUser')
             this.$router.push('/app/profile')
           } else {
             toastr.error(result.error || 'error logging in')

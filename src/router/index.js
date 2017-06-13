@@ -33,9 +33,9 @@ function ensureLogin (to, from, next) {
 
   // If store is actively loading a user, wait until it isn't loading anymore.
   // This prevents users from getting logged out when they refresh the page.
-  if (store.state.loading) {
+  if (store.state.isLoading) {
     store.watch(
-      (state) => state.loading,
+      (state) => state.isLoading,
       (value) => {
         if (value === false) {
           proceed()

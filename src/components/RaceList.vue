@@ -1,7 +1,7 @@
 <template>
  <section id="upcoming-races" class="container">
-   {{search_text}}
     <RaceRegister ref="reg" />
+    <div style="display:none">{{search_text}}</div>
     <table class="race-table">
       <tr>
         <th>Type</th>
@@ -21,13 +21,16 @@
         </td>
         <td>
           <button class="hollow" @click="register(race)">Register</button>
-          <i @click="toggleFavorite(race._id)" class="favorite fa fa-2x" :class="{  'fa-heart' : race.is_favorite, 'fa-heart-o': !race.is_favorite }" aria-hidden="true"></i>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
+          <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : race.is_favorite, 'fa-heart-o': !race.is_favorite }" aria-hidden="true"></i>
+          <a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
             <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
           </a>
         </td>
       </tr>
     </table>
+    Showing page {{page + 1}} of {{page_count}}
+    <button @click="prev()">Prev</button>
+    <button @click="next()">Next</button>
   </section>
 </template>
 
@@ -57,9 +60,10 @@ export default {
       var orderby = {
         'datetime': 1
       }
-      rp.get('race?limit=10&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
-        .then((races) => {
-          this.races = races
+      rp.get('race?limit=' + this.limit + '&page=' + this.page + '&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
+        .then((result) => {
+          this.page_count = result.pages
+          this.races = result.data
           this.races.forEach((race) => {
             race.is_favorite = this.$store.state.favorites[race._id]
           })
@@ -76,11 +80,28 @@ export default {
     register (race) {
       this.$refs.reg.show()
       this.$store.commit('selectRace', race)
+    },
+    prev () {
+      if (this.page > 0) {
+        this.page--
+        this.update()
+      }
+    },
+    next () {
+      if (this.page < this.page_count - 1) {
+        this.page++
+        this.update()
+      }
     }
   },
   computed: {
     search_text () {
+      if (this.prev_search !== this.$store.state.search_text) {
+        this.page = 0
+      }
+      this.prev_search = this.$store.state.search_text
       this.update()
+      // process.nextTick(() => this.update())
       return this.$store.state.search_text
     }
   },
@@ -89,7 +110,11 @@ export default {
   },
   data () {
     return {
-      races: []
+      races: [],
+      page: 0,
+      page_count: 1,
+      limit: 10,
+      prev_search: '',
     }
   }
 }

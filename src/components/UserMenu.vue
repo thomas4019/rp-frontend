@@ -6,15 +6,15 @@
       <div class="name">{{user.first_name}} {{user.last_name}}</div>
       <div class="email">{{user.email}}</div>
       <div>
-        <button>Account</button>
+        <router-link to="/app/useredit" class="button">Account</router-link>
         <button class="hollow" @click="sign_out()">Sign out</button>
       </div>
     </div>
   </div>
-  <div id="lower-menu">
+  <!--<div id="lower-menu">
     <button class="hollow">Change Pass</button>
     <button class="hollow">Billing Settings</button>
-    <button class="hollow">Cancel Account</button>
+    <button class="hollow">Cancel Account</button>-->
   </div>
 </div>
 </template>
@@ -46,12 +46,13 @@ export default {
 #user-menu {
   position: absolute;
   z-index: 1;
-  top: 65px;
+  top: 55px;
   right: 10px;
 	width: 280px;
 	border-radius: 4px;
 	background-color: #323237;
 	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
+  padding: 10px;
 
 	color: #D8D8D8;
 	font-family: Avenir;
@@ -63,6 +64,7 @@ export default {
 	height: 72px;
 	width: 72px;
 	border-radius: 36px;
+  margin-right: 10px;
   float: left;
 }
 #lower-menu {

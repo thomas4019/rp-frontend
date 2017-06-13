@@ -32,9 +32,9 @@
     </div>
   </section>
 
-  <section id="registered-races" class="container">
+  <section id="registered-races" style="margin-top: 10px;" class="container">
     <h3 style="float: left;">Registered Races</h3>
-    <a href="#!/search" style="float: left; margin: 20px 0px 0px 15px;" ><button>Add race</button></a>
+    <router-link to="search" class="button" style="margin: 0px 0px 0px 15px;" >Add race</router-link>
     <race-table v-bind:races="registered_races"/>
         <!--<td v-if="race.datetime >= cancel_cutoff" ng-click="cancel_popup($index)">
           <em style="cursor: pointer;">Cancel</em>
@@ -63,8 +63,11 @@ export default {
   },
   computed: {
     user () {
-      console.log(this.$store.state.user)
-      return this.$store.state.user || { address: { coordinates: {} }, race_listings: [] }
+      if (this.$store.state.user && this.$store.state.user.first_name) {
+        return this.$store.state.user
+      }
+      // Return a dummy object to use until the real user is ready.
+      return { address: { city: '', state: '', coordinates: {} }, race_listings: [] }
     },
     passName () {
       return rp.passNames[this.user.passType]
@@ -104,42 +107,17 @@ export default {
       } else {
         return rp.passRaceCount[this.user.passType] - this.user.race_listings.length
       }
-    }
-  },
-  /* asyncComputed: {
+    },
     upcoming_races () {
-      var user = this.$store.state.user
-      if (!user) {
-        return []
-      }
-      console.log(123)
-      console.log(this.$store.state.user)
-      var lat = user.address.coordinates.lat
-      var lng = user.address.coordinates.lng
-      return this.http.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
+      console.log(this.$store.state.suggestedRaces)
+      return this.$store.state.suggestedRaces
     }
-  }, */
-  mounted: function () {
-    this.$store.dispatch('getSuggestedRaces')
-    /* console.log('cccccccc')
-    console.log(this.user)
-    console.log('bababab')
-    this.$router.go('/registration')
-    if (!this.user.address || !this.user.address.line1) {
-      console.log(1231231)
-      console.log(this.$router)
-      this.$router.go('/registration')
-    */
-    /* if (!response.paymentSkipped && !response.passType) {
-      // $location.path('/payment')
-    } */
   },
   data () {
     return {
       test: function () {
         alert(123)
-      },
-      upcoming_races: []
+      }
     }
   }
 }

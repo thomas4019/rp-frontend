@@ -14,7 +14,7 @@
         </div>
       </div>
       <i class="fa fa-search" aria-hidden="true"></i>
-      <input v-model="search_text" @change="searchUpdate()" @keyup="searchUpdate()" ng-keyup="$event.keyCode == 13 && search()" ng-change="search()" id="menu-search" placeholder="Search races or locations" type="textbox" />
+      <input v-model="search_text" @change="searchUpdate()" @keyup="searchUpdate()" id="menu-search" placeholder="Search races or locations" type="textbox" />
     </div>
     <div id="menu-right" class="menu-section">
       <a class="link" href="/app#!/">Home</a>
@@ -100,7 +100,7 @@ nav {
 }
 #menu-right {
 	flex-basis: 160px;
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 	border-left: 0.5px solid #4A4A4A;
 	font-size: 28px;
 	justify-content: flex-end;
@@ -128,6 +128,25 @@ nav {
 }
 #menu-search i {
 	font-size: 24px;
+}
+@media screen and (max-width: 750px) {
+  #menu-left {
+	  padding: 10px 10px 0px 10px;
+  }
+  #menu-middle {
+    padding: 0px 15px 0px 15px;
+  }
+  #menu-right {
+    flex-basis: 100px;
+    padding: 3px;
+  }
+  #menu-search {
+    padding: 10px;
+    font-size: 12px;
+  }
+  #menu-search i {
+    font-size: 18px;
+  }
 }
 .menu-option {
 	display: inline-block;
