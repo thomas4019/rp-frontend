@@ -32,12 +32,24 @@ body {
 	position: relative;
 	min-height: 100%;
 	/* space for the footer */
-	padding-bottom: 260px;
+	padding-bottom: 275px;
+}
+@media screen and (max-width: 900px) {
+	body {
+		/* padding needs to be bigger since the footer is taller on small devices */
+		padding-bottom: 290px;
+	}
 }
 @media screen and (max-width: 750px) {
 	body {
 		/* padding needs to be bigger since the footer is taller on small devices */
-		padding-bottom: 290px;
+		padding-bottom: 300px;
+	}
+}
+@media screen and (max-width: 670px) {
+	body {
+		/* padding needs to be bigger since the footer is taller on small devices */
+		padding-bottom: 370px;
 	}
 }
 a, a:hover, a:visited {
@@ -75,6 +87,7 @@ button, .button {
 	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
 	border-radius: 8px;
 	color: #10383D;
+	cursor: pointer;
 }
 a.button {
 	color: #10383D;

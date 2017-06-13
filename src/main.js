@@ -40,5 +40,5 @@ new Vue({
 })
 
 if (localStorage.token) {
-  store.commit('loadUser')
+  store.dispatch('loadUser')
 }

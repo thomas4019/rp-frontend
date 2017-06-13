@@ -26,6 +26,9 @@ The frontend is created with Vue.js 2 and uses vuex to store the global applicat
 
 It seems that Google parses Javascript and follows internal links so the site should be crawlable. Facebook does not parse JavaScript when people share links so we'll need to add some metatags programmatically to make pages look better there.
 
+## Testing Facebook Login Locally
+Facebook login only works when the request comes from an approved domain. To test locally add `127.0.0.1 local.racepass.com` to your hosts file and then test using that domain instead of localhost.
+
 ## Tooling
 
 Visual Studio Code with the ["vetur" extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur) works well

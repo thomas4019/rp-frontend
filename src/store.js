@@ -11,6 +11,7 @@ export default new Vuex.Store({
     search_text: '',
     selectedRace: {},
     selectionLocation: {},
+    suggestedRaces: [],
   },
   mutations: {
     login (state, result) {
@@ -18,24 +19,22 @@ export default new Vuex.Store({
       state.token = result.token
       localStorage.token = result.token
     },
-    loadUser (state) {
-      rp.get('user/me')
-        .then((result) => {
-          state.user = result
-          if (state.user.facebook_id) {
-            state.photo = 'https://graph.facebook.com/' + state.user.facebook_id +
-                          '/picture?type=large&w‌​idth=720&height=720'
-          } else {
-            state.photo = 'imgs/profiles/default-user-avatar.png'
-          }
-          state.favorites = {
-            '100': true,
-            '101': true,
-            '102': true,
-          }
-        }, (err) => {
-          console.error(err)
-        })
+    updateUser (state, user) {
+      state.user = user
+      if (state.user.facebook_id) {
+        state.photo = 'https://graph.facebook.com/' + state.user.facebook_id +
+                      '/picture?type=large&w‌​idth=720&height=720'
+      } else {
+        state.photo = 'imgs/profiles/default-user-avatar.png'
+      }
+      state.favorites = {
+        '100': true,
+        '101': true,
+        '102': true,
+      }
+    },
+    setSuggestedRaces (state, races) {
+      state.suggestedRaces = races
     },
     logout (state) {
       state.isLoggedIn = false
@@ -47,11 +46,16 @@ export default new Vuex.Store({
       state.filters = filters
     },
     search (state, text) {
-      console.log(text)
       state.search_text = text
     },
     favorite (state, id) {
       state.favorites[id] = true
+      var changes = {
+        '$push': {
+          'favorites': id
+        }
+      }
+      rp.post('users/' + state.user._id + '/update', changes)
     },
     unfavorite (state, id) {
       delete state.favorites[id]
@@ -61,17 +65,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getSuggestedRaces (context) {
-      /* var user = context.state.user
-      console.log(context.state)
-      if (!user) {
-        return []
-      }
-      console.log(123)
-      console.log(context.$store.state.user) */
-      // var lat = user.address.coordinates.lat
-      // var lng = user.address.coordinates.lng
-      // return rp.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
+    loadUser (context) {
+      rp.get('user/me')
+        .then((user) => {
+          context.commit('updateUser', user)
+
+          var lat = user.address.coordinates.lat
+          var lng = user.address.coordinates.lng
+          rp.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
+            .then((races) => {
+              context.commit('setSuggestedRaces', races)
+            })
+        }, (err) => {
+          console.error(err)
+        })
     }
   }
 })
