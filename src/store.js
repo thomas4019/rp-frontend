@@ -1,5 +1,9 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
 import rp from './rp'
+
+Vue.use(Vuex)
+
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,

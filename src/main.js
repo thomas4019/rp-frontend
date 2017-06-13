@@ -1,7 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import vmodal from 'vue-js-modal'
@@ -21,14 +20,13 @@ Vue.use(vmodal)
 Vue.use(AsyncComputed)
 Vue.use(require('vue-moment'))
 Vue.use(require('vue-scroll-to'))
-Vue.use(Vuex)
 
 /* Vue.use(VueAnalytics, {
   id: 'UA-80881338-1',
   router
 }) */
 
-var store = require('./store').default
+const store = require('@/store').default
 
 /* eslint-disable no-new */
 new Vue({
