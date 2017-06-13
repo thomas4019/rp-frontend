@@ -18,6 +18,35 @@ import RaceSearch from '@/components/RaceSearch'
 
 Vue.use(Router)
 
+const store = require('@/store').default
+
+function ensureLogin (to, from, next) {
+  function proceed () {
+    if (!store.getters.isUserLoaded) {
+      next({
+        path: '/login'
+      })
+    } else {
+      next()
+    }
+  }
+
+  // If store is actively loading a user, wait until it isn't loading anymore.
+  // This prevents users from getting logged out when they refresh the page.
+  if (store.state.loading) {
+    store.watch(
+      (state) => state.loading,
+      (value) => {
+        if (value === false) {
+          proceed()
+        }
+      }
+    )
+  } else {
+    proceed()
+  }
+}
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -64,12 +93,14 @@ export default new Router({
     {
       path: '/app/profile',
       name: 'UserProfile',
-      component: UserProfile
+      component: UserProfile,
+      beforeEnter: ensureLogin
     },
     {
       path: '/app/search',
       name: 'RaceSearch',
-      component: RaceSearch
+      component: RaceSearch,
+      beforeEnter: ensureLogin
     },
     {
       path: '/race-directors',
@@ -94,7 +125,8 @@ export default new Router({
     {
       path: '/app/useredit',
       name: 'UserEdit',
-      component: UserEdit
+      component: UserEdit,
+      beforeEnter: ensureLogin
     }
   ],
   scrollBehavior (to, from, savedPosition) {

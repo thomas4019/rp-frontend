@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading: false,
     isLoggedIn: false,
     token: '',
     photo: '',
@@ -23,6 +24,7 @@ export default new Vuex.Store({
       localStorage.token = result.token
     },
     loadUser (state) {
+      state.loading = true
       rp.get('user/me')
         .then((result) => {
           state.user = result
@@ -37,8 +39,10 @@ export default new Vuex.Store({
             '101': true,
             '102': true,
           }
+          state.loading = false
         }, (err) => {
           console.error(err)
+          state.loading = false
         })
     },
     logout (state) {
@@ -62,6 +66,11 @@ export default new Vuex.Store({
     },
     selectRace (state, race) {
       state.selectedRace = race
+    }
+  },
+  getters: {
+    isUserLoaded (state) {
+      return !!state.user.email
     }
   },
   actions: {

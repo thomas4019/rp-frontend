@@ -28,6 +28,12 @@ Vue.use(require('vue-scroll-to'))
 
 const store = require('@/store').default
 
+// Committing loadUser must happen before the Vue app is created. Otherwise
+// the router authentication guards won't work properly.
+if (localStorage.token) {
+  store.commit('loadUser')
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -36,7 +42,3 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-if (localStorage.token) {
-  store.commit('loadUser')
-}
