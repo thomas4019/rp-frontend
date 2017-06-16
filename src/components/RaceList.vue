@@ -4,7 +4,7 @@
     <div style="display:none">{{search_text}}</div>
     <table class="race-table">
       <tr>
-        <th>Type</th>
+        <th>Distances</th>
         <th>Race</th>
         <th>Date</th>
         <th>Location</th>
@@ -12,7 +12,11 @@
         <th>Actions</th>
       </tr>
       <tr v-for="race in races">
-        <td class="distance">{{race.distance | formatRaceDistance}}</td>
+        <td class="distance">
+          <span v-for="course in race.courses">
+            {{course.distance}}
+          </span>
+        </td>
         <td class="race-name"><span>{{race.name}}</span></td>
         <td>{{race.datetime | formatDate }}</td>
         <td>{{race.location.city}}, {{race.location.state}}</td>
@@ -20,7 +24,8 @@
           <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
         </td>
         <td>
-          <button class="hollow" @click="register(race)">Register</button>
+          <button v-if="!race.is_available" class="hollow" disabled="disabled">Finished</button>
+          <button v-if="race.is_available" class="hollow" @click="register(race)">Register</button>
           <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : race.is_favorite, 'fa-heart-o': !race.is_favorite }" aria-hidden="true"></i>
           <a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
             <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
@@ -60,12 +65,13 @@ export default {
       var orderby = {
         'datetime': 1
       }
-      rp.get('race?limit=' + this.limit + '&page=' + this.page + '&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
+      rp.get('race2?limit=' + this.limit + '&page=' + this.page + '&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
         .then((result) => {
           this.page_count = result.pages
           this.races = result.data
           this.races.forEach((race) => {
             race.is_favorite = this.$store.state.favorites[race._id]
+            race.is_available = (race.datetime > new Date().toISOString())
           })
         })
     },

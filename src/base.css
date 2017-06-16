@@ -102,6 +102,10 @@ button.hollow, .button.hollow {
 	border: 1px solid #0DFFAE;
 	color: #0DFFAE;
 }
+button.hollow[disabled="disabled"] {
+	border: 1px solid #9B9B9B;
+	color: #9B9B9B;
+}
 button.hollow:hover, .button.hollow:hover {
 	background: #323237;
 }

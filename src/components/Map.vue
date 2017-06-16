@@ -49,11 +49,20 @@
           console.error('empty bounds')
           return
         }
-        var coarse = Math.abs(Math.max(b.f.f, b.f.b) - Math.min(b.f.f, b.f.b)) > 4
+        var width = Math.abs(Math.max(b.f.f, b.f.b) - Math.min(b.f.f, b.f.b))
+        var prominance = 0
+        if (width > 4) {
+          prominance = 1
+        }
+        if (width > 8) {
+          prominance = 2
+        }
 
         var query = {
           status: 'visible',
-          is_primary: coarse,
+          'prominance': {
+            '$gte': prominance,
+          },
           'location.coordinates.lat': {
             '$gt': Math.min(b.f.f, b.f.b),
             '$lt': Math.max(b.f.f, b.f.b),
@@ -63,7 +72,7 @@
             '$lt': Math.max(b.b.b, b.b.f),
           }
         }
-        rp.get('race?limit=100000&query=' + JSON.stringify(query))
+        rp.get('race2?limit=100000&query=' + JSON.stringify(query))
           .then((races) => {
             this.markers = races.map((race) => ({
               'position': {
