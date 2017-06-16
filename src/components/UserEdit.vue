@@ -134,11 +134,11 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
     <div class="err" id="medical-error"></div>
     <ul class="radio-buttons" style="margin-bottom: 0px;">
       <li>
-        <input @click="showMedical()" v-model="data.raceinfo.has_medical" required type="radio" id="yes" name="medical" data-ng-value="true" />
+        <input @click="showMedical()" v-model="data.raceinfo.has_medical" required type="radio" id="yes" name="medical" value="true" />
         <label for="yes">Yes</label>
       </li>
       <li>
-        <input v-model="data.raceinfo.has_medical" required type="radio" id="no" name="medical" data-ng-value="false" />
+        <input v-model="data.raceinfo.has_medical" required type="radio" id="no" name="medical" value="false" />
         <label for="no">No</label>
       </li>
     </ul>
