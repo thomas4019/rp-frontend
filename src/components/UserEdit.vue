@@ -1,7 +1,7 @@
 <template>
 <div>
   <div id="registration" class="container">
-  
+
   <modal classes="rp-modal" :height="500" :width="700" name="medical-form">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="hideMedical()"><span aria-hidden="true">&times;</span></button>
     <h2>Let us know any medical information a race might need
@@ -147,10 +147,10 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
   </form>
 
   <div class="dots-wrapper">
-    <div class="dots" ng-class="{'dots-filled': page >= 1}"></div>
-    <div class="dots" ng-class="{'dots-filled': page >= 2}"></div>
-    <div class="dots" ng-class="{'dots-filled': page >= 3}"></div>
-    <div class="dots" ng-class="{'dots-filled': page >= 4}"></div>
+    <div class="dots" :class="{'dots-filled': page >= 1}"></div>
+    <div class="dots" :class="{'dots-filled': page >= 2}"></div>
+    <div class="dots" :class="{'dots-filled': page >= 3}"></div>
+    <div class="dots" :class="{'dots-filled': page >= 4}"></div>
   </div>
 </div>
 </div>
