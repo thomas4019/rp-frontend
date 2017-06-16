@@ -17,7 +17,7 @@
       <input v-model="search_text" @change="searchUpdate()" @keyup="searchUpdate()" id="menu-search" placeholder="Search races or locations" type="textbox" />
     </div>
     <div id="menu-right" class="menu-section">
-      <a class="link" href="/app#!/">Home</a>
+      <router-link class="link" to="/app/profile">Home</router-link>
       <UserMenu v-if="menu_open" />
       <div class="dropdown" @click="menu_toggle($event)">
         <img class="profile-photo" :src="photo" />
