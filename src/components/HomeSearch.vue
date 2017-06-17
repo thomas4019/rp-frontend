@@ -1,10 +1,6 @@
 <template>
   <div id="home-search">
-    <FilterRow />
-    <div id="switcher">
-      <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
-      <img src="/static/imgs/Menu.png"  @click="mode='list'" />
-    </div>
+    <HomeFilterRow />
     <RpMap v-if="mode == 'map'"/>
     <RaceList v-if="mode != 'map'" />
   </div>
@@ -13,17 +9,22 @@
 <script>
 import RpMap from '@/components/Map'
 import RaceList from '@/components/RaceList'
-import FilterRow from '@/components/FilterRow'
+import HomeFilterRow from '@/components/HomeFilterRow'
 export default {
   name: 'home-search',
   components: {
     RpMap,
     RaceList,
-    FilterRow
+    HomeFilterRow
+  },
+  computed: {
+    mode () {
+      return this.$store.state.homeSearchMode || 'list'
+    }
   },
   data () {
     return {
-      mode: 'map'
+      // mode: 'list'
     }
   }
 }

@@ -23,6 +23,7 @@ export default new Vuex.Store({
     selectedRace: {},
     selectionLocation: {},
     suggestedRaces: [],
+    homeSearchMode: 'list',
   },
   mutations: {
     login (state, result) {
@@ -81,6 +82,9 @@ export default new Vuex.Store({
         }
       }
       rp.post('users/' + state.user._id + '/update', changes)
+    },
+    updateHomeSearchMode (state, mode) {
+      state.homeSearchMode = mode
     },
     selectRace (state, race) {
       state.selectedRace = race
