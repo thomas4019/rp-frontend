@@ -171,7 +171,7 @@ export default {
     if (localStorage.token) {
       this.page = 2
     } else {
-      window.location = '/'
+      this.$router.push({path: '/'})
     }
     this.data = {
       address: {},
@@ -214,9 +214,7 @@ export default {
         rp.post('users/' + localStorage.uid + '/update', data)
           .then(function (result) {
             console.log(result)
-            // $location.path('/')
-            // window.location = '/app'
-            // $scope.$apply()
+            this.$router.push({path: '/app/profile'})
           }, function (err) {
             console.error('error signing in')
             console.error(err)
