@@ -12,7 +12,13 @@ export default new Vuex.Store({
     photo: '',
     user: {},
     favorites: {},
-    filters: {},
+    filters: {
+      'location.state': null,
+      'datetime': {
+        '$gte': '2000',
+        '$lte': '2100'
+      }
+    },
     search_text: '',
     selectedRace: {},
     selectionLocation: {},
@@ -35,11 +41,10 @@ export default new Vuex.Store({
       } else {
         state.photo = '/static/imgs/profiles/default-user-avatar.png'
       }
-      state.favorites = {
-        '100': true,
-        '101': true,
-        '102': true,
-      }
+      state.favorites = {}
+      state.user.favorites.forEach(function (id) {
+        state.favorites[id] = true
+      })
     },
     setSuggestedRaces (state, races) {
       state.suggestedRaces = races
@@ -56,8 +61,11 @@ export default new Vuex.Store({
     search (state, text) {
       state.search_text = text
     },
+    filter (state, filter) {
+      Object.assign(state.filters, filter)
+    },
     favorite (state, id) {
-      state.favorites[id] = true
+      Vue.set(state.favorites, id, true)
       var changes = {
         '$push': {
           'favorites': id
@@ -66,7 +74,13 @@ export default new Vuex.Store({
       rp.post('users/' + state.user._id + '/update', changes)
     },
     unfavorite (state, id) {
-      delete state.favorites[id]
+      Vue.set(state.favorites, id, false)
+      var changes = {
+        '$pop': {
+          'favorites': id
+        }
+      }
+      rp.post('users/' + state.user._id + '/update', changes)
     },
     selectRace (state, race) {
       state.selectedRace = race

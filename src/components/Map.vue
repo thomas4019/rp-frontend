@@ -72,6 +72,7 @@
             '$lt': Math.max(b.b.b, b.b.f),
           }
         }
+        Object.assign(query, this.$store.state.filters)
         rp.get('race2?limit=100000&query=' + JSON.stringify(query))
           .then((races) => {
             this.markers = races.map((race) => ({
@@ -86,6 +87,10 @@
     computed: {
       center () {
         return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: 122.41}
+      },
+      filters () {
+        console.log(this.$store.state.filters)
+        return this.$store.state.filters
       }
     },
     data () {

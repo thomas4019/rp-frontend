@@ -41,6 +41,11 @@
         </td>-->
   </section>
 
+  <section id="favorite-races" class="container">
+    <h3>Favorite Races</h3>
+    <race-table v-bind:races="favorite_races" v-bind:action="test"/>
+  </section>
+
   <section id="upcoming-races" class="container">
     <h3>Suggested Races Near You</h3>
     <race-table v-bind:races="upcoming_races" v-bind:action="test"/>
@@ -56,12 +61,31 @@
 <script>
 import rp from '../rp'
 import RaceTable from '@/components/RaceTable'
+import RaceList from '@/components/RaceList'
 export default {
   name: 'user-profile',
   components: {
     'race-table': RaceTable,
+    RaceList
+  },
+  asyncComputed: {
+    favorite_races: {
+      get () {
+        // return new Promise((resolve, reject) => {
+        var favorites = Object.keys(this.favorites).filter((id) => this.favorites[id])
+        if (!favorites.length) {
+          return []
+        }
+        var query = {'_id': {'$in': favorites}}
+        return rp.get('race2?query=' + JSON.stringify(query))
+      },
+      default: []
+    }
   },
   computed: {
+    favorites () {
+      return this.$store.state.favorites
+    },
     user () {
       if (this.$store.state.user && this.$store.state.user.first_name) {
         return this.$store.state.user
@@ -85,12 +109,6 @@ export default {
       })
     },
     completed_races () {
-      var now = new Date().toISOString()
-      return this.user.race_listings.filter(function (race) {
-        return race.datetime <= now
-      })
-    },
-    favorite_races () {
       var now = new Date().toISOString()
       return this.user.race_listings.filter(function (race) {
         return race.datetime <= now

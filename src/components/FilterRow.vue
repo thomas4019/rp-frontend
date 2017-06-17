@@ -5,7 +5,7 @@
       <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
       <div class="popup" v-if="popup == 'distance'">
         <br/><br/>
-        <vue-slider ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
+        <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
       </div>
     </div>
     <div class="filter" style="width:230px;">
@@ -17,58 +17,58 @@
     </div>
     <div class="filter">
       <div class="name">State</div>
-      <select>
-        <option>Alabama</option>
-        <option>Alaska</option>
-        <option>Arizona</option>
-        <option>Arkansas</option>
-        <option>California</option>
-        <option>Colorado</option>
-        <option>Connecticut</option>
-        <option>Delaware</option>
-        <option>Florida</option>
-        <option>Georgia</option>
-        <option>Hawaii</option>
-        <option>Idaho</option>
-        <option>Illinois</option>
-        <option>Indiana</option>
-        <option>Iowa</option>
-        <option>Kansas</option>
-        <option>Kentucky</option>
-        <option>Louisiana</option>
-        <option>Maine</option>
-        <option>Maryland</option>
-        <option>Massachusetts</option>
-        <option>Michigan</option>
-        <option>Minnesota</option>
-        <option>Mississippi</option>
-        <option>Missouri</option>
-        <option>Montana</option>
-        <option>Nebraska</option>
-        <option>Nevada</option>
-        <option>New Hampshire</option>
-        <option>New Jersey</option>
-        <option>New Mexico</option>
-        <option>New York</option>
-        <option>North Carolina</option>
-        <option>North Dakota</option>
-        <option>Ohio</option>
-        <option>Oklahoma</option>
-        <option>Oregon</option>
-        <option>Pennsylvania</option>
-        <option>Rhode Island</option>
-        <option>South Carolina</option>
-        <option>South Dakota</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Utah</option>
-        <option>Vermont</option>
-        <option>Virginia</option>
-        <option>Washington</option>
-        <option>West Virginia</option>
-        <option>Wisconsin</option>
-        <option>Wyoming</option>
-        <option>District of Columbia</option>
+      <select v-model="filter_state" @change="updateFilter()">
+        <option value="ALL">All</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
       </select>
     </div>
   </div>
@@ -90,6 +90,35 @@ export default {
     showRacePopup ($event) {
       this.popup = 'distance'
       $event.stopPropagation()
+    },
+    updateFilter () {
+      var filter = {
+        'location.state': this.filter_state === 'ALL' ? null : this.filter_state,
+        'datetime': {
+          '$gte': new Date(this.start_date).toISOString(),
+          '$lte': new Date(this.end_date).toISOString()
+        },
+        '$and': [
+          {'distance_km_min': {
+            '$lte': this.dataKMs[this.distances[1]] + 1
+          }},
+          {'distance_km_max': {
+            '$gte': this.dataKMs[this.distances[0]] - 1
+          }}
+        ]
+      }
+      this.$store.commit('filter', filter)
+    }
+  },
+  watch: {
+    distances () {
+      this.updateFilter()
+    },
+    start_date: function () {
+      this.updateFilter()
+    },
+    end_date: function () {
+      this.updateFilter()
     }
   },
   created () {
@@ -108,6 +137,13 @@ export default {
       start_date: start.toISOString(),
       end_date: end.toISOString(),
       tooltip: 'always',
+      dataKMs: {
+        '1K': 1,
+        '5K': 5,
+        '15K': 15,
+        '13.1 mile': 21.1,
+        '26.2 mile': 42.2
+      },
       data: [
         '1K',
         '5K',
@@ -125,7 +161,8 @@ export default {
         'width': '12px',
         'height': '12px'
       },
-      distances: ['1K', '26.2 mile']
+      distances: ['1K', '26.2 mile'],
+      filter_state: 'ALL',
     }
   }
 }

@@ -1,5 +1,5 @@
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -78,6 +78,7 @@ strong {
 }
 button, .button {
 	font-weight: 900;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
 	border-radius: 8px;
 	text-align: center;
 	padding: 4px 10px;

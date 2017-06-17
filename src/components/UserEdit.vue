@@ -116,7 +116,7 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
 
   <form id="p4" name="p4" v-if="page == 4">
     <h3>What number should races send updates and annoucements to?</h3>
-    <masked-input id="phone" name="data.phone" v-model="phone" mask="(111) 111-1111" placeholder="Phone number" type="tel" />
+    <masked-input id="phone" name="phone" v-model="data.phone" mask="(111) 111-1111" placeholder="Phone number" type="tel" />
     <h3>Who is your emergency contact?</h3>
     <div class="err" id="emergency-error"></div>
     <div id="emergency-contact-box" class="addr-box">
@@ -126,7 +126,7 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
       </div>
       <div class="addr-row">
         <input required v-model="data.raceinfo.emergency_relationship"type="tel" name="emergency_relationship" placeholder="Relationship" />
-        <masked-input id="emergency_phone" required name="data.phone" v-model="data.raceinfo.emergency_phone" mask="(111) 111-1111" placeholder="Phone number" type="tel" />
+        <masked-input id="emergency_phone" required name="emergency_phone" v-model="data.raceinfo.emergency_phone" mask="(111) 111-1111" placeholder="Phone number" type="tel" />
       </div>
     </div>
 

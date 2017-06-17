@@ -23,13 +23,13 @@
         <td class="website">
           <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
         </td>
-        <td>
+        <td class="actions">
           <button v-if="!race.is_available" class="hollow" disabled="disabled">Finished</button>
           <button v-if="race.is_available" class="hollow" @click="register(race)">Register</button>
           <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : race.is_favorite, 'fa-heart-o': !race.is_favorite }" aria-hidden="true"></i>
-          <a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
+          <!--<a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
             <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
-          </a>
+          </a>-->
         </td>
       </tr>
     </table>
@@ -59,6 +59,10 @@ export default {
           $nin: ['', 'TBD']
         }
       }
+      Object.assign(query, this.$store.state.filters)
+      if (!query['location.state']) {
+        delete query['location.state']
+      }
       this.$store.state.search_text.split(' ').forEach(function (word) {
         query['$and'].push({'name': {'$regex': word, '$options': 'i'}})
       })
@@ -67,6 +71,9 @@ export default {
       }
       rp.get('race2?limit=' + this.limit + '&page=' + this.page + '&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
         .then((result) => {
+          if (result.pages !== this.page_count) {
+            this.page = 0
+          }
           this.page_count = result.pages
           this.races = result.data
           this.races.forEach((race) => {
@@ -107,7 +114,6 @@ export default {
       }
       this.prev_search = this.$store.state.search_text
       this.update()
-      // process.nextTick(() => this.update())
       return this.$store.state.search_text
     }
   },
@@ -172,5 +178,8 @@ Vue.filter('formatRaceDistance', function (value) {
 }
 .favorite {
   color: #0DFFAE;
+}
+.actions > * {
+  margin-right: 8px;
 }
 </style>
