@@ -75,6 +75,9 @@ export default new Vuex.Store({
   getters: {
     isUserLoaded (state) {
       return !!state.user.email
+    },
+    getUserId (state) {
+      return state.user._id
     }
   },
   actions: {

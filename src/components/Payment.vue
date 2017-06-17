@@ -343,7 +343,7 @@ export default {
       var data = {
         $set: { 'paymentSkipped': true }
       }
-      rp.post('users/' + localStorage.uid + '/update', data)
+      rp.post('users/' + this.$store.getters.getUserId + '/update', data)
           .then(function (result) {
             window.location = '/'
           }, function (err) {
