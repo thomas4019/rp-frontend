@@ -4,7 +4,7 @@
     <div style="display:none">{{search_text}}</div>
     <table class="race-table">
       <tr>
-        <th>Distances</th>
+        <th>Type</th>
         <th>Race</th>
         <th>Date</th>
         <th>Location</th>
