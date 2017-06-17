@@ -86,7 +86,7 @@
     },
     computed: {
       center () {
-        return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: 122.41}
+        return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: -122.41}
       },
       filters () {
         console.log(this.$store.state.filters)
