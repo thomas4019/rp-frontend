@@ -39,6 +39,6 @@ export default {
   text-align: right;
 }
 #switcher img {
-  height: 50px;
+  height: 42px;
 }
 </style>

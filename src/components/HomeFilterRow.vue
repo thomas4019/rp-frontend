@@ -1,6 +1,6 @@
 <template>
   <div class="filter-row">
-    <div class="filter" style="width:250px;">
+    <div class="filter" style="width:400px;">
       <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input type="text" placeholder="Search races, locations" class="nameless"></div>
     </div>
     <div class="filter" @click="showRacePopup($event)">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="filter">
-      <div class="name">State</div>
+      <div class="name">Location</div>
       <select v-model="filter_state" @change="updateFilter()">
         <option value="ALL">All</option>
         <option value="AL">Alabama</option>
@@ -74,7 +74,7 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="filter">
+    <div class="filter" style="width:110px;">
       <div id="switcher">
         <img src="/static/imgs/GreenPin.png" @click="changeMode('map')" />
         <img src="/static/imgs/Menu.png"  @click="changeMode('list')" />
@@ -190,10 +190,13 @@ export default {
   }
   .filter {
     position: relative;
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     padding-bottom: 0px;
     border-left: 0.5px solid #9B9B9B;
     min-width: 110px;
+  }
+  .filter:first-child{
+      padding-top: 9px;
   }
   .filter:first-child, 
   .filter:nth-child(2) {
@@ -220,9 +223,6 @@ export default {
     border-radius: 4px;
     z-index: 100;
   }
-  input.nameless {
-    padding: 10px;
-  }
   input[type=text] {
     background: transparent;
     color: #F7F7F7;
@@ -247,7 +247,7 @@ export default {
     color: #0DFFAE;
     font-size: 14px;
     width: 90px;
-    padding: 5px; 
+    padding: 0px 5px 0px 5px; 
     position: relative;
   }
   .date-picker * {
@@ -263,7 +263,7 @@ export default {
     background: transparent;
     color: #0DFFAE;
     border: none;
-    padding: 5px;
+    padding: 0px 5px 0px 5px; 
     -webkit-appearance: none;
     -moz-appearance: none;
     outline:none;

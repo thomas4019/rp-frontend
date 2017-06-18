@@ -86,6 +86,9 @@ export default new Vuex.Store({
     updateHomeSearchMode (state, mode) {
       state.homeSearchMode = mode
     },
+    updateHomeSearchText (state, text) {
+      state.homeSearchText = text
+    },
     selectRace (state, race) {
       state.selectedRace = race
     }
