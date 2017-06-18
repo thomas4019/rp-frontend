@@ -1,5 +1,5 @@
 <template>
-  <div id="home-search">
+  <div id="race-search">
     <FilterRow />
     <div id="switcher">
       <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
@@ -32,8 +32,8 @@ export default {
 </script>
 
 <style>
-#home-search {
-  max-width: 1000px;
+#race-search {
+  width: 100%;
   margin: auto;
 }
 #switcher {

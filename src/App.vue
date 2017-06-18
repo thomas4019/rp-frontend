@@ -41,8 +41,6 @@ window.fbAsyncInit = function() {
 </script>
 
 <style>
-@import 'base.css';
-
 /* VARIOUS ELEMENTS */
 .callout {
 	font-weight: 300;
