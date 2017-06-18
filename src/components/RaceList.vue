@@ -75,7 +75,7 @@ export default {
             this.page = 0
           }
           this.page_count = result.pages
-          this.races = result // .data
+          this.races = result.data
           this.races.forEach((race) => {
             race.is_favorite = this.$store.state.favorites[race._id]
             race.is_available = (race.datetime > new Date().toISOString())
