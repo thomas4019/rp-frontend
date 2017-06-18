@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import rp from './rp'
+import toastr from 'toastr'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,7 @@ export default new Vuex.Store({
     filters: {
       'location.state': null,
       'datetime': {
-        '$gte': '2000',
+        '$gte': new Date().toISOString(),
         '$lte': '2100'
       }
     },
@@ -43,9 +44,11 @@ export default new Vuex.Store({
         state.photo = '/static/imgs/profiles/default-user-avatar.png'
       }
       state.favorites = {}
-      state.user.favorites.forEach(function (id) {
-        state.favorites[id] = true
-      })
+      if (state.user.favorites) {
+        state.user.favorites.forEach(function (id) {
+          state.favorites[id] = true
+        })
+      }
     },
     setSuggestedRaces (state, races) {
       state.suggestedRaces = races
@@ -108,16 +111,44 @@ export default new Vuex.Store({
         .then((user) => {
           context.commit('updateUser', user)
 
-          var lat = user.address.coordinates.lat
-          var lng = user.address.coordinates.lng
-          rp.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
-            .then((races) => {
-              context.commit('setSuggestedRaces', races)
-            })
+          if (user.address && user.address.coordinates) {
+            var lat = user.address.coordinates.lat
+            var lng = user.address.coordinates.lng
+            rp.get('nearby_races?limit=8&lat=' + lat + '&lng=' + lng)
+              .then((races) => {
+                context.commit('setSuggestedRaces', races)
+              })
+          }
           context.commit('setIsLoading', false)
         }, (err) => {
           console.error(err)
           context.commit('setIsLoading', false)
+        })
+    },
+    registerForRace (context, data) {
+      var raceSignup = {
+        'race_id': data.race._id,
+        'distance': data.distance,
+        'status': 'pending'
+      }
+      rp.post('race_signup', raceSignup)
+        .then(function (result) {
+          toastr.info('Registration requested successfully')
+          context.dispatch('loadUser')
+        }, function (err) {
+          toastr.error(err.error)
+        })
+    },
+    cancelRegistration (context, reason) {
+      var matching = context.state.user.race_signups.filter((rs) => rs.race_id === context.state.selectedRace._id)
+      console.log(context.state)
+      var signupId = matching[0]
+      var data = {
+        '$set': { 'status': 'canceled', 'cancellation_reason': reason }
+      }
+      rp.post('race_signup/' + signupId + '/update', data)
+        .then(function (result) {
+          context.dispatch('loadUser')
         })
     }
   }

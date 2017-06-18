@@ -13,7 +13,7 @@
       </tr>
       <tr v-for="race in races">
         <td class="distance">
-          <span v-for="course in race.courses">
+          <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }">
             {{course.distance}}
           </span>
         </td>
@@ -59,6 +59,13 @@ export default {
     },
     isAvailable (race) {
       return (race.datetime > new Date().toISOString())
+    },
+    isSelectedDistance (race, course) {
+      var matching = this.$store.state.user.race_signups.filter((rs) => rs.race_id === race._id)
+      if (!matching.length) {
+        return false
+      }
+      return course.distance === matching[0].distance
     },
     toggleFavorite (_id) {
       if (this.$store.state.favorites[_id]) {
@@ -125,6 +132,9 @@ Vue.filter('formatDate', function (value) {
 }
 .distance {
   max-width: 70px;
+}
+.distance .chosen {
+  color: #0DFFAE;
 }
 .race-name {
   white-space: nowrap;

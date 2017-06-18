@@ -103,6 +103,12 @@ export default new Router({
       beforeEnter: ensureLogin
     },
     {
+      path: '/app/payment',
+      name: 'Payment',
+      component: Payment,
+      beforeEnter: ensureLogin
+    },
+    {
       path: '/race-directors',
       name: 'RaceDirectors',
       component: RaceDirectors

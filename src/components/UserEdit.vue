@@ -30,7 +30,7 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
   </modal>
 
   <h1>One-time registration for all your races</h1>
-  <form id="p2" name="p2" v-if="page == 2">
+  <form id="p2" name="p2" v-if="page == 1">
     <p>Filling out this form will unlock one-click registartion for any race on our platform. All we need are the required details races ask of partcipants and we can take care of registration from now on!</p>
     <h3>What's your name?</h3>
     <input v-validate="'required'" required v-model="data.first_name" type="text" name="first" placeholder="First" />
@@ -50,10 +50,10 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
     </div>
     <h3>What's your date of birth?</h3>
     <masked-input v-model="data.date_of_birth" required mask="11/11/1111"  placeholder="MM/DD/YYYY" model="data.date_of_birth" />
-    <button type="submit" v-on:click="next($event)" class="next">Next</button>
+    <button type="button" v-on:click="next($event)" class="next">Next</button>
   </form>
 
-  <form id="p3" name="p3" v-if="page == 3">
+  <form id="p3" name="p3" v-if="page == 2">
     <h3>What's your gender?</h3>
     <ul class="radio-buttons">
       <li>
@@ -111,10 +111,10 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
         <label for="hand-cycle">Hand Cycle</label>
       </li>
     </ul>
-    <button type="submit" v-on:click="next()" class="next">Next</button>
+    <button type="button" v-on:click="next()" class="next">Next</button>
   </form>
 
-  <form id="p4" name="p4" v-if="page == 4">
+  <form id="p4" name="p4" v-if="page == 3">
     <h3>What number should races send updates and annoucements to?</h3>
     <masked-input id="phone" name="phone" v-model="data.phone" mask="(111) 111-1111" placeholder="Phone number" type="tel" />
     <h3>Who is your emergency contact?</h3>
@@ -134,23 +134,22 @@ font-weight: 500; padding: 5px 10px; margin-top: 8px;" @click="hideMedical()">Su
     <div class="err" id="medical-error"></div>
     <ul class="radio-buttons" style="margin-bottom: 0px;">
       <li>
-        <input @click="showMedical()" v-model="data.raceinfo.has_medical" required type="radio" id="yes" name="medical" value="true" />
+        <input @click="showMedical()" v-model="data.raceinfo.has_medical" required type="radio" id="yes" name="medical" :value="true" />
         <label for="yes">Yes</label>
       </li>
       <li>
-        <input v-model="data.raceinfo.has_medical" required type="radio" id="no" name="medical" value="false" />
+        <input v-model="data.raceinfo.has_medical" required type="radio" id="no" name="medical" :value="false" />
         <label for="no">No</label>
       </li>
     </ul>
     <div><em @click="showMedicalWhy()" style="cursor: pointer; padding: 5px;">Why we're asking</em></div>
-    <button type="submit" v-on:click="next()" class="next">Save & Register</button>
+    <button type="button" v-on:click="next()" class="next">Save & Register</button>
   </form>
 
   <div class="dots-wrapper">
     <div class="dots" :class="{'dots-filled': page >= 1}"></div>
     <div class="dots" :class="{'dots-filled': page >= 2}"></div>
     <div class="dots" :class="{'dots-filled': page >= 3}"></div>
-    <div class="dots" :class="{'dots-filled': page >= 4}"></div>
   </div>
 </div>
 </div>
@@ -167,19 +166,16 @@ export default {
   },
   mounted: function () {
     var self = this
-    this.page = 1
     if (localStorage.token) {
-      this.page = 2
+      this.page = 1
     } else {
       this.$router.push({path: '/'})
-    }
-    this.data = {
-      address: {},
-      raceinfo: {},
     }
     rp.get('user/me')
       .then(function (response) {
         self.data = response
+        self.data.address = self.data.address || {}
+        self.data.raceinfo = self.data.raceinfo || {}
         if (self.data.date_of_birth) {
           self.data.date_of_birth = moment(String(self.data.date_of_birth)).format('MM/DD/YYYY')
         }
@@ -194,6 +190,7 @@ export default {
     return {
       page: 1,
       data: {
+        address: {},
         raceinfo: {}
       },
       ShowMedicalModal: false,
@@ -205,17 +202,17 @@ export default {
       console.log(this.$validator)
       if (event) event.preventDefault()
       this.page++
-      if (this.page === 5) {
+      if (this.page === 4) {
         delete this.data.permissions
         var data = {
           $set: this.data,
           $unset: {'permissions': true}
         }
-        rp.post('users/' + localStorage.uid + '/update', data)
-          .then(function (result) {
+        rp.post('users/' + this.data._id + '/update', data)
+          .then((result) => {
             console.log(result)
-            this.$router.push({path: '/app/profile'})
-          }, function (err) {
+            this.$router.push('/app/profile')
+          }, (err) => {
             console.error('error signing in')
             console.error(err)
           })

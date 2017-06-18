@@ -23,7 +23,7 @@
       <dl>
         <dt>Pass Type</dt>
         <dd v-if="passName">{{passName}}</dd>
-        <dd v-if="!passName">None <a href="" ng-click="buy()"><em>Buy a pass now</em></a></dd>
+        <dd v-if="!passName">None <router-link to="/app/payment"><em>Buy a pass now</em></router-link></dd>
       </dl>
       <dl>
         <dt>Race Credits</dt>
@@ -36,13 +36,15 @@
     <h3 style="float: left;">Registered Races</h3>
     <router-link to="search" class="button" style="margin: 0px 0px 0px 15px;" >Add race</router-link>
     <race-table v-bind:races="registered_races"/>
-        <!--<td v-if="race.datetime >= cancel_cutoff" ng-click="cancel_popup($index)">
-          <em style="cursor: pointer;">Cancel</em>
-        </td>-->
   </section>
 
-  <section id="favorite-races" class="container">
-    <h3>Favorite Races</h3>
+  <section id="completed-races" style="margin-top: 10px;" class="container">
+    <h3 style="float: left;">Completed Races</h3>
+    <race-table v-bind:races="completed_races"/>
+  </section>
+
+  <section v-if="favorite_races.length" id="favorite-races" class="container">
+    <h3>Race Wishlist</h3>
     <race-table v-bind:races="favorite_races" v-bind:action="test"/>
   </section>
 
@@ -80,6 +82,11 @@ export default {
         return rp.get('race2?query=' + JSON.stringify(query))
       },
       default: []
+    }
+  },
+  mounted () {
+    if (!this.$store.state.user || !this.$store.state.user.first_name) {
+      this.$router.push('/app/useredit')
     }
   },
   computed: {
@@ -127,7 +134,6 @@ export default {
       }
     },
     upcoming_races () {
-      console.log(this.$store.state.suggestedRaces)
       return this.$store.state.suggestedRaces
     }
   },

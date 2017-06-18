@@ -129,7 +129,7 @@ export default {
   },
   data () {
     var start = new Date()
-    start.setDate(start.getDate() - 365)
+    start.setDate(start.getDate())
     var end = new Date()
     end.setDate(end.getDate() + 364)
     return {

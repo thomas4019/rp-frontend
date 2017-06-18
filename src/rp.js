@@ -6,7 +6,12 @@ var rp = {
     var token = localStorage.token
     return fetch(base + path + op + 'token=' + token)
       .then(function (response) {
-        return response.json()
+        var contentType = response.headers.get('content-type')
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          return response.json()
+        } else {
+          return response.text()
+        }
       })
   },
   post: function (path, data) {
