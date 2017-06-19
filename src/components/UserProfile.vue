@@ -63,12 +63,10 @@
 <script>
 import rp from '../rp'
 import RaceTable from '@/components/RaceTable'
-import RaceList from '@/components/RaceList'
 export default {
   name: 'user-profile',
   components: {
-    'race-table': RaceTable,
-    RaceList
+    'race-table': RaceTable
   },
   asyncComputed: {
     favorite_races: {

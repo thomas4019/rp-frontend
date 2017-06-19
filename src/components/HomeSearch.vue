@@ -2,19 +2,19 @@
   <div id="home-search">
     <HomeFilterRow />
     <RpMap v-if="mode == 'map'"/>
-    <RaceList v-if="mode != 'map'" />
+    <RaceSearchList v-if="mode != 'map'" />
   </div>
 </template>
 
 <script>
 import RpMap from '@/components/Map'
-import RaceList from '@/components/RaceList'
+import RaceSearchList from '@/components/RaceSearchList'
 import HomeFilterRow from '@/components/HomeFilterRow'
 export default {
   name: 'home-search',
   components: {
     RpMap,
-    RaceList,
+    RaceSearchList,
     HomeFilterRow
   },
   computed: {

@@ -1,5 +1,5 @@
 <template>
- <section id="upcoming-races" class="container">
+ <section class="container">
     <RaceRegister ref="reg" />
     <RaceCancel ref="cancel" />
     <table class="race-table">
@@ -80,29 +80,9 @@ export default {
     },
     cancel (race) {
       this.$refs.cancel.show()
-    },
-    prev () {
-      if (this.page > 0) {
-        this.page--
-        this.update()
-      }
-    },
-    next () {
-      if (this.page < this.page_count - 1) {
-        this.page++
-        this.update()
-      }
     }
   },
-  props: ['races'],
-  data () {
-    return {
-      page: 0,
-      page_count: 1,
-      limit: 10,
-      prev_search: '',
-    }
-  }
+  props: ['races']
 }
 Vue.filter('formatDate', function (value) {
   if (value) {
