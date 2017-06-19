@@ -18,7 +18,7 @@
     <gmap-map
       :options="{styles: styles}"
       :center="center"
-      :zoom="7"
+      :zoom="4"
       style="width: 100%; height: 450px"
       @bounds_changed="update"
     >
@@ -103,6 +103,11 @@
         if (!query['location.state']) {
           delete query['location.state']
         }
+        if (JSON.stringify(this.prevQuery) === JSON.stringify(query)) {
+          // Avoid sending duplicate requests
+          return
+        }
+        this.prevQuery = query
         rp.get('race2?limit=100000&query=' + JSON.stringify(query))
           .then((races) => {
             this.races = races
@@ -131,7 +136,7 @@
     },
     computed: {
       center () {
-        return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: -122.41}
+        return (this.$store.state.user.address || {}).coordinates || {lat: 39.82, lng: -106.58}
       },
       filters () {
         this.update()
@@ -150,7 +155,8 @@
         markers: [],
         races: [],
         selected: '',
-        bounds: {}
+        bounds: {},
+        prevQuery: {}
       }
     }
   }
