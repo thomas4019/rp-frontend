@@ -180,11 +180,6 @@ export default {
           self.data.date_of_birth = moment(String(self.data.date_of_birth)).format('MM/DD/YYYY')
         }
       })
-    this.toggleMedical = function () {
-      if (this.data.raceinfo.has_medical) {
-        // $('#medicalModal').modal('toggle')
-      }
-    }.bind(this)
   },
   data () {
     return {
