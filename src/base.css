@@ -101,6 +101,7 @@ button:hover, .button:hover {
 button.hollow, .button.hollow {
 	background: transparent;
 	border: 1px solid #0DFFAE;
+	padding: 3px 9px;
 	color: #0DFFAE;
 }
 button.hollow[disabled="disabled"] {

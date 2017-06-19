@@ -5,7 +5,7 @@
     <div>
       <div class="name">{{user.first_name}} {{user.last_name}}</div>
       <div class="email">{{user.email}}</div>
-      <div>
+      <div id="actions">
         <router-link to="/app/useredit" class="button">Account</router-link>
         <button class="hollow" @click="sign_out()">Sign out</button>
       </div>
@@ -74,5 +74,8 @@ export default {
 button {
   font-weight: 100;
   font-size: 12px;
+}
+#actions {
+  margin-top: 6px;
 }
 </style>
