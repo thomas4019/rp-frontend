@@ -132,6 +132,10 @@
     computed: {
       center () {
         return (this.$store.state.user.address || {}).coordinates || {lat: 37.77, lng: -122.41}
+      },
+      filters () {
+        this.update()
+        return this.$store.state.filters
       }
     },
     data () {

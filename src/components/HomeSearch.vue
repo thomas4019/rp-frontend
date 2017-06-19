@@ -19,12 +19,7 @@ export default {
   },
   computed: {
     mode () {
-      return this.$store.state.homeSearchMode || 'list'
-    }
-  },
-  data () {
-    return {
-      // mode: 'list'
+      return this.$store.state.homeSearchMode || 'map'
     }
   }
 }

@@ -24,7 +24,7 @@ export default new Vuex.Store({
     selectedRace: {},
     selectionLocation: {},
     suggestedRaces: [],
-    homeSearchMode: 'list',
+    homeSearchMode: 'map',
   },
   mutations: {
     login (state, result) {
