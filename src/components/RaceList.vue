@@ -163,9 +163,6 @@ Vue.filter('formatRaceDistance', function (value) {
   max-width: 70px;
 }
 .race-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100px;
   column-width: 150px;
 }

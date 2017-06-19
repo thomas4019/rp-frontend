@@ -4,11 +4,11 @@
     <RaceCancel ref="cancel" />
     <table class="race-table">
       <tr>
-        <th>Distances</th>
-        <th>Race</th>
-        <th>Date</th>
-        <th>Location</th>
-        <th>Website</th> 
+        <th style="width: 100px;">Distances</th>
+        <th style="width: 250px;" class="race-name">Race</th>
+        <th style="width: 100px;">Date</th>
+        <th style="width: 150px;">Location</th>
+        <th style="width: 200px;">Website</th> 
         <th>Actions</th>
       </tr>
       <tr v-for="race in races">
@@ -114,6 +114,7 @@ Vue.filter('formatDate', function (value) {
 <style scoped>
 .race-table {
 	width: 100%;
+  table-layout: fixed;
 }
 .race-table th {
 	background: #323237;
@@ -137,15 +138,12 @@ Vue.filter('formatDate', function (value) {
   color: #0DFFAE;
 }
 .race-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100px;
-  column-width: 150px;
+}
+.website {
+  width: 200px;
 }
 .website a {
   display: block;
-  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
