@@ -24,7 +24,8 @@
           <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
         </td>
         <td class="actions">
-          <button v-if="isRegistered(race)" class="hollow" @click="cancel(race)">Cancel</button>
+          <button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
+          <div v-else-if="isRegistered(race)"></div>
           <button v-else-if="isAvailable(race)" class="hollow" @click="register(race)">Register</button>
           <button v-else class="hollow" disabled="disabled">Finished</button>
           <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : isFavorite(race), 'fa-heart-o': !isFavorite(race) }" aria-hidden="true"></i>

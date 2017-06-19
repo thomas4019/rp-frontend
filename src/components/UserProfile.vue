@@ -38,7 +38,7 @@
     <race-table v-bind:races="registered_races"/>
   </section>
 
-  <section id="completed-races" style="margin-top: 10px;" class="container">
+  <section v-if="completed_races.length" id="completed-races" style="margin-top: 10px;" class="container">
     <h3 style="float: left;">Completed Races</h3>
     <race-table v-bind:races="completed_races"/>
   </section>
@@ -183,5 +183,9 @@ export default {
 }
 #profile-gender {
 	text-transform: capitalize;
+}
+
+section {
+  margin-bottom: 20px;
 }
 </style>
