@@ -142,7 +142,7 @@ export default new Vuex.Store({
     cancelRegistration (context, reason) {
       var matching = context.state.user.race_signups.filter((rs) => rs.race_id === context.state.selectedRace._id)
       console.log(context.state)
-      var signupId = matching[0]
+      var signupId = matching[0]._id
       var data = {
         '$set': { 'status': 'canceled', 'cancellation_reason': reason }
       }

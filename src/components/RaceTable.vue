@@ -80,6 +80,7 @@ export default {
       this.$store.commit('selectRace', race)
     },
     cancel (race) {
+      this.$store.commit('selectRace', race)
       this.$refs.cancel.show()
     }
   },

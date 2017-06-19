@@ -42,6 +42,7 @@ export default {
     submit_cancellation () {
       this.$modal.hide('cancel')
       this.$store.dispatch('cancelRegistration', this.cancellation_reason)
+      this.cancellation_reason = ''
     },
     show () {
       this.cancellation_reason = ''
