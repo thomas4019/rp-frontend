@@ -193,13 +193,13 @@ export default {
     color: #0DFFAE;
   }
   #filter-distance .summary {
-    margin-top: 5px;
+    margin-top: 4px;
   }
   #filter-dates .summary {
     margin-top: -2px;
   }
   #filter-state select {
-    margin-top: 3px;
+    margin-top: -1px;
   }
   .filter .popup {
     position: absolute;
