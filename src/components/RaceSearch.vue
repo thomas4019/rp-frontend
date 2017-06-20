@@ -1,25 +1,27 @@
 <template>
-  <div id="home-search">
-    <FilterRow />
-    <div id="switcher">
-      <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
-      <img src="/static/imgs/Menu.png"  @click="mode='list'" />
+  <div id="race-search">
+    <div class="container">
+      <FilterRow />
+      <div id="switcher">
+        <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
+        <img src="/static/imgs/Menu.png"  @click="mode='list'" />
+      </div>
     </div>
     <RpMap v-if="mode == 'map'"/>
-    <RaceList v-if="mode != 'map'" />
+    <RaceSearchList v-if="mode != 'map'" />
   </div>
 </template>
 
 <script>
 import RpMap from '@/components/Map'
-import RaceList from '@/components/RaceList'
+import RaceSearchList from '@/components/RaceSearchList'
 import FilterRow from '@/components/FilterRow'
 import RaceRegister from '@/components/RaceRegister'
 export default {
   name: 'race-search',
   components: {
     RpMap,
-    RaceList,
+    RaceSearchList,
     FilterRow,
     RaceRegister
   },
@@ -32,8 +34,8 @@ export default {
 </script>
 
 <style>
-#home-search {
-  max-width: 1000px;
+#race-search {
+  width: 100%;
   margin: auto;
 }
 #switcher {

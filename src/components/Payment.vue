@@ -157,11 +157,11 @@
       </div>
 
       <!--transaction_id={{paymentc.details}}-->
-      <a id="payment-leave" @click="done();">
+      <router-link to="/app/profile" id="payment-leave">
         <button>
           Set up my profile & register for races
         </button>
-      </a>
+      </router-link>
 
     </section>
   </div>
@@ -333,9 +333,6 @@ export default {
           })
       })
     },
-    done () {
-      window.location = '/'
-    },
     skip () {
       if (localStorage.buyType === 'freeTrial') {
         localStorage.buyType = '3races'
@@ -344,8 +341,8 @@ export default {
         $set: { 'paymentSkipped': true }
       }
       rp.post('users/' + this.$store.getters.getUserId + '/update', data)
-          .then(function (result) {
-            window.location = '/'
+          .then((result) => {
+            this.$router.push('/app/profile')
           }, function (err) {
             console.error(err)
             console.error('error saving pamyent skip status')

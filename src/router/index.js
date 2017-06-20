@@ -15,6 +15,7 @@ import UserEdit from '@/components/UserEdit'
 import Login from '@/components/Login'
 import Payment from '@/components/Payment'
 import RaceSearch from '@/components/RaceSearch'
+import NotFoundComponent from '@/components/NotFoundComponent'
 
 Vue.use(Router)
 
@@ -103,6 +104,12 @@ export default new Router({
       beforeEnter: ensureLogin
     },
     {
+      path: '/app/payment',
+      name: 'Payment',
+      component: Payment,
+      beforeEnter: ensureLogin
+    },
+    {
       path: '/race-directors',
       name: 'RaceDirectors',
       component: RaceDirectors
@@ -127,6 +134,10 @@ export default new Router({
       name: 'UserEdit',
       component: UserEdit,
       beforeEnter: ensureLogin
+    },
+    {
+      path: '*',
+      component: NotFoundComponent
     }
   ],
   scrollBehavior (to, from, savedPosition) {
