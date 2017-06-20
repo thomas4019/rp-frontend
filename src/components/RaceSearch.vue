@@ -2,11 +2,8 @@
   <div id="race-search">
     <div class="container">
       <FilterRow />
-      <div id="switcher">
-        <img src="/static/imgs/GreenPin.png" @click="mode='map'" />
-        <img src="/static/imgs/Menu.png"  @click="mode='list'" />
-      </div>
     </div>
+    <br/>
     <RpMap v-if="mode == 'map'"/>
     <RaceSearchList v-if="mode != 'map'" />
   </div>
@@ -25,9 +22,9 @@ export default {
     FilterRow,
     RaceRegister
   },
-  data () {
-    return {
-      mode: 'list'
+  computed: {
+    mode () {
+      return this.$store.state.searchMode
     }
   }
 }
