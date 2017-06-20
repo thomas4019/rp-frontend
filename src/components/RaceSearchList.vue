@@ -3,8 +3,11 @@
     <div style="display:none">{{search_text}}</div>
     <RaceTable :races="races" />
     <div id="navigation">
-      Showing page {{page + 1}} of {{page_count}}
+      <span id="position">
+        Showing page {{page + 1}} of {{page_count}}
+      </span>
       <button @click="prev()">Prev</button>
+      <span style="display: inline-block; width:0px;"></span>
       <button @click="next()">Next</button>
     </div>
   </section>
@@ -93,5 +96,8 @@ export default {
 #navigation {
   text-align: right;
   padding: 5px 50px 10px 10px;
+}
+#position {
+  padding-right: 12px;
 }
 </style>

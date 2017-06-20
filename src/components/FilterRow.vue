@@ -1,6 +1,6 @@
 <template>
   <div class="filter-row">
-    <div class="filter" @click="showRacePopup($event)">
+    <div id="filter-distance" class="filter" @click="showRacePopup($event)">
       <div class="name">Distance</div>
       <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
       <div class="popup" v-if="popup == 'distance'">
@@ -8,14 +8,14 @@
         <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
       </div>
     </div>
-    <div class="filter" style="width:230px;">
+    <div id="filter-dates" class="filter" style="width:230px;">
       <div class="name">Dates</div>
       <div class="summary">
         <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" v-model="start_date"></datepicker> - 
         <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" v-model="end_date"></datepicker>
       </div>
     </div>
-    <div class="filter">
+    <div id="filter-state" class="filter">
       <div class="name">State</div>
       <select v-model="filter_state" @change="updateFilter()">
         <option value="ALL">All</option>
@@ -192,13 +192,22 @@ export default {
   .summary {
     color: #0DFFAE;
   }
+  #filter-distance .summary {
+    margin-top: 5px;
+  }
+  #filter-dates .summary {
+    margin-top: -2px;
+  }
+  #filter-state select {
+    margin-top: 3px;
+  }
   .filter .popup {
     position: absolute;
     padding: 10px 15px;
     top: 30px;
     left: -5px;
     width: 227px;
-    background-color: #323237;
+    background-color: #323237 !important;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
     border-radius: 4px;
     z-index: 100;
@@ -211,7 +220,7 @@ export default {
   }
   .date-picker {
     background: transparent;
-    color: #0DFFAE;
+    color: #0DFFAE !important;
     font-size: 14px;
     width: 90px;
     padding: 5px; 
@@ -224,7 +233,7 @@ export default {
     outline: none;
   }
   .vdp-datepicker__calendar {
-    background-color: #323237;
+    background-color: #323237 !important;
   }
   select {
     background: transparent;
