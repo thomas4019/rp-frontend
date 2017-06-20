@@ -43,9 +43,16 @@ export default new Vuex.Store({
         state.photo = '/static/imgs/profiles/default-user-avatar.png'
       }
       state.favorites = {}
-      state.user.favorites.forEach(function (id) {
-        state.favorites[id] = true
-      })
+      if (state.user.favorites) {
+        state.user.favorites.forEach(function (id) {
+          state.favorites[id] = true
+        })
+      } else {
+        state.user.favorites = []
+      }
+      if (!state.user.address) {
+        state.user.address = { coordinates: {} }
+      }
     },
     setSuggestedRaces (state, races) {
       state.suggestedRaces = races
