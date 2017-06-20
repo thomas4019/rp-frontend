@@ -95,7 +95,7 @@ export default {
 <style scoped>
 #navigation {
   text-align: right;
-  padding: 5px 50px 10px 10px;
+  padding: 15px 50px 20px 10px;
 }
 #position {
   padding-right: 12px;

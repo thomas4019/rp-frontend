@@ -243,6 +243,7 @@ export default {
 	line-height: 25px;
 	color: #ABAEB7;
 	margin-bottom: 8px;
+  margin-top: 8px;
 }
 #registration input {
 	margin-right: 10px;
@@ -286,6 +287,7 @@ export default {
 	border-radius: 4px;
 	background: #f7f7f7;
 	max-width: 450px;
+  margin-bottom: 16px;
 }
 .addr-box input {
 	margin: 0 !important;

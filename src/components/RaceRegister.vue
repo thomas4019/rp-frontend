@@ -1,11 +1,10 @@
 <template>
-  <modal classes="rp-modal register-modal" :adaptive="true" :height="450" :width="750" name="register">
+  <modal classes="rp-modal register-modal" :adaptive="true" :height="390" :width="750" name="register">
     <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('register')"><span aria-hidden="true">&times;</span></button>
     <h3>Confirm you’re ready to commit to running <em>{{race.name}}</em> and choose your distance:</h3>
     <div id="option-container">
       <button :class="{'hollow': selected_distance!=course.distance}" class="distance-option" v-for="course in race.courses" @click="select_distance(course.distance)">{{course.distance}}</button>
     </div>
-    <br/>
     <p>By clicking confirm, you certify that you have read and understand the
        registration terms and rules specific to the {{race.name}} found on their
        website and waive, discharge any future claims and release {{race.name}} from any liability.</p>
@@ -56,9 +55,8 @@ export default {
 
 <style scoped>
   #option-container {
-    margin: 20px auto;
+    margin: 10px auto;
     width: 400px;
-    height: 100px;
     text-align: center;
   }
   .distance-option {

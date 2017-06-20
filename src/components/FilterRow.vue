@@ -71,6 +71,13 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
+    <div class="filter" style="width:110px;">
+      <div class="name">Mode</div>
+      <div id="switcher">
+        <img src="/static/imgs/GreenPin.png" @click="changeMode('map')" />
+        <img src="/static/imgs/Menu.png"  @click="changeMode('list')" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -108,6 +115,9 @@ export default {
         ]
       }
       this.$store.commit('filter', filter)
+    },
+    changeMode (_mode) {
+      this.$store.commit('updateSearchMode', _mode)
     }
   },
   watch: {
@@ -174,7 +184,7 @@ export default {
     display: flex;
     border-radius: 5px;
     border: 0.5px solid #9B9B9B;
-    width: 600px;
+    width: 680px;
     margin: 20px auto 0px auto;
   }
   .filter {
@@ -244,5 +254,8 @@ export default {
   option {
     background-color: #323237;
     color: #0DFFAE;
+  }
+  #switcher img {
+    height: 40px;
   }
 </style>
