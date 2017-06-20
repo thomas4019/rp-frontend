@@ -79,10 +79,10 @@ export default {
 </style>
 <style>
   .rp-modal {
-    padding: 40px;
+    padding: 40px !important;
     text-align: center;
   }
   .register-modal {
-    padding: 40px 60px;
+    padding: 40px 60px !important;
   }
 </style>
