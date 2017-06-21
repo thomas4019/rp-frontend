@@ -41,8 +41,13 @@ export default {
       var orderby = {
         'datetime': 1
       }
+      var querytime = new Date()
       rp.get('race2?limit=' + this.limit + '&page=' + this.page + '&query=' + JSON.stringify(query) + '&orderby=' + JSON.stringify(orderby))
         .then((result) => {
+          if (this.last_update_time > querytime) {
+            return
+          }
+          this.last_update_time = querytime
           if (result.pages !== this.page_count) {
             this.page = 0
           }
@@ -87,6 +92,7 @@ export default {
       page_count: 1,
       limit: 10,
       prev_search: '',
+      last_update_time: null,
     }
   }
 }
