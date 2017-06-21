@@ -1,36 +1,29 @@
 <template>
   <div>
-    <div id="listing-wrapper">
-      <div id="listing">
-        <div @click="select(race._id)" class="race" v-for="race in races">
-          <div class="name">{{race.name}}</div>
-          <div class="info distances">
-            <span v-for="(course, index) in race.courses">
-              {{course.distance}}
-              <template v-if="index != race.courses.length - 1"> • </template>
-            </span>
-          </div>
-          <div class="info">{{race.datetime | formatDate}} • {{race.location.city}}, {{race.location.state}}</div>
-          <div v-if="race._id == selected" class="info website"><em>{{race.website}}</em></div>
-        </div>
-      </div>
-    </div>
     <gmap-map
       :options="{styles: styles}"
       :center="center"
-      :zoom="4"
+      :zoom="zoom"
       style="width: 100%; height: 450px"
       @bounds_changed="update"
     >
-    <gmap-marker 
-      v-for="m in markers"
-      :key="m"
-      :position.sync="m.position"
-      :clickable="true"
-      :icon="m.race_id == selected ? icon : m.icon"
-      @click="select(m.race_id)"
-      :zIndex="m.race_id == selected ? 10 : 5"
-    ></gmap-marker>
+      <gmap-info-window
+        class="infowindow"
+        :options="infoOptions"
+        :position="infoWindowPos"
+        :opened="infoWinOpen"
+        :content="infoContent"
+        @closeclick="infoWinOpen=false">
+      </gmap-info-window>
+      <gmap-marker 
+        v-for="m in markers"
+        :key="m"
+        :position.sync="m.position"
+        :clickable="true"
+        :icon="m.race_id == selected ? icon : m.icon"
+        @click="select(m)"
+        :zIndex="m.race_id == selected ? 10 : 5"
+      ></gmap-marker>
     </gmap-map>
   </div>
 </template>
@@ -64,8 +57,24 @@
   export default {
     name: 'rp-map',
     methods: {
-      select (id) {
-        this.selected = id
+      select (marker) {
+        this.infoWindowPos = marker.position
+        var race = marker.race
+        this.infoContent = '<div class="infowindow-body">' +
+          '<div class="name">' + race.name + '</div>' +
+          '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
+          '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
+          ' • ' + race.location.city + ', ' + race.location.state +
+          '</div>' +
+          '</div>'
+        // check if its the same marker that was selected if yes toggle
+        if (this.selected === marker.race_id) {
+          this.infoWinOpen = !this.infoWinOpen
+        } else {
+           // if different marker set infowindow to open and reset current marker index
+          this.infoWinOpen = true
+          this.selected = marker.race_id
+        }
       },
       update (b) {
         if (!b) {
@@ -113,6 +122,7 @@
             this.races = races
             this.markers = races.map((race) => ({
               'race_id': race._id,
+              'race': race,
               icon: {
                 labelOrigin: {x: 15, y: 40},
                 url: '/static/imgs/mapiconA2x.png',
@@ -144,6 +154,8 @@
       }
     },
     data () {
+      console.log(this.$route.path)
+      var zoom = this.$route.path.includes('/app') ? 10 : 4
       return {
         styles: MapStyles,
         // center: {lat: 10.0, lng: 10.0},
@@ -152,11 +164,24 @@
           url: '/static/imgs/mapicon2x.png',
           scaledSize: {width: 20, height: 34},
         },
+        zoom: zoom,
         markers: [],
         races: [],
         selected: '',
         bounds: {},
-        prevQuery: {}
+        prevQuery: {},
+        infoContent: '',
+        infoWindowPos: {
+          lat: 0,
+          lng: 0
+        },
+        infoWinOpen: false,
+        infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        }
       }
     }
   }
@@ -168,38 +193,10 @@
 </script>
 
 <style>
-#listing-wrapper {
-  height: 450px;
-  width: 250px;
-  float: left;
-  position: relative;
-  z-index: 200;
-  overflow: hidden;
-}
-#listing {
-  width: 285px;
-  height: 450px;
-  float: left;
-  position: relative;
-  z-index: 200;
-  background-color: #24272A;
-  padding-right: 17px;
-  overflow-y: scroll;
-}
-.race {
-	border-bottom: 0.5px solid #979797;
-	border-top: 0.5px solid #979797;
-  padding: 10px;
-}
-.info {
-	opacity: 0.6;
-	color: #9B9B9B;
-	font-size: 16px;
-	font-weight: 300;
-	line-height: 22px;
+.infowindow-body {
+  color: black;
 }
 .name {
-	color: #D6D6D6;
 	font-size: 18px;
 	font-weight: 900;
 	line-height: 25px;
