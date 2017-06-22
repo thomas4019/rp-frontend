@@ -55,9 +55,6 @@ export default new Vuex.Store({
       if (!state.user.address) {
         state.user.address = { coordinates: {} }
       }
-      if (rp.mode !== 'dev' && this.$ga) {
-        this.$ga.set('userId', state.user._id)
-      }
     },
     setSuggestedRaces (state, races) {
       state.suggestedRaces = races
