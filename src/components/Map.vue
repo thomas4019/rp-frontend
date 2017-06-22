@@ -119,7 +119,7 @@
           }
         }
         this.$store.state.search_text.split(' ').forEach(function (word) {
-          query['$and'].push({'name': {'$regex': word, '$options': 'i'}})
+          query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
         })
         Object.assign(query, this.$store.state.filters)
         if (!query['location.state']) {

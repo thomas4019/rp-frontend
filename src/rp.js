@@ -1,5 +1,5 @@
 var rp = {
-  mode: 'production',
+  mode: 'dev',
   get: function (path) {
     var op = path.indexOf('?') === -1 ? '?' : '&'
     var base = (this.mode === 'dev' ? 'http://localhost:3000/' : 'https://api.racepass.com/')

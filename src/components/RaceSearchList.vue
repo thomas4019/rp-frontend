@@ -36,7 +36,7 @@ export default {
         delete query['location.state']
       }
       this.$store.state.search_text.split(' ').forEach(function (word) {
-        query['$and'].push({'name': {'$regex': word, '$options': 'i'}})
+        query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
       })
       var orderby = {
         'datetime': 1
