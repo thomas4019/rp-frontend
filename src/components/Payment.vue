@@ -288,7 +288,6 @@ export default {
       this.purchaseInProgress = true
 
       hostedFieldsInstance.tokenize((tokenizeErr, payload) => {
-        this.purchaseInProgress = false
         if (tokenizeErr) {
           // Handle error in Hosted Fields tokenization
           toastr.info(tokenizeErr.message)
@@ -324,10 +323,12 @@ export default {
               'quantity': this.num_races,
             })
             this.ga('ecommerce:send') */
-            this.paymentComplete = true
             this.cardDetails = data.cc
             this.transaction_id = data.transaction_id
+            this.paymentComplete = true
+            this.purchaseInProgress = false
           }, function (data) {
+            this.purchaseInProgress = false
             toastr.error('We ran into an issue while processing your card. Please try again and contact info@racepass.com if the issue continues. Thanks for your patience.')
             console.error(data)
           })
@@ -386,7 +387,8 @@ export default {
       baseCost: 0,
       finalCost: 0,
       start_date: new Date(),
-      end_date: new Date().setDate(new Date().getDate() + 365)
+      end_date: new Date().setDate(new Date().getDate() + 365),
+      cardDetails: {}
     }
   }
 }
