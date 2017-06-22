@@ -21,6 +21,7 @@
         :position.sync="m.position"
         :clickable="true"
         :icon="m.race_id == selected ? icon : m.icon"
+        @mouseover="select(m)"
         @click="select(m)"
         :zIndex="m.race_id == selected ? 10 : 5"
       ></gmap-marker>
@@ -58,15 +59,7 @@
     name: 'rp-map',
     methods: {
       select (marker) {
-        this.infoWindowPos = marker.position
         var race = marker.race
-        this.infoContent = '<div class="infowindow-body">' +
-          '<div class="name">' + race.name + '</div>' +
-          '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
-          '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
-          ' • ' + race.location.city + ', ' + race.location.state +
-          '</div>' +
-          '</div>'
         // check if its the same marker that was selected if yes toggle
         if (this.selected === marker.race_id) {
           this.infoWinOpen = !this.infoWinOpen
@@ -74,6 +67,14 @@
            // if different marker set infowindow to open and reset current marker index
           this.infoWinOpen = true
           this.selected = marker.race_id
+          this.infoWindowPos = marker.position
+          this.infoContent = '<div class="infowindow-body">' +
+            '<div class="name">' + race.name + '</div>' +
+            '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
+            '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
+            ' • ' + race.location.city + ', ' + race.location.state +
+            '</div>' +
+            '</div>'
         }
       },
       update (b) {
@@ -87,18 +88,27 @@
         this.bounds = b
         var width = Math.abs(Math.max(b.f.f, b.f.b) - Math.min(b.f.f, b.f.b))
         var prominance = 0
+        // When we zoom out we only want to show more prominent races to reduce server load
+        // as well as keep the browser responsive.
         if (width > 4) {
           prominance = 1
         }
         if (width > 8) {
           prominance = 2
         }
-
+        // If the user has narrowed their search, we should show all races that match.
+        if (this.$store.state.search_text ||
+            this.$store.state.filters['location.state'] ||
+            this.$store.state.filters['datetime']['$gte'] > new Date().toString() ||
+            this.$store.state.filters['datetime']['$lte'] < '2100') {
+          prominance = 0
+        }
         var query = {
           status: 'visible',
           'prominance': {
             '$gte': prominance,
           },
+          $and: [],
           'location.coordinates.lat': {
             '$gt': Math.min(b.f.f, b.f.b),
             '$lt': Math.max(b.f.f, b.f.b),
@@ -108,6 +118,9 @@
             '$lt': Math.max(b.b.b, b.b.f),
           }
         }
+        this.$store.state.search_text.split(' ').forEach(function (word) {
+          query['$and'].push({'name': {'$regex': word, '$options': 'i'}})
+        })
         Object.assign(query, this.$store.state.filters)
         if (!query['location.state']) {
           delete query['location.state']
@@ -117,8 +130,13 @@
           return
         }
         this.prevQuery = query
+        var querytime = new Date()
         rp.get('race2?limit=100000&query=' + JSON.stringify(query))
           .then((races) => {
+            if (this.last_update_time > querytime) {
+              return
+            }
+            this.last_update_time = querytime
             this.races = races
             this.markers = races.map((race) => ({
               'race_id': race._id,
@@ -181,7 +199,8 @@
             width: 0,
             height: -35
           }
-        }
+        },
+        last_update_time: null,
       }
     }
   }

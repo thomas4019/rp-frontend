@@ -1,7 +1,7 @@
 <template>
   <div class="filter-row">
     <div class="filter" style="width:400px;">
-      <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input type="text" placeholder="Search races, locations" class="nameless"></div>
+      <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
     </div>
     <div class="filter" @click="showRacePopup($event)">
       <div class="name">Distance</div>
@@ -120,6 +120,9 @@ export default {
     },
     changeMode (_mode) {
       this.$store.commit('updateHomeSearchMode', _mode)
+    },
+    searchUpdate () {
+      this.$store.commit('search', this.search_text)
     }
   },
   watch: {
@@ -175,6 +178,7 @@ export default {
       },
       distances: ['1K', '26.2 mile'],
       filter_state: 'ALL',
+      search_text: ''
     }
   }
 }
