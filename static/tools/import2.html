@@ -126,7 +126,7 @@
                   _id: record['_id'],
                   name: record['title'],
                   datetime: new Date(record['datetime']).toISOString().split('T')[0],
-                  status: record['rp_status'] || 'visible',
+                  status: record['status'] || 'visible',
                   website: record['website'],
                   courses: record.distances.map(function(dist) {
                     return {

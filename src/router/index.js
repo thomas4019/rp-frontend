@@ -16,6 +16,7 @@ import Login from '@/components/Login'
 import Payment from '@/components/Payment'
 import RaceSearch from '@/components/RaceSearch'
 import NotFoundComponent from '@/components/NotFoundComponent'
+import StyleGuide from '@/components/StyleGuide'
 
 Vue.use(Router)
 
@@ -128,6 +129,11 @@ export default new Router({
       path: '/terms',
       name: 'Terms',
       component: Terms
+    },
+    {
+      path: '/styleguide',
+      name: 'StyleGuide',
+      component: StyleGuide
     },
     {
       path: '/app/useredit',

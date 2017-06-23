@@ -1,7 +1,7 @@
 <template>
   <div class="filter-row">
-    <div class="filter" style="width:400px;">
-      <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input type="text" placeholder="Search races, locations" class="nameless"></div>
+    <div class="filter" style="width:420px;">
+      <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
     </div>
     <div class="filter" @click="showRacePopup($event)">
       <div class="name">Distance</div>
@@ -11,14 +11,14 @@
         <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
       </div>
     </div>
-    <div class="filter" style="width:230px;">
+    <div class="filter" style="width:220px;">
       <div class="name">Dates</div>
       <div class="summary">
-        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" v-model="start_date"></datepicker> - 
-        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" v-model="end_date"></datepicker>
+        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
+        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
       </div>
     </div>
-    <div class="filter">
+    <div class="filter" style="width:141px;">
       <div class="name">Location</div>
       <select v-model="filter_state" @change="updateFilter()">
         <option value="ALL">All</option>
@@ -74,10 +74,10 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="filter" style="width:110px;">
+    <div class="filter" style="width:92px;">
       <div id="switcher">
-        <img src="/static/imgs/GreenPin.png" @click="changeMode('map')" />
-        <img src="/static/imgs/Menu.png"  @click="changeMode('list')" />
+        <img src="/static/imgs/pin.png" @click="changeMode('map')" />
+        <img src="/static/imgs/list.png"  @click="changeMode('list')" />
       </div>
     </div>
   </div>
@@ -120,6 +120,9 @@ export default {
     },
     changeMode (_mode) {
       this.$store.commit('updateHomeSearchMode', _mode)
+    },
+    searchUpdate () {
+      this.$store.commit('search', this.search_text)
     }
   },
   watch: {
@@ -175,6 +178,7 @@ export default {
       },
       distances: ['1K', '26.2 mile'],
       filter_state: 'ALL',
+      search_text: ''
     }
   }
 }
@@ -193,10 +197,10 @@ export default {
     padding: 5px 10px 5px 10px;
     padding-bottom: 0px;
     border-left: 0.5px solid #9B9B9B;
-    min-width: 110px;
+    min-width: 80px;
   }
   .filter:first-child{
-      padding-top: 9px;
+      padding-top: 11px;
   }
   .filter:first-child, 
   .filter:nth-child(2) {
@@ -205,6 +209,8 @@ export default {
   .name {
     color: #9B9B9B;
     font-size: 12px;
+    line-height: 16px;
+    padding: 2px 0px 0px 0px;
   }
   .summary {
     color: #0DFFAE;
@@ -238,8 +244,12 @@ export default {
   input[type=text]::placeholder {
     color: #F7F7F7;
   }
+  #switcher {
+    padding: 5px 0px 0px 0px;
+  }
   #switcher img {
-    height: 40px;
+    height: 25px;
+    padding: 0px 0px 0px 7px;
   }
 </style>
 <style>
@@ -251,8 +261,8 @@ export default {
     background: transparent;
     color: #0DFFAE;
     font-size: 12px;
-    width: 90px;
-    padding: 0px 5px 0px 5px; 
+    width: 70px;
+    padding: 0px 0px 0px 0px; 
     position: relative;
   }
   .date-picker * {
@@ -268,7 +278,7 @@ export default {
     background: transparent;
     color: #0DFFAE;
     border: none;
-    padding: 0px 5px 0px 5px; 
+    padding: 0px 5px 0px 0px; 
     -webkit-appearance: none;
     -moz-appearance: none;
     outline:none;

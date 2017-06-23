@@ -1,36 +1,30 @@
 <template>
   <div>
-    <div id="listing-wrapper">
-      <div id="listing">
-        <div @click="select(race._id)" class="race" v-for="race in races">
-          <div class="name">{{race.name}}</div>
-          <div class="info distances">
-            <span v-for="(course, index) in race.courses">
-              {{course.distance}}
-              <template v-if="index != race.courses.length - 1"> • </template>
-            </span>
-          </div>
-          <div class="info">{{race.datetime | formatDate}} • {{race.location.city}}, {{race.location.state}}</div>
-          <div v-if="race._id == selected" class="info website"><em>{{race.website}}</em></div>
-        </div>
-      </div>
-    </div>
     <gmap-map
       :options="{styles: styles}"
       :center="center"
-      :zoom="4"
+      :zoom="zoom"
       style="width: 100%; height: 450px"
       @bounds_changed="update"
     >
-    <gmap-marker 
-      v-for="m in markers"
-      :key="m"
-      :position.sync="m.position"
-      :clickable="true"
-      :icon="m.race_id == selected ? icon : m.icon"
-      @click="select(m.race_id)"
-      :zIndex="m.race_id == selected ? 10 : 5"
-    ></gmap-marker>
+      <gmap-info-window
+        class="infowindow"
+        :options="infoOptions"
+        :position="infoWindowPos"
+        :opened="infoWinOpen"
+        :content="infoContent"
+        @closeclick="infoWinOpen=false">
+      </gmap-info-window>
+      <gmap-marker 
+        v-for="m in markers"
+        :key="m"
+        :position.sync="m.position"
+        :clickable="true"
+        :icon="m.race_id == selected ? icon : m.icon"
+        @mouseover="select(m)"
+        @click="select(m)"
+        :zIndex="m.race_id == selected ? 10 : 5"
+      ></gmap-marker>
     </gmap-map>
   </div>
 </template>
@@ -64,8 +58,24 @@
   export default {
     name: 'rp-map',
     methods: {
-      select (id) {
-        this.selected = id
+      select (marker) {
+        var race = marker.race
+        // check if its the same marker that was selected if yes toggle
+        if (this.selected === marker.race_id) {
+          this.infoWinOpen = !this.infoWinOpen
+        } else {
+           // if different marker set infowindow to open and reset current marker index
+          this.infoWinOpen = true
+          this.selected = marker.race_id
+          this.infoWindowPos = marker.position
+          this.infoContent = '<div class="infowindow-body">' +
+            '<div class="name">' + race.name + '</div>' +
+            '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
+            '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
+            ' • ' + race.location.city + ', ' + race.location.state +
+            '</div>' +
+            '</div>'
+        }
       },
       update (b) {
         if (!b) {
@@ -78,18 +88,27 @@
         this.bounds = b
         var width = Math.abs(Math.max(b.f.f, b.f.b) - Math.min(b.f.f, b.f.b))
         var prominance = 0
+        // When we zoom out we only want to show more prominent races to reduce server load
+        // as well as keep the browser responsive.
         if (width > 4) {
           prominance = 1
         }
         if (width > 8) {
           prominance = 2
         }
-
+        // If the user has narrowed their search, we should show all races that match.
+        if (this.$store.state.search_text ||
+            this.$store.state.filters['location.state'] ||
+            this.$store.state.filters['datetime']['$gte'] > new Date().toString() ||
+            this.$store.state.filters['datetime']['$lte'] < '2100') {
+          prominance = 0
+        }
         var query = {
           status: 'visible',
           'prominance': {
             '$gte': prominance,
           },
+          $and: [],
           'location.coordinates.lat': {
             '$gt': Math.min(b.f.f, b.f.b),
             '$lt': Math.max(b.f.f, b.f.b),
@@ -99,6 +118,9 @@
             '$lt': Math.max(b.b.b, b.b.f),
           }
         }
+        this.$store.state.search_text.split(' ').forEach(function (word) {
+          query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
+        })
         Object.assign(query, this.$store.state.filters)
         if (!query['location.state']) {
           delete query['location.state']
@@ -108,11 +130,17 @@
           return
         }
         this.prevQuery = query
-        rp.get('race2?limit=100000&query=' + JSON.stringify(query))
+        var querytime = new Date()
+        rp.get('race2?limit=' + this.limit + '&query=' + JSON.stringify(query))
           .then((races) => {
+            if (this.last_update_time > querytime) {
+              return
+            }
+            this.last_update_time = querytime
             this.races = races
             this.markers = races.map((race) => ({
               'race_id': race._id,
+              'race': race,
               icon: {
                 labelOrigin: {x: 15, y: 40},
                 url: '/static/imgs/mapiconA2x.png',
@@ -144,6 +172,8 @@
       }
     },
     data () {
+      console.log(this.$route.path)
+      var zoom = this.$route.path.includes('/app') ? 10 : 4
       return {
         styles: MapStyles,
         // center: {lat: 10.0, lng: 10.0},
@@ -152,11 +182,26 @@
           url: '/static/imgs/mapicon2x.png',
           scaledSize: {width: 20, height: 34},
         },
+        zoom: zoom,
         markers: [],
         races: [],
         selected: '',
         bounds: {},
-        prevQuery: {}
+        prevQuery: {},
+        infoContent: '',
+        infoWindowPos: {
+          lat: 0,
+          lng: 0
+        },
+        infoWinOpen: false,
+        infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        },
+        limit: 100,
+        last_update_time: null,
       }
     }
   }
@@ -168,38 +213,10 @@
 </script>
 
 <style>
-#listing-wrapper {
-  height: 450px;
-  width: 250px;
-  float: left;
-  position: relative;
-  z-index: 200;
-  overflow: hidden;
-}
-#listing {
-  width: 285px;
-  height: 450px;
-  float: left;
-  position: relative;
-  z-index: 200;
-  background-color: #24272A;
-  padding-right: 17px;
-  overflow-y: scroll;
-}
-.race {
-	border-bottom: 0.5px solid #979797;
-	border-top: 0.5px solid #979797;
-  padding: 10px;
-}
-.info {
-	opacity: 0.6;
-	color: #9B9B9B;
-	font-size: 16px;
-	font-weight: 300;
-	line-height: 22px;
+.infowindow-body {
+  color: black;
 }
 .name {
-	color: #D6D6D6;
 	font-size: 18px;
 	font-weight: 900;
 	line-height: 25px;

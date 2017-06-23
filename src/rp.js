@@ -1,8 +1,8 @@
 var rp = {
+  mode: 'prod',
   get: function (path) {
     var op = path.indexOf('?') === -1 ? '?' : '&'
-    var base = 'https://api.racepass.com/'
-    //  var base = 'http://localhost:3000/'
+    var base = (this.mode === 'dev' ? 'http://localhost:3000/' : 'https://api.racepass.com/')
     var token = localStorage.token
     return fetch(base + path + op + 'token=' + token)
       .then(function (response) {
@@ -15,8 +15,7 @@ var rp = {
       })
   },
   post: function (path, data) {
-    var base = 'https://api.racepass.com/'
-    // var base = 'http://localhost:3000/'
+    var base = (this.mode === 'dev' ? 'http://localhost:3000/' : 'https://api.racepass.com/')
     var token = localStorage.token
     return fetch(base + path + '?token=' + token, {
       method: 'POST',

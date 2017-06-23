@@ -1,66 +1,45 @@
 <template>
  <section class="container">
-    <RaceRegister ref="reg" />
-    <RaceCancel ref="cancel" />
-    <table class="race-table">
-      <tr>
-        <th style="width: 100px;">Distances</th>
-        <th style="width: 250px;" class="race-name">Race</th>
-        <th style="width: 100px;">Date</th>
-        <th style="width: 150px;">Location</th>
-        <th style="width: 200px;">Website</th> 
-        <th>Actions</th>
-      </tr>
-      <tr v-for="race in races">
-        <td class="distance">
-          <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }">
+    <div class="race-table">
+      <div class="wrapper" id="header">
+        <div class="wrapper text distance">Distances</div>
+        <div class="wrapper text race-name">Race</div>
+        <div class="wrapper text datetime">Date</div>
+        <div class="wrapper text location">Location</div>
+        <div class="wrapper text website">Website</div>
+        <div class="wrapper text actions">Actions</div>
+      </div>
+      <div class="wrapper tbrow" v-for="race in races" v-bind:key="race.id">
+        <div class="wrapper text distance">
+          <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
             {{course.distance}}
           </span>
-        </td>
-        <td class="race-name"><span>{{race.name}}</span></td>
-        <td>{{race.datetime | formatDate }}</td>
-        <td>{{race.location.city}}, {{race.location.state}}</td>
-        <td class="website">
+        </div>
+        <div class="wrapper text race-name">{{race.name}}</div>
+        <div class="wrapper text datetime">{{race.datetime | formatDate }}</div>
+        <div class="wrapper text location">{{race.location.city}}, {{race.location.state}}</div>
+        <div class="wrapper text website">
           <a target="_blank" :href="race.website"><em>{{race.website | formatURL }}</em></a>
-        </td>
-        <td class="actions">
-          <button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
-          <div v-else-if="isRegistered(race)"></div>
-          <button v-else-if="isAvailable(race)" class="hollow" @click="register(race)">Register</button>
-          <button v-else class="hollow" disabled="disabled">Finished</button>
-          <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : isFavorite(race), 'fa-heart-o': !isFavorite(race) }" aria-hidden="true"></i>
-          <!--<a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
-            <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
-          </a>-->
-        </td>
-      </tr>
-    </table>
+        </div>
+        <div class="wrapper text actions">
+          <RaceActions :race="race"></RaceActions>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 import Vue from 'vue'
 import moment from 'moment'
-import RaceRegister from '@/components/RaceRegister'
-import RaceCancel from '@/components/RaceCancel'
+import RaceActions from '@/components/RaceActions'
 
 export default {
   name: 'race-table',
   components: {
-    RaceRegister,
-    RaceCancel
+    RaceActions
   },
   methods: {
-    isRegistered (race) {
-      var ids = this.$store.state.user.race_listings.map((r) => r._id)
-      return ids.includes(race._id)
-    },
-    isFavorite (race) {
-      return this.$store.state.favorites[race._id]
-    },
-    isAvailable (race) {
-      return (race.datetime > new Date().toISOString())
-    },
     isSelectedDistance (race, course) {
       var matching = this.$store.state.user.race_signups.filter((rs) => rs.race_id === race._id)
       if (!matching.length) {
@@ -68,21 +47,6 @@ export default {
       }
       return course.distance === matching[0].distance
     },
-    toggleFavorite (_id) {
-      if (this.$store.state.favorites[_id]) {
-        this.$store.commit('unfavorite', _id)
-      } else {
-        this.$store.commit('favorite', _id)
-      }
-    },
-    register (race) {
-      this.$refs.reg.show()
-      this.$store.commit('selectRace', race)
-    },
-    cancel (race) {
-      this.$store.commit('selectRace', race)
-      this.$refs.cancel.show()
-    }
   },
   props: ['races']
 }
@@ -99,31 +63,70 @@ Vue.filter('formatURL', function (value) {
 </script>
 
 <style scoped>
-.race-table {
-	width: 100%;
-  table-layout: fixed;
+.wrapper {
+  display: flex;           display: -webkit-flex;
+  flex-direction: row;     -webkit-flex-direction: row;
+  flex-grow: 0;            -webkit-flex-grow: 0;
+  flex-wrap: wrap;         -webkit-flex-wrap: wrap;
 }
-.race-table th {
+.text {
+  flex-grow: 1;           -webkit-flex-grow: 1;
+}
+.text {
+  width: 150px;
+}
+.distance {
+  width: 80px;
+}
+.distance span {
+  padding-left: 5px;
+}
+.datetime {
+  width: 90px;
+}
+.race-name {
+  width: 220px;
+}
+.website {
+  width: 200px;
+}
+.actions {
+  text-align: right;
+}
+.race-table #header {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.race-table #header div {
+  flex: wrap;
 	background: #323237;
-	padding: 8px 15px;
 	font-weight: lighter;
+	padding: 2px 7px;
 }
-.race-table td {
+.race-table .tbrow {
+  display: flex;
+  flex: wrap;
+  width: 100%;
+  border-bottom: 2px solid #323237;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.race-table .tbrow > div {
+  flex: wrap;
 	color: #F7F7F7;
 	padding: 10px;
 	border-bottom: 0.5px solid #323237;
 }
-.race-table .button {
-	padding: 5px;
-	width: 100px;
-	font-size: 12px;
-}
-.distance {
-  max-width: 70px;
+@media screen and (max-width: 780px) {
+  .race-table .tbrow > div {
+    padding: 4px;
+  }
 }
 .distance .chosen {
   color: #0DFFAE;
 }
+<<<<<<< HEAD
 .race-name {
   white-space: nowrap;
   overflow: hidden;
@@ -132,16 +135,12 @@ Vue.filter('formatURL', function (value) {
 .website {
   width: 200px;
 }
+=======
+>>>>>>> c824a7ed1c6e47b402c9e5a3cde8958f57fd5b2e
 .website a {
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.favorite {
-  color: #0DFFAE;
-}
-.actions > * {
-  margin-right: 8px;
 }
 </style>

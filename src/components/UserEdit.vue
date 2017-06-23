@@ -128,11 +128,11 @@
       <div v-show="errors.has('medical')" class="validation-errors-list">Please indicate whether you have any medical conditions</div>
       <ul class="radio-buttons" style="margin-bottom: 0px;">
         <li>
-          <input @click="showMedical()" v-model="data.raceinfo.has_medical" required v-validate="'required'" type="radio" id="yes" name="medical" value="true" />
+          <input @click="showMedical()" v-model="data.raceinfo.has_medical" required v-validate="'required'" type="radio" id="yes" name="medical" :value="true" />
           <label for="yes">Yes</label>
         </li>
         <li>
-          <input v-model="data.raceinfo.has_medical" required v-validate="'required'" type="radio" id="no" name="medical" value="false" />
+          <input v-model="data.raceinfo.has_medical" required v-validate="'required'" type="radio" id="no" name="medical" :value="false" />
           <label for="no">No</label>
         </li>
       </ul>
@@ -191,18 +191,21 @@ export default {
   methods: {
     next (event) {
       if (event) event.preventDefault()
-      console.log(this.$validator)
       this.$validator.validateAll().then(() => {
         this.page++
         if (this.page === 4) {
+          // TODO: the backend eventually should just ignore these computed fields,
+          // but for now we need to remove them.
           delete this.data.permissions
+          delete this.data.race_signups
+          delete this.data.race_listings
+          delete this.data.race_signup_ids
           var data = {
             $set: this.data,
             $unset: {'permissions': true}
           }
           rp.post('users/' + this.data._id + '/update', data)
             .then((result) => {
-              console.log(result)
               this.$store.dispatch('loadUser')
               this.$router.push('/app/profile')
             }, (err) => {

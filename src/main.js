@@ -6,8 +6,9 @@ import router from './router'
 import vmodal from 'vue-js-modal'
 import VeeValidate from 'vee-validate'
 import 'toastr/toastr.scss'
-// import VueAnalytics from 'vue-analytics'
+import VueAnalytics from 'vue-analytics'
 import AsyncComputed from 'vue-async-computed'
+import rp from './rp'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -22,10 +23,13 @@ Vue.use(AsyncComputed)
 Vue.use(require('vue-moment'))
 Vue.use(require('vue-scroll-to'))
 
-/* Vue.use(VueAnalytics, {
-  id: 'UA-80881338-1',
-  router
-}) */
+// Don't send analytics for dev traffic.
+if (rp.mode !== 'dev') {
+  Vue.use(VueAnalytics, {
+    id: 'UA-80881338-1',
+    router
+  })
+}
 
 const store = require('@/store').default
 

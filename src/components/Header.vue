@@ -34,8 +34,7 @@ export default {
 
 <style scoped>
 #landing-nav {
-  height: 87px;
-	padding: 15px 15px 8px 0px;
+	padding: 15px 15px 0px 0px;
 	margin-bottom: 0px;
   overflow: hidden;
 }
@@ -53,6 +52,7 @@ export default {
 #primary-menu {
   float: right;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 #primary-menu li {
   display: inline-block;
