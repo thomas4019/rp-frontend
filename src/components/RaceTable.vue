@@ -21,7 +21,7 @@
         <td>{{race.datetime | formatDate }}</td>
         <td>{{race.location.city}}, {{race.location.state}}</td>
         <td class="website">
-          <a target="_blank" :href="race.website"><em>{{race.website}}</em></a>
+          <a target="_blank" :href="race.website"><em>{{race.website | formatURL }}</em></a>
         </td>
         <td class="actions">
           <button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
@@ -91,6 +91,11 @@ Vue.filter('formatDate', function (value) {
     return moment(String(value)).format('MM/DD/YYYY')
   }
 })
+Vue.filter('formatURL', function (value) {
+  if (value) {
+    return value.replace(/(^\w+:|^)\/\//, '')
+  }
+})
 </script>
 
 <style scoped>
@@ -120,6 +125,9 @@ Vue.filter('formatDate', function (value) {
   color: #0DFFAE;
 }
 .race-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .website {
   width: 200px;

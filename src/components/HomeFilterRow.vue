@@ -204,9 +204,11 @@ export default {
   }
   .name {
     color: #9B9B9B;
+    font-size: 12px;
   }
   .summary {
     color: #0DFFAE;
+    font-size: 12px;
   }
   .summary i.fa {
     color: #9B9B9B;
@@ -227,7 +229,7 @@ export default {
     background: transparent;
     color: #F7F7F7;
     border: none;
-    font-size: 1.1em;
+    font-size: 14px;
     width: 90%;
   }
   input:focus {
@@ -235,6 +237,9 @@ export default {
   }
   input[type=text]::placeholder {
     color: #F7F7F7;
+  }
+  #switcher img {
+    height: 40px;
   }
 </style>
 <style>
@@ -245,7 +250,7 @@ export default {
   .date-picker {
     background: transparent;
     color: #0DFFAE;
-    font-size: 14px;
+    font-size: 12px;
     width: 90px;
     padding: 0px 5px 0px 5px; 
     position: relative;
@@ -267,6 +272,7 @@ export default {
     -webkit-appearance: none;
     -moz-appearance: none;
     outline:none;
+    font-size: 12px;
   }
   option {
     background-color: #323237;
