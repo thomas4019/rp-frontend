@@ -306,26 +306,31 @@ export default {
         }
         rp.post('purchase', paymentData)
           .then((data) => {
-            delete paymentData.payment_method_nonce
-              /* this.$ga.require('ecommerce')
-            console.log(this.$ga)
-            this.$ga('ecommerce:addTransaction', {
-              'id': data.transaction_id,        // Transaction ID. Required.
-              'affiliation': 'racepass',        // Affiliation or store name.
-              'revenue': this.finalCost,        // Grand Total.
-              'tax': '0'                        // Tax.
-            })
-            this.$ga('ecommerce:addItem', {
-              'id': data.transaction_id,        // Transaction ID. Required.
-              'name': this.passName,
-              'sku': this.passType,
-              'price': this.cost_per_event,
-              'quantity': this.num_races,
-            })
-            this.ga('ecommerce:send') */
-            this.cardDetails = data.cc
-            this.transaction_id = data.transaction_id
-            this.paymentComplete = true
+            if (data.status === 'failure') {
+              toastr.error('We ran into an issue while processing your card. Please try again and contact info@racepass.com if the issue continues. Thanks for your patience.')
+              console.error(data)
+            } else {
+              delete paymentData.payment_method_nonce
+                /* this.$ga.require('ecommerce')
+              console.log(this.$ga)
+              this.$ga('ecommerce:addTransaction', {
+                'id': data.transaction_id,        // Transaction ID. Required.
+                'affiliation': 'racepass',        // Affiliation or store name.
+                'revenue': this.finalCost,        // Grand Total.
+                'tax': '0'                        // Tax.
+              })
+              this.$ga('ecommerce:addItem', {
+                'id': data.transaction_id,        // Transaction ID. Required.
+                'name': this.passName,
+                'sku': this.passType,
+                'price': this.cost_per_event,
+                'quantity': this.num_races,
+              })
+              this.ga('ecommerce:send') */
+              this.cardDetails = data.cc
+              this.transaction_id = data.transaction_id
+              this.paymentComplete = true
+            }
             this.purchaseInProgress = false
           }, function (data) {
             this.purchaseInProgress = false
