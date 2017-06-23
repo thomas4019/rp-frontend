@@ -15,6 +15,7 @@ import UserEdit from '@/components/UserEdit'
 import Login from '@/components/Login'
 import Payment from '@/components/Payment'
 import RaceSearch from '@/components/RaceSearch'
+import RaceProfile from '@/components/RaceProfile'
 import NotFoundComponent from '@/components/NotFoundComponent'
 import StyleGuide from '@/components/StyleGuide'
 
@@ -102,6 +103,12 @@ export default new Router({
       path: '/app/search',
       name: 'RaceSearch',
       component: RaceSearch,
+      beforeEnter: ensureLogin
+    },
+    {
+      path: '/app/race',
+      name: 'RaceProfile',
+      component: RaceProfile,
       beforeEnter: ensureLogin
     },
     {

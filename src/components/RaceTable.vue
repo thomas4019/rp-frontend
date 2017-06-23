@@ -126,7 +126,6 @@ Vue.filter('formatURL', function (value) {
 .distance .chosen {
   color: #0DFFAE;
 }
-<<<<<<< HEAD
 .race-name {
   white-space: nowrap;
   overflow: hidden;
@@ -135,8 +134,6 @@ Vue.filter('formatURL', function (value) {
 .website {
   width: 200px;
 }
-=======
->>>>>>> c824a7ed1c6e47b402c9e5a3cde8958f57fd5b2e
 .website a {
   display: block;
   white-space: nowrap;
