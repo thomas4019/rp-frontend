@@ -1,72 +1,74 @@
 <template>
 <div class="race-profile">
     <section id="race-title" class="container">
-        <h1>{{race.name}} <span id="race-profile-check">Premier Partner</span></h1>
-        <h2>Marathon <span id="race-profile-dropdown">V</span></h2>
+        <h1 class="race-profile-title">{ {race.name}} <span class="race-profile-check">Premier Partner</span></h1>
+        <h2 class="race-profile-dropdown">Marathon <span>V</span></h2>
     </section>
     <section id="race-picture" class="container">
-        <img src="">
+        <img class="race-profile-picture" src="">
     </section>
-    <section id="race-info" class="container">
-        <div class="col-sm-6">
-            <h2>Event Details</h2>
-            <dl>
-                <dt>Distance</dt>
-                <dd>{{course.distance}}</dd>
-            </dl>
-            <dl>
-                <dt>Date</dt>
-                <dd>{{race.datetime}}</dd>
-            </dl>
-            <dl>
-                <dt>Start times(s)</dt>
-                <dd>9:00am drop down</dd>
-            </dl>
-            <dl>
-                <dt>Participants</dt>
-                <dd>4,500</dd>
-            </dl>
-            <dl>
-                <dt>Avg. finisher time</dt>
-                <dd>3:34:12</dd>
-            </dl>
-            <dl>
-                <dt>Course time limit</dt>
-                <dd>6 hrs</dd>
-            </dl>
-            <dl>
-                <dt>Race start elevation</dt>
-                <dd>356’</dd>
-            </dl>
-            <dl>
-                <dt>Race finish altitude</dt>
-                <dd>10’</dd>
-            </dl>
-            <dl>
-                <dt>Elevation Gain</dt>
-                <dd>+2,182’</dd>
-            </dl>
-            <dl>
-                <dt>Elevation Drop</dt>
-                <dd>-2,528’</dd>
-            </dl>
-            <a>Elevation map</a>
-        </div>
-        <div class="col-sm-6">
-            <div class="col-sm-12">
-                <button>Register</button>
+    <section id="race-info" class="container line-below">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Event Details</h2>
+                <dl>
+                    <dt>Distance</dt>
+                    <dd>{ {course.distance}}</dd>
+                </dl>
+                <dl>
+                    <dt>Date</dt>
+                    <dd>{ {race.datetime}}</dd>
+                </dl>
+                <dl>
+                    <dt>Start times(s)</dt>
+                    <dd>9:00am drop down</dd>
+                </dl>
+                <dl>
+                    <dt>Participants</dt>
+                    <dd>4,500</dd>
+                </dl>
+                <dl>
+                    <dt>Avg. finisher time</dt>
+                    <dd>3:34:12</dd>
+                </dl>
+                <dl>
+                    <dt>Course time limit</dt>
+                    <dd>6 hrs</dd>
+                </dl>
+                <dl>
+                    <dt>Race start elevation</dt>
+                    <dd>356’</dd>
+                </dl>
+                <dl>
+                    <dt>Race finish altitude</dt>
+                    <dd>10’</dd>
+                </dl>
+                <dl>
+                    <dt>Elevation Gain</dt>
+                    <dd>+2,182’</dd>
+                </dl>
+                <dl>
+                    <dt>Elevation Drop</dt>
+                    <dd>-2,528’</dd>
+                </dl>
+                <a>Elevation map</a>
             </div>
-            <div class="col-sm-12">
-                --- Map ---
-            </div>
-            <div class="col-sm-12">
-                <a>Directions</a>
-                <a>Course Map</a>
-                <a>Aid Stations</a>
+            <div class="col-sm-6">
+                <div class="col-sm-12">
+                    <button>Register</button>
+                </div>
+                <div class="col-sm-12">
+                    --- Map ---
+                </div>
+                <div class="col-sm-12">
+                    <a>Directions</a>
+                    <a>Course Map</a>
+                    <a>Aid Stations</a>
+                </div>
             </div>
         </div>
     </section>
-    <section id="race-details" class="container">
+    <section id="race-details" class="container line-below">
         <h2>Raceday Details</h2>
         <dl>
             <dt>Amenities</dt>
@@ -141,104 +143,80 @@ export default {
     }
   },
   computed: {
-    favorites () {
-      return this.$store.state.favorites
-    },
-    user () {
-      if (this.$store.state.user && this.$store.state.user.first_name) {
-        return this.$store.state.user
-      }
-      // Return a dummy object to use until the real user is ready.
-      return { address: { city: '', state: '', coordinates: {} }, race_listings: [] }
-    },
-    passName () {
-      return rp.passNames[this.user.passType]
-    },
-    age () {
-      return rp.calculateAge(new Date(this.user.date_of_birth))
-    },
-    photo () {
-      return this.$store.state.photo
-    },
-    registered_races () {
-      var now = new Date().toISOString()
-      return this.user.race_listings.filter(function (race) {
-        return race.datetime > now
-      })
-    },
-    completed_races () {
-      var now = new Date().toISOString()
-      return this.user.race_listings.filter(function (race) {
-        return race.datetime <= now
-      })
-    },
-    cancel_cutoff () {
-      var cutoff = new Date()
-      cutoff.setDate(cutoff.getDate() + 1)
-      return cutoff.toISOString()
-    },
-    racesLeft () {
-      if (this.user.passType === 'unlimited') {
-        return 'unlimited'
-      } else {
-        return rp.passRaceCount[this.user.passType] - this.user.race_listings.length
-      }
-    },
-    upcoming_races () {
-      return this.$store.state.suggestedRaces
-    }
   },
   data () {
     return {
-      test: function () {
-        alert(123)
-      }
     }
   }
 }
 </script>
 
 <style scoped>
-#profile-info {
-	display: flex;
-	margin-top: 15px;
+h1 {
+	color: #D6D6D6;
+	font-size: 16px;
+	font-weight: 900;
+	line-height: 22px;
 }
-#profile-left {
-	width: 200px;
-	clear: none;
+h2 {
+	color: #D8D8D8;
+	font-size: 12px;
+	font-weight: 900;
+	line-height: 16px;
 }
-#profile-photo-frame {
-	height: 150px;
-	width: 150px;
-	border-radius: 75px;
-	margin: 25px;
-	overflow: hidden;
+dl {
+    margin: 3px;
 }
-#profile-photo {
-	width: 150px;
-	min-height: 150px;
-	border-radius: 75px;
+dt {
+	color: #9B9B9B;
+	font-size: 11px;
+	font-weight: 300;
+	line-height: 15px;
+    display: inline-block;
+    width: 50%;
 }
-
-#profile-info h1 {
-	margin: 10px 0px;
+dd {
+	color: #D8D8D8;
+	font-size: 11px;
+	font-weight: 900;
+	line-height: 15px;
+    display: inline-block;
 }
-#profile-right dl {
-	margin: 3px;
+button {
+	color: #22262B;
+	font-size: 14px;
+	font-weight: 900;
+	line-height: 19px;
+	text-align: center;
+    width: 100%;
+    padding: 5px 0px 5px 0px;
 }
-#profile-right dt {
-	display: inline-block;
-	width: 100px;
-	color: #ABAEB7;
-}
-#profile-right dd {
-	display: inline-block;
-}
-#profile-gender {
-	text-transform: capitalize;
-}
-
 section {
-  margin-bottom: 20px;
+    padding-bottom: 20px;
+    margin-top: 10px;
 }
+section.line-below {
+    border-bottom: 0.5px solid #979797; 
+}
+span.race-profile-check {
+    color: #9B9B9B;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 14px;
+}
+
+.race-profile-dropdown {
+	color: #0DFFAE;
+	font-size: 11px;
+	font-weight: 300;
+	line-height: 15px;
+}
+#race-picture {
+    width:100%;
+    padding: 5px 0px 5px 0px;
+}
+img.race-profile-picture {
+
+}
+
 </style>
