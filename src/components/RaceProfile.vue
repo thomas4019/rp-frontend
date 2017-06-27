@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
 <div class="race-profile col-md-4 bordered">
     <section id="race-title" class="container">
-        <h1 class="race-profile-title">{ {race.name}} <span class="race-profile-check">Premier Partner</span></h1>
+        <h1 class="race-profile-title">{ {race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
         <h2 class="race-profile-dropdown">
             <select v-model="filter_state" @change="updateFilter()">
                 <option value="Marathon" selected>Marathon</option>
@@ -244,6 +244,14 @@ span.race-profile-check {
     font-size: 10px;
     font-weight: 900;
     line-height: 14px;
+}
+span.race-profile-check .fa.fa-check {
+    color: #0DFFAE;
+    display: inline-block;
+    border-radius: 60px;
+    border: 0.5px solid #0DFFAE;
+    padding: 2px 2px 2px 2px;
+    margin: 0px 5px 0px 10px;
 }
 
 .race-profile-dropdown {
