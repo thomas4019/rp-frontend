@@ -9,7 +9,7 @@
       <div id="find-races-panel">
         <div class="title">One&nbsp;pass. 5,000+&nbsp;races.</div>
         <div class="subtitle">Racepass is the first subscription for distance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
-        <button v-scroll-to="'#choose-from, 0px'">Find my next race</button>
+        <button v-scroll-to="'#choose-from, 0px'">Get Started</button>
       </div>
     </div>
     <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
