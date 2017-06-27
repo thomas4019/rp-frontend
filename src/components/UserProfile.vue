@@ -44,7 +44,7 @@
   </section>
 
   <section v-if="favorite_races.length" id="favorite-races" class="container">
-    <h3>Race Wishlist</h3>
+    <h3>My Race Wishlist</h3>
     <race-table v-bind:races="favorite_races" v-bind:action="test"/>
   </section>
 
