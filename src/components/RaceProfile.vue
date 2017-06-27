@@ -1,11 +1,17 @@
 <template>
-<div class="race-profile">
+<div class="row justify-content-center">
+<div class="race-profile col-md-4 bordered">
     <section id="race-title" class="container">
         <h1 class="race-profile-title">{ {race.name}} <span class="race-profile-check">Premier Partner</span></h1>
-        <h2 class="race-profile-dropdown">Marathon <span>V</span></h2>
+        <h2 class="race-profile-dropdown">
+            <select v-model="filter_state" @change="updateFilter()">
+                <option value="Marathon" selected>Marathon</option>
+                <option value="5k">5k</option>
+            </select>
+        </h2>
     </section>
     <section id="race-picture" class="container">
-        <img class="race-profile-picture" src="">
+        <img class="race-profile-picture" src="/static/imgs/profiles/default-race-header.png">
     </section>
     <section id="race-info" class="container line-below">
         <div class="row">
@@ -51,50 +57,57 @@
                     <dt>Elevation Drop</dt>
                     <dd>-2,528’</dd>
                 </dl>
-                <a>Elevation map</a>
+                <a><em>Elevation map</em></a>
             </div>
             <div class="col-sm-6">
-                <div class="col-sm-12">
-                    <button>Register</button>
+                <div >
+                    <button class="register">Register</button>
                 </div>
-                <div class="col-sm-12">
-                    --- Map ---
+                <div>
+                    <gmap-map
+                        :options="{styles: styles}"
+                        :center="center"
+                        :zoom="zoom"
+                        style="width: 100%; height: 175px"
+                        @bounds_changed="update"
+                        >
+                    </gmap-map>
                 </div>
-                <div class="col-sm-12">
-                    <a>Directions</a>
-                    <a>Course Map</a>
-                    <a>Aid Stations</a>
+                <div>
+                    <a><em>Directions</em></a>
+                    <a><em>Course Map</em></a>
+                    <a><em>Aid Stations</em></a>
                 </div>
             </div>
         </div>
     </section>
     <section id="race-details" class="container line-below">
         <h2>Raceday Details</h2>
-        <dl>
+        <dl class="editable">
             <dt>Amenities</dt>
             <dd>Shirt, finisher medal, food & drink</dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Packet / Race bib pick up</dt>
             <dd>In-person at Race Expo</dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Parking / transit</dt>
             <dd>Free bus transit for participants</dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Gear check</dt>
             <dd>Free for participants at race start</dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Race rules</dt>
             <dd>No pacers, infants, bib switching </dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Awards</dt>
             <dd>Top three finishers</dd>
         </dl>
-        <dl>
+        <dl class="editable">
             <dt>Divisions</dt>
             <dd>Male, female age brackets</dd>
         </dl>
@@ -108,23 +121,34 @@
             <dt>Female</dt>
             <dd>Svetlana Vasilyeva, 1996, 2:41:34</dd>
         </dl>
-        <a>View full records</a>
+        <a><em>View full records</em></a>
     </section>
 
-    <section id="race-partners" class="container">
+    <section id="race-partners">
         <h2>Event partners</h2>
-        <img src="">
+        <img class="race-profile-picture" src="/static/imgs/profiles/default-race-partner.png">
     </section>
+</div>
 </div>
 </template>
 
 
 <script>
 import rp from '../rp'
+import Vue from 'vue'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import MapStyles from '../mapstyle'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAYMq0Meyau1Q9hMFlyETxUdcv-io5NjwI',
+  }
+})
+
 export default {
   name: 'race-profile',
   asyncComputed: {
-    favorite_races: {
+    races: {
       get () {
         // return new Promise((resolve, reject) => {
         var favorites = Object.keys(this.favorites).filter((id) => this.favorites[id])
@@ -146,6 +170,7 @@ export default {
   },
   data () {
     return {
+      styles: MapStyles,
     }
   }
 }
@@ -163,9 +188,18 @@ h2 {
 	font-size: 12px;
 	font-weight: 900;
 	line-height: 16px;
+    margin: 10px 0px 5px 0px;
 }
 dl {
     margin: 3px;
+    margin: 0px 0px 0px 0px;
+}
+dl.editable::after {
+    content: '+';
+    float: right;
+    font-size: 9px;
+    color: #0DFFAE;
+    padding-top: 4px;
 }
 dt {
 	color: #9B9B9B;
@@ -181,6 +215,7 @@ dd {
 	font-weight: 900;
 	line-height: 15px;
     display: inline-block;
+    margin-bottom: 0px;
 }
 button {
 	color: #22262B;
@@ -190,6 +225,12 @@ button {
 	text-align: center;
     width: 100%;
     padding: 5px 0px 5px 0px;
+}
+button.register {
+    margin-top: 12px;
+}
+.vue-map-container {
+    margin: 10px 0px 10px 0px;
 }
 section {
     padding-bottom: 20px;
@@ -211,12 +252,25 @@ span.race-profile-check {
 	font-weight: 300;
 	line-height: 15px;
 }
+#race-title {
+    padding: 5px 0px 5px 0px;
+}
 #race-picture {
-    width:100%;
     padding: 5px 0px 5px 0px;
 }
 img.race-profile-picture {
-
+    width:100%;
 }
-
+select {
+    background: transparent;
+    color: #0DFFAE;
+    border: none;
+    padding: 0px 5px 0px 0px; 
+    outline:none;
+    font-size: 12px;
+  }
+  option {
+    background-color: #323237;
+    color: #0DFFAE;
+  }
 </style>
