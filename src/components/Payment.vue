@@ -180,9 +180,9 @@ function includeJs (jsFilePath) {
 }
 
 function loadBraintreeIfNotLoaded () {
-  if (window.hostedFieldsInstance) {
-    return
-  }
+  // if (window.hostedFieldsInstance) {
+  //  return
+  // }
 
   rp.get('checkouts/new')
     .then(function (data) {
