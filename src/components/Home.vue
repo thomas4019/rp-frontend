@@ -113,7 +113,7 @@
                 </div>
                 <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
               </div>
-              <a id="buy3" class="pass-buy"><button>Sold out</button></a>
+              <a id="buy3" class="pass-buy"><button>Coming Soon</button></a>
             </div>
           </div>
         </div>
