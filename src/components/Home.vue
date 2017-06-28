@@ -99,13 +99,13 @@
           </div>
         </div>
         <div class="pass-bordered">
-          <em style="font-size: 18px;">SOLD OUT</em>
+          <em style="font-size: 18px;">COMING SOON</em>
           <div class="pass-container">
             <div class="pass pass-side">
               <div class="pass-title">Pro</div>
               <div class="pass-body">
                 <div class="pass-top">
-                  <div class="pass-count">Covers registration for <em>unlimited</em> Races</div>
+                  <div class="pass-count">Covers registration for <em>12</em> Races</div>
                   <br />
                   <div class="distances">26.2 • 13.1<br />
                     10k • 5k • Fun Runs
