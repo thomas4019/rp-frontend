@@ -5,18 +5,16 @@
     <login :isCreation="false" />
   </modal>
   <nav id="landing-nav">
-    <router-link to="/"><img src="/static/imgs/logo2x.jpg" id="logo" /></router-link>
+    <router-link to="/"><img src="/static/imgs/logo_transparent.png" id="logo" /></router-link>
     <ul id="primary-menu">
-      <li id="menu-about"><router-link to="/about">About Us</router-link></li>
+      <li id="menu-about"><router-link to="/about">About</router-link></li>
       <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
       <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
       <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
       <li id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
       <li id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
-      <li role="separator" class="divider"></li>
-      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div class="button">Get Racepass</div></router-link></li>
-      <li role="separator" class="divider"></li>
-      <li><button class="hollow" @click="$modal.show('login-header')">Login</button></li>
+      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div class="button shadowed">Get Racepass</div></router-link></li>
+      <li><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
     </ul>
   </nav>
 </div>
@@ -56,6 +54,12 @@ export default {
 #primary-menu li {
   display: inline-block;
   height: 30px;
+  margin-left: 15px;
+  font-weight: 900;
+}
+#primary-menu button,
+#primary-menu .button {
+  padding: 6px 15px;
   margin-left: 5px;
 }
 @media screen and (max-width: 800px) {
@@ -65,5 +69,15 @@ export default {
 }
 .hollow {
   cursor: pointer;
+}
+nav li {
+
+} 
+</style>
+<style>
+.shadowed {
+  -webkit-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
 }
 </style>

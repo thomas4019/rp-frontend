@@ -7,20 +7,19 @@
         <source src="/static/videos/promo4.webm" type="video/webm">
       </video>
       <div id="find-races-panel">
-        <div class="title">One&nbsp;pass. 5,000+&nbsp;races.</div>
-        <div class="subtitle">Racepass is the first subscription for endurance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
-        <button v-scroll-to="'#choose-from, 0px'">Find Races</button>
+        <div class="subtitle">Racepass is the first subscription to distance races. Get access to 5000+ races with one simple pass.</div>
+        <button class="shadowed" v-scroll-to="'#choose-from, 0px'">Find Races</button>
       </div>
     </div>
     <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
       <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
       <login :isCreation="isCreation" />
     </modal>
-    <div style="text-align: center; padding: 22px 10px; border-bottom: 1px solid #979797; color: #9b9b9b;">
+    <div class="text-features"style="">
       No race lotteries
-      <span style="color: #4a4a4a; padding: 0px 5px;">•</span>
+      <span class="bullet"></span>
       No commitments
-      <span style="color: #4a4a4a; padding: 0px 5px;">•</span>
+      <span class="bullet"></span>
       Cancel anytime
     </div>
     <div id="selling-points-wrapper">
@@ -37,7 +36,7 @@
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
-            <p>Register for races with a single click. Manage your entire race lineup from one account. Cancel any race, anytime.</p>
+            <p>Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
@@ -47,15 +46,26 @@
         </div>
       </div>
     </div>
+    <div id="featured-in-wrapper">
+      <div id="featured-in">
+        <h4>As featured in</h4>
+        <div class="sources">
+          <div class="source-logo"><img src="/static/imgs/boston_magazine.png" /></div>
+          <div class="source-logo"><img src="/static/imgs/competitor.png" /></div>
+          <div class="source-logo"><img src="/static/imgs/runner.png" /></div>
+          <div class="source-logo"><img src="/static/imgs/shape.png" /></div>
+          <div class="source-logo"><img src="/static/imgs/philadelphia.png" /></div>
+        </div>
+      </div>
+    </div>
     <div id="choose-from" class="callout" style="margin: 16px 0 41px 0; padding-top:40px">
-      Choose from over 5,000+ races anywhere in the world
+      Choose from more than 5,000 races
     </div>
 
-    <!-- TODO INSERT SEARCH HERE !-->
     <HomeSearch />
 
     <div class="button-row">
-      <div class="button-continue" v-scroll-to="'#choose-pass, 0px'">Choose your pass</div>
+      <div class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Choose your pass</div>
       <div class="button-continue-icon">⌵</div>
     </div>
     <section id="choose-pass">
@@ -66,12 +76,10 @@
           <div class="pass pass-side">
             <div class="pass-title">Contender</div>
             <div class="pass-body">
-              <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>3</em> Races</div>
-                <br />
-                <div class="distances">Marathon • Half Marathon<br />
-                  10K • 5K • Fun Run
-                </div>
+              <div class="pass-count">Covers registration for <em>three</em> Races</div>
+              <div class="distances">Marathon • Half Marathon<br />
+                  20K • 15K • 12k • 10k<br />
+                  5K • Fun Run
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
             </div>
@@ -82,35 +90,28 @@
           <div class="pass">
             <div class="pass-title">Athlete</div>
             <div class="pass-body">
-              <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>5</em> Races</div>
-                <br />
-                <div class="distances">Marathon • Half Marathon<br />
-                  10K • 5K • Fun Run
-                </div>
+              <div class="pass-count">Covers registration for <em>six</em> Races</div>
+              <div class="distances">Marathon • Half Marathon<br />
+                  20K • 15K • 12k • 10k<br />
+                  5K • Fun Run
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
             </div>
             <a id="buy2" @click="buy('5races')" class="pass-buy"><button>Buy Athlete</button></a>
           </div>
         </div>
-        <div class="pass-bordered">
-          <em style="font-size: 18px;">COMING SOON</em>
-          <div class="pass-container">
-            <div class="pass pass-side">
-              <div class="pass-title">Pro</div>
-              <div class="pass-body">
-                <div class="pass-top">
-                  <div class="pass-count">Covers registration for <em>12</em> Races</div>
-                  <br />
-                  <div class="distances">Marathon • Half Marathon<br />
-                    10K • 5K • Fun Run
-                  </div>
-                </div>
-                <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
+        <div class="pass-container">
+          <div class="pass">
+            <div class="pass-title">Pro</div>
+            <div class="pass-body">
+              <div class="pass-count">Covers registration for <em>twelve</em> Races</div>
+              <div class="distances">Marathon • Half Marathon<br />
+                20K • 15K • 12k • 10k<br />
+                5K • Fun Run
               </div>
-              <a id="buy3" class="pass-buy"><button>Coming Soon</button></a>
+              <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
             </div>
+            <a id="buy3" class="pass-buy"><button>Buy Pro</button></a>
           </div>
         </div>
       </slick>
@@ -144,7 +145,7 @@
         <span slot="answer">You can begin signing up for races immediately after completing your purchase.</span>
       </rp-question>
       <div v-show="!isFaqExpanded" @click="isFaqExpanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
-        <div class="button-continue">More FAQs</div>
+        <div class="button-continue shadowed">More FAQs</div>
       </div>
       <div v-show="isFaqExpanded" id="faq-more">
         <rp-question id="q5">
@@ -166,7 +167,7 @@
       </div>
     </div>
     <div v-show="isFaqExpanded" id="faq-full" style="margin-bottom:75px;" class="button-row">
-      <router-link to="/faq"><div class="button-continue">See full list of FAQs</div></router-link>
+      <router-link to="/faq"><div class="button-continue shadowed">See full list of FAQs</div></router-link>
     </div>
   </div>
 </template>
@@ -288,10 +289,9 @@ export default {
   margin-bottom: 12px;
 }
 #find-races-panel .subtitle {
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 27px;
-  color: #d8d8d8;
+  font-size: 24px;
+  line-height: 33px;
+  color: #D8D8D8;
   text-shadow: 0 0 6px rgba(0,0,0,0.5);
   margin: 0 auto 30px auto;
   max-width: 400px;
@@ -322,28 +322,36 @@ export default {
 #selling-points h2 {
   margin-left: auto;
   margin-right: auto;
+  font-size: 36px;
+  color: #D8D8D8;
 }
 #selling-points h3 {
-  font-size: 22px;
+  font-size: 18px;
   margin: 10px 0px;
+  color: #D8D8D8;
+  font-weight: 900;
 }
 .selling-point {
   padding: 20px;
 }
 #selling-points p {
-  line-height: 25px;
+  line-height: 16px;
+  font-size: 12px;
   margin: 0px;
-  color: #abaeb7;
+  color: #9B9B9B;
 }
 .selling-icon {
   margin: 21px auto;
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   text-align: center;
+  background-color: #323237;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
 }
 .selling-icon img {
-  height: 80px;
+  height: 60px;
 }
 .button-row {
   width: 100%;
@@ -351,19 +359,58 @@ export default {
   margin: 40px 0px 40px 0px;
 }
 .button-continue {
-  border: 1px solid #979797;
   border-radius: 100px;
   font-weight: 300;
-  padding: 15px 15px;
+  padding: 15px 25px;
   display: inline-block;
-  color: #f7f7f7;
+  background-color: #323237;
+  color: #0DFFAE;
   cursor: pointer;
 }
 .button-continue-icon {
   font-size: 36px;
-  color: #979797;
+  color: #0DFFAE;
   line-height: .6;
   font-weight: lighter;
+}
+.text-features {
+  text-align: center;
+  padding: 10px 15px;
+  border: 0.5px solid #4A4A4A;
+  color: #9b9b9b;
+}
+.text-features .bullet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #4A4A4A;
+  display: inline-block;
+  margin: 0px 15px;
+}
+
+
+#featured-in-wrapper {
+    margin: 70px 0px 70px 0px;
+}
+#featured-in-wrapper h4 {
+	color: #D8D8D8;
+	font-size: 18px;
+	line-height: 25px;
+	text-align: center;
+  margin: 0px 0px 32px 0px;
+}
+#featured-in-wrapper .sources {
+  background-color: #323237;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+  text-align: center;
+}
+#featured-in-wrapper .source-logo {
+  display: inline-block;
+  margin: 28px 31px;
+}
+#featured-in-wrapper .source-logo img {
+  display: inline-block;
+  max-height: 34px;
 }
 
 
@@ -474,7 +521,6 @@ export default {
   margin-top: 5px;
 }
 .pass {
-  height: 425px;
   background-color: #323237;
   box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
   border-radius: 4px;
@@ -503,20 +549,24 @@ export default {
   font-size: 18px;
   padding: 0px 15px;
 }
+.distances {
+  font-weight: 300;
+  color: #FFFFFF;
+  font-size: 14px;
+  line-height: 19px;
+  margin: 40px 0px 15px 0px;
+}
 .pass p {
   margin: 0px 0px 15px 0px;
 }
 .pass-body {
-  height: 225px;
+  height: 250px;
   background-color: #6A6A6A;
   font-weight: 900;
   font-size: 16px;
   border-radius: 2px;
   padding: 20px 5px 20px 5px;
   margin: 0px 23px;
-}
-.pass-top {
-  height: 120px;
 }
 .pass-price-row {
   margin-top: 27px;
@@ -527,13 +577,17 @@ export default {
 }
 .pass-buy {
   display: block;
-  margin: 10px 55px 5px 55px;
+  margin: 30px 55px 28px 55px;
   padding: 6px;
-  font-size: 16px;
-  height: 40px;
+  font-size: 18px;
+  height: 42px;
+  font-weight: 900;
+  color: #4A4A4A;
 }
 .pass-buy button {
   width: 100%;
+  border-radius: 4px;
+  color: #4A4A4A;
 }
 
 #faq {
