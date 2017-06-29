@@ -11,7 +11,6 @@
       <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
       <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
       <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
-      <li id="menu-store"><a href="https://teespring.com/stores/racepass-2" target="_blank">Gear</a></li>
       <li id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
       <li id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
       <li role="separator" class="divider"></li>
