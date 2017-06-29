@@ -71,10 +71,10 @@
             <div class="pass-title">Contender</div>
             <div class="pass-body">
               <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>three</em> Races</div>
+                <div class="pass-count">Covers registration for <em>3</em> Races</div>
                 <br />
-                <div class="distances">26.2 • 13.1<br />
-                  10k • 5k • Fun Runs
+                <div class="distances">Marathon • Half Marathon<br />
+                  10K • 5K • Fun Runs
                 </div>
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
@@ -87,10 +87,10 @@
             <div class="pass-title">Athlete</div>
             <div class="pass-body">
               <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>five</em> Races</div>
+                <div class="pass-count">Covers registration for <em>5</em> Races</div>
                 <br />
-                <div class="distances">26.2 • 13.1<br />
-                  10k • 5k • Fun Runs
+                <div class="distances">Marathon • Half Marathon<br />
+                  10K • 5K • Fun Run
                 </div>
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
@@ -107,8 +107,8 @@
                 <div class="pass-top">
                   <div class="pass-count">Covers registration for <em>12</em> Races</div>
                   <br />
-                  <div class="distances">26.2 • 13.1<br />
-                    10k • 5k • Fun Runs
+                  <div class="distances">Marathon • Half Marathon<br />
+                    10K • 5K • Fun Run
                   </div>
                 </div>
                 <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
@@ -119,8 +119,8 @@
         </div>
       </slick>
       <div class="info">
-        <p>If you decide you don't want to use all your races, don't sweat it, we've got you covered.</p>
-        <p><router-link to="/faq"><em>Learn more.</em></router-link></p>
+        <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation </p>
+        <p><router-link to="/faq"><em>Learn more</em></router-link></p>
       </div>
     </section>
     <div id="faq" class="container">
