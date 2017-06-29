@@ -2,11 +2,10 @@
 <div class="row justify-content-center">
 <div class="race-profile col-md-4 bordered">
     <section id="race-title" class="container">
-        <h1 class="race-profile-title">{ {race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
+        <h1 class="race-profile-title">{{race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
         <h2 class="race-profile-dropdown">
-            <select v-model="filter_state" @change="updateFilter()">
-                <option value="Marathon" selected>Marathon</option>
-                <option value="5k">5k</option>
+            <select v-model="course">
+                <option v-for="option in race.courses" v-bind:value="option">{{ option.distance }}</option>
             </select>
         </h2>
     </section>
@@ -19,11 +18,11 @@
                 <h2>Event Details</h2>
                 <dl>
                     <dt>Distance</dt>
-                    <dd>{ {course.distance}}</dd>
+                    <dd>{{course.distance}}</dd>
                 </dl>
                 <dl>
                     <dt>Date</dt>
-                    <dd>{ {race.datetime}}</dd>
+                    <dd>{{race.datetime}}</dd>
                 </dl>
                 <dl>
                     <dt>Start times(s)</dt>
@@ -64,14 +63,7 @@
                     <button class="register">Register</button>
                 </div>
                 <div>
-                    <gmap-map
-                        :options="{styles: styles}"
-                        :center="center"
-                        :zoom="zoom"
-                        style="width: 100%; height: 175px"
-                        @bounds_changed="update"
-                        >
-                    </gmap-map>
+                    <RpMap class="map"></RpMap>
                 </div>
                 <div>
                     <a><em>Directions</em></a>
@@ -134,6 +126,7 @@
 
 
 <script>
+import RpMap from '@/components/RaceProfileMap'
 import rp from '../rp'
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
@@ -147,30 +140,27 @@ Vue.use(VueGoogleMaps, {
 
 export default {
   name: 'race-profile',
-  asyncComputed: {
-    races: {
-      get () {
-        // return new Promise((resolve, reject) => {
-        var favorites = Object.keys(this.favorites).filter((id) => this.favorites[id])
-        if (!favorites.length) {
-          return []
-        }
-        var query = {'_id': {'$in': favorites}}
-        return rp.get('race2?query=' + JSON.stringify(query))
-      },
-      default: []
+  components: {
+    RpMap
+  },
+  methods: {
+    update () {
+      var query = {'_id': {'$eq': this.$route.params.route_id}}
+      rp.get('race2?query=' + JSON.stringify(query)).then((races) => {
+        console.log(races, races[0])
+        this.race = races[0] || {}
+        this.course = this.race.courses[0]
+      })
     }
   },
   mounted () {
-    if (!this.$store.state.user || !this.$store.state.user.first_name) {
-      this.$router.push('/app/useredit')
-    }
-  },
-  computed: {
+    this.update()
   },
   data () {
     return {
       styles: MapStyles,
+      race: {},
+      course: {}
     }
   }
 }
@@ -229,7 +219,7 @@ button {
 button.register {
     margin-top: 12px;
 }
-.vue-map-container {
+.map {
     margin: 10px 0px 10px 0px;
 }
 section {
