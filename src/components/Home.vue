@@ -8,7 +8,7 @@
       </video>
       <div id="find-races-panel">
         <div class="title">One&nbsp;pass. 5,000+&nbsp;races.</div>
-        <div class="subtitle">Racepass is the first subscription for distance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
+        <div class="subtitle">Racepass is the first subscription for endurance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
         <button v-scroll-to="'#choose-from, 0px'">Find Races</button>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
-            <p>Register for races with a single click. Manage your entire race lineup from one account. Cancel any race anytime.</p>
+            <p>Register for races with a single click. Manage your entire race lineup from one account. Cancel any race, anytime.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
