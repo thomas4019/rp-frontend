@@ -8,8 +8,8 @@
       </video>
       <div id="find-races-panel">
         <div class="title">One&nbsp;pass. 5,000+&nbsp;races.</div>
-        <div class="subtitle">Racepass is the first subscription for distance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
-        <button v-scroll-to="'#choose-from, 0px'">Find my next race</button>
+        <div class="subtitle">Racepass is the first subscription for endurance races. Starting at $195, our entry level pass covers the full registration costs for any 3 races.</div>
+        <button v-scroll-to="'#choose-from, 0px'">Find Races</button>
       </div>
     </div>
     <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
@@ -32,24 +32,20 @@
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/discover.png" /></div>
             <h3>Discover</h3>
-            <p>Search more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
+            <p>Find more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
-            <p>Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
+            <p>Register for races with a single click. Manage your entire race lineup from one account. Cancel any race, anytime.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
             <h3>Race</h3>
-            <p>Get your racing bib, show up at the starting line &amp; finish. Track all your race results and photos from one dash.</p>
+            <p>Get your bib, show up at the starting line &amp; finish. Track all your results and photos from one dash.</p>
           </div>
         </div>
       </div>
-    </div>
-    <div id="races-near-me" style="margin-bottom: 0px;" class="button-row">
-      <div class="button-continue" v-scroll-to="'#choose-from, 0px'">Find races near me</div>
-      <div class="button-continue-icon">⌵</div>
     </div>
     <div id="choose-from" class="callout" style="margin: 16px 0 41px 0; padding-top:40px">
       Choose from over 5,000+ races anywhere in the world
@@ -71,10 +67,10 @@
             <div class="pass-title">Contender</div>
             <div class="pass-body">
               <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>three</em> Races</div>
+                <div class="pass-count">Covers registration for <em>3</em> Races</div>
                 <br />
-                <div class="distances">26.2 • 13.1<br />
-                  10k • 5k • Fun Runs
+                <div class="distances">Marathon • Half Marathon<br />
+                  10K • 5K • Fun Run
                 </div>
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
@@ -87,10 +83,10 @@
             <div class="pass-title">Athlete</div>
             <div class="pass-body">
               <div class="pass-top">
-                <div class="pass-count">Covers registration for <em>five</em> Races</div>
+                <div class="pass-count">Covers registration for <em>5</em> Races</div>
                 <br />
-                <div class="distances">26.2 • 13.1<br />
-                  10k • 5k • Fun Runs
+                <div class="distances">Marathon • Half Marathon<br />
+                  10K • 5K • Fun Run
                 </div>
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
@@ -99,28 +95,28 @@
           </div>
         </div>
         <div class="pass-bordered">
-          <em style="font-size: 18px;">SOLD OUT</em>
+          <em style="font-size: 18px;">COMING SOON</em>
           <div class="pass-container">
             <div class="pass pass-side">
               <div class="pass-title">Pro</div>
               <div class="pass-body">
                 <div class="pass-top">
-                  <div class="pass-count">Covers registration for <em>unlimited</em> Races</div>
+                  <div class="pass-count">Covers registration for <em>12</em> Races</div>
                   <br />
-                  <div class="distances">26.2 • 13.1<br />
-                    10k • 5k • Fun Runs
+                  <div class="distances">Marathon • Half Marathon<br />
+                    10K • 5K • Fun Run
                   </div>
                 </div>
                 <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
               </div>
-              <a id="buy3" class="pass-buy"><button>Sold out</button></a>
+              <a id="buy3" class="pass-buy"><button>Coming Soon</button></a>
             </div>
           </div>
         </div>
       </slick>
       <div class="info">
-        <p>If you decide you don't want to use all your races, don't sweat it, we've got you covered.</p>
-        <p><router-link to="/faq"><em>Learn more.</em></router-link></p>
+        <h3>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </h3>
+        <p><router-link to="/faq"><em>Learn more</em></router-link></p>
       </div>
     </section>
     <div id="faq" class="container">

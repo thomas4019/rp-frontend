@@ -1,7 +1,7 @@
 <template>
   <div>
     <section v-if="!paymentComplete" id="payment" v-bind:class="{ paymentComplete : paymentComplete }">
-      <h1 style="margin-top: 0px">Let's get you up & running</h1>
+      <h2 style="margin-top: 0px">Let's get you up & running</h2>
       <div id="pane-container" class="row">
         <div id="right-pane" class="col-sm-6 push-sm-6">
           <select v-model="passType" v-on:change="update()" style="width: 100%">
