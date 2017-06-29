@@ -47,10 +47,6 @@
         </div>
       </div>
     </div>
-    <div id="races-near-me" style="margin-bottom: 0px;" class="button-row">
-      <div class="button-continue" v-scroll-to="'#choose-from, 0px'">Find races near me</div>
-      <div class="button-continue-icon">⌵</div>
-    </div>
     <div id="choose-from" class="callout" style="margin: 16px 0 41px 0; padding-top:40px">
       Choose from over 5,000+ races anywhere in the world
     </div>
@@ -74,7 +70,7 @@
                 <div class="pass-count">Covers registration for <em>3</em> Races</div>
                 <br />
                 <div class="distances">Marathon • Half Marathon<br />
-                  10K • 5K • Fun Runs
+                  10K • 5K • Fun Run
                 </div>
               </div>
               <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
