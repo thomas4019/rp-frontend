@@ -32,17 +32,17 @@
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/discover.png" /></div>
             <h3>Discover</h3>
-            <p>Search more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
+            <p>Find more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
-            <p>Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
+            <p>Register for races with a single click. Manage your entire race lineup from one account. Cancel any race anytime.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
             <h3>Race</h3>
-            <p>Get your racing bib, show up at the starting line &amp; finish. Track all your race results and photos from one dash.</p>
+            <p>Get your bib, show up at the starting line &amp; finish. Track all your results and photos from one dash.</p>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
         </div>
       </slick>
       <div class="info">
-        <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation </p>
+        <h3>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </h3>
         <p><router-link to="/faq"><em>Learn more</em></router-link></p>
       </div>
     </section>
