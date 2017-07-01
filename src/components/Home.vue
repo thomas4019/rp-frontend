@@ -126,7 +126,7 @@
       </div>
       <rp-question id="q1">
         <span slot="question">Can I see a list of races available?</span>
-        <span slot="answer"></span>
+        <span slot="answer">You can find all the races in our network in the map on the homepage or in your account. If you want to browse a list of races, select the list icon to the right of the search bar and filters. </span>
       </rp-question>
       <rp-question id="q2">
         <span slot="question">How many races can I run?</span>
@@ -134,7 +134,7 @@
       </rp-question>
       <rp-question id="q3">
         <span slot="question">Are there blackout dates or races you don’t cover?</span>
-        <span slot="answer"></span>
+        <span slot="answer">There are no blackout dates for the races listed in our network. If it's listed, you can run it. If you're looking for a race and we don't have it in our map or list results, then it's not in our network just yet. If you want us to include it, let us know by emailing support@racepass.com and we'll try to work our magic.</span>
       </rp-question>
       <rp-question id="q6">
         <span slot="question">What if I sign up for a race but have to cancel?</span>

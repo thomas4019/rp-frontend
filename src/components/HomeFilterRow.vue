@@ -1,9 +1,9 @@
 <template>
   <div class="filter-row">
-    <div class="filter" style="width:420px;">
+    <div class="filter" style="width:315px;">
       <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
     </div>
-    <div class="filter" @click="showRacePopup($event)">
+    <div class="filter" style="width:120px;" @click="showRacePopup($event)">
       <div class="name">Distance</div>
       <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
       <div class="popup" v-if="popup == 'distance'">
@@ -11,7 +11,7 @@
         <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
       </div>
     </div>
-    <div class="filter" style="width:220px;">
+    <div class="filter" style="width:180px;">
       <div class="name">Dates</div>
       <div class="summary">
         <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
@@ -74,7 +74,7 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="filter" style="width:92px;">
+    <div class="filter" style="width:70px;">
       <div id="switcher">
         <img src="/static/imgs/pin.png" @click="changeMode('map')" />
         <img src="/static/imgs/list.png"  @click="changeMode('list')" />
@@ -188,19 +188,21 @@ export default {
   .filter-row {
     position: relative;
     display: flex;
-    border-top: 0.5px solid #9B9B9B;
-    width: 1000px;
+    border: 0.5px solid #4A4A4A;
+    width: 830px;
     margin: 20px auto 20px auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
   }
   .filter {
     position: relative;
     padding: 5px 10px 5px 10px;
     padding-bottom: 0px;
-    border-left: 0.5px solid #9B9B9B;
+    border-left: 0.5px solid #4A4A4A;
     min-width: 80px;
   }
   .filter:first-child{
-      padding-top: 11px;
+      padding: 4px 10px 4px 15px;
   }
   .filter:first-child, 
   .filter:nth-child(2) {
@@ -248,8 +250,8 @@ export default {
     padding: 5px 0px 0px 0px;
   }
   #switcher img {
-    height: 25px;
-    padding: 0px 0px 0px 7px;
+    height: 22px;
+    padding: 0px 4px 0px 0px;
   }
 </style>
 <style>

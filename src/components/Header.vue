@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 #landing-nav {
-	padding: 15px 15px 0px 0px;
+	padding: 13px 15px 0px 0px;
 	margin-bottom: 0px;
   overflow: hidden;
 }
@@ -40,7 +40,7 @@ export default {
 }
 #logo {
 	width: 160px;
-	margin-top: 3px;
+	margin-top: 5px;
 	margin-left: 21px;
 }
 #logo-mini {

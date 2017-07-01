@@ -1,5 +1,5 @@
 <template>
- <section class="container">
+ <section >
     <div style="display:none">{{search_text}}</div>
     <RaceTable :races="races" />
     <div id="navigation">

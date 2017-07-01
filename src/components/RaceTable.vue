@@ -1,5 +1,5 @@
 <template>
- <section class="container">
+ <section>
     <div class="race-table">
       <div class="wrapper" id="header">
         <div class="wrapper text distance">Distances</div>

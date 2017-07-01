@@ -27,7 +27,7 @@ export default {
 
 <style>
 #home-search {
-  max-width: 1000px;
+  max-width: 830px;
   margin: auto;
 }
 #switcher {
