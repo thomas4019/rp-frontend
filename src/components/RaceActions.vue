@@ -2,11 +2,11 @@
   <div class="actions">
     <RaceRegister ref="reg" />
     <RaceCancel ref="cancel" />
-    <button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
+    <!--<button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
     <div v-else-if="isRegistered(race)"></div>
     <button v-else-if="isAvailable(race)" class="hollow" @click="register(race)">Register</button>
-    <button v-else class="hollow" disabled="disabled">Finished</button>
-    <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class="favorite fa fa-2x" :class="{  'fa-heart' : isFavorite(race), 'fa-heart-o': !isFavorite(race) }" aria-hidden="true"></i>
+    <button v-else class="hollow" disabled="disabled">Finished</button>-->
+    <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class=" fa fa-2x fa-heart-o" :class="{  'favorite' : isFavorite(race), 'not-favorite': !isFavorite(race) }" aria-hidden="true"></i>
     <!--<a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
       <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
     </a>-->
@@ -59,12 +59,24 @@ export default {
   props: ['race']
 }
 </script>
-
+<style scoped>
+.actions > * {
+  margin-right: 8px;
+  font-size: 20px;
+  display: inline-block;
+  margin: -4px 5px;
+  float: right;
+}
+i.favorite {
+  color: #0DFFAE;
+}
+i.not-favorite {
+  color: #D8D8D8;
+}
+</style>
 <style>
 .favorite {
   color: #0DFFAE;
 }
-.actions > * {
-  margin-right: 8px;
-}
+
 </style>

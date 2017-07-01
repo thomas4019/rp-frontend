@@ -144,9 +144,6 @@
         <span slot="question">Do you have a refund policy?</span>
         <span slot="answer">Upon cancellation, all subsequent race registrations will be cancelled and the full registration amount of any race within 14 calendar days will be deducted from the refund as well. The remaining amount will be returned to you via your method of payment within 3-5 business days.</span>
       </rp-question>
-      <div v-show="!isFaqExpanded" @click="isFaqExpanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
-        <div class="button-continue shadowed">More FAQs</div>
-      </div>
     </div>
     <div id="faq-full" style="margin-bottom:75px;" class="button-row">
       <router-link to="/faq"><div class="button-continue shadowed">See full list of FAQs</div></router-link>

@@ -1,27 +1,27 @@
 <template>
  <section>
     <div class="race-table">
-      <div class="wrapper" id="header">
-        <div class="wrapper text distance">Distances</div>
-        <div class="wrapper text race-name">Race</div>
-        <div class="wrapper text datetime">Date</div>
-        <div class="wrapper text location">Location</div>
-        <div class="wrapper text website">Website</div>
-        <div class="wrapper text actions">Actions</div>
+      <div class="row no-gutters" id="header">
+        <div class="col">Type</div>
+        <div class="col-lg-3">Race</div>
+        <div class="col-lg-2">Date</div>
+        <div class="col-lg-2">Location</div>
+        <div class="col-lg-2">Website</div>
+        <div class="col"></div>
       </div>
-      <div class="wrapper tbrow" v-for="race in races" v-bind:key="race.id">
-        <div class="wrapper text distance">
+      <div class="row no-gutters" v-for="race in races" v-bind:key="race.id">
+        <div class="col distance">
           <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
             {{course.distance}}
           </span>
         </div>
-        <div class="wrapper text race-name">{{race.name}}</div>
-        <div class="wrapper text datetime">{{race.datetime | formatDate }}</div>
-        <div class="wrapper text location">{{race.location.city}}, {{race.location.state}}</div>
-        <div class="wrapper text website">
+        <div class="col-lg-3 race-name">{{race.name}}</div>
+        <div class="col-lg-2 datetime">{{race.datetime | formatDate }}</div>
+        <div class="col-lg-2 location">{{race.location.city}}, {{race.location.state}}</div>
+        <div class="col-lg-2 website">
           <a target="_blank" :href="race.website"><em>{{race.website | formatURL }}</em></a>
         </div>
-        <div class="wrapper text actions">
+        <div class="col actions">
           <RaceActions :race="race"></RaceActions>
         </div>
       </div>
@@ -57,71 +57,45 @@ Vue.filter('formatDate', function (value) {
 })
 Vue.filter('formatURL', function (value) {
   if (value) {
-    return value.replace(/(^\w+:|^)\/\//, '')
+    var t = value.replace(/(^\w+:|^)\/\//, '')
+    if (t.startsWith('www.')) {
+      t = t.replace('www.', '')
+    }
+    if (t.endsWith('/')) {
+      t = t.slice(0, -1)
+    }
+    return t
   }
 })
 </script>
 
 <style scoped>
-.wrapper {
-  display: flex;           display: -webkit-flex;
-  flex-direction: row;     -webkit-flex-direction: row;
-  flex-grow: 0;            -webkit-flex-grow: 0;
-  flex-wrap: wrap;         -webkit-flex-wrap: wrap;
-}
-.text {
-  flex-grow: 1;           -webkit-flex-grow: 1;
-}
-.text {
-  width: 150px;
-}
-.distance {
-  width: 80px;
-}
 .distance span {
   padding-left: 5px;
 }
-.datetime {
-  width: 90px;
+.race-table{
+  text-align: left;
+  font-size: 14px;
+  color: #D6D6D6;
 }
-.race-name {
-  width: 220px;
-}
-.website {
-  width: 200px;
-}
-.actions {
-  text-align: right;
-}
-.race-table #header {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+#header {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
+	background: #323237;
+  color: #FFFFFF;
+  font-weight: 300;
+  line-height: 19px;
 }
 .race-table #header div {
-  flex: wrap;
-	background: #323237;
-	font-weight: lighter;
-	padding: 2px 7px;
+  padding: 5px 0px 7px 0px;
 }
-.race-table .tbrow {
-  display: flex;
-  flex: wrap;
-  width: 100%;
-  border-bottom: 2px solid #323237;
-  margin-top: 3px;
-  margin-bottom: 3px;
+#header.row {
+  margin: 15px 0px 0px 0px;
 }
-.race-table .tbrow > div {
-  flex: wrap;
-	color: #F7F7F7;
-	padding: 10px;
-	border-bottom: 0.5px solid #323237;
-}
-@media screen and (max-width: 780px) {
-  .race-table .tbrow > div {
-    padding: 4px;
-  }
+.row {
+  margin: 23px 0px 0px 0px;
+  padding: 0px 10px 0px 10px;
+  line-height: 19px;
+  font-weight: 900;
 }
 .distance .chosen {
   color: #0DFFAE;
@@ -130,9 +104,6 @@ Vue.filter('formatURL', function (value) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.website {
-  width: 200px;
 }
 .website a {
   display: block;
