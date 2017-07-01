@@ -24,14 +24,21 @@ export default {
 
 <style scoped>
 .qa {
-	border: 1px solid #979797;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.25);
+	background-color: #323237;
 	border-radius: 8px;
 	font-size: 18px;
-	margin: 10px 20px;
-	padding: 17px 12px 10px 40px;
+	margin: 19px 20px;
 	cursor: pointer;
+  color: #FFFFFF;
+  line-height: 25px;
+}
+.question {
+  padding: 17px 18px 13px 17px;
+  font-size: 18px;
 }
 .answer {
+  padding: 0px 18px 13px 17px;
 	font-size: 16px;
 	color: #abaeb7;
 }

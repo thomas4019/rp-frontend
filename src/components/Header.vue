@@ -41,7 +41,7 @@ export default {
 #logo {
 	width: 160px;
 	margin-top: 3px;
-	margin-left: 15px;
+	margin-left: 21px;
 }
 #logo-mini {
 	height: 32px;

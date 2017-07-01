@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <div id="promo"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
+    <div id="promo" class="shadowed"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
     <div id="banner1">
       <video poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
         <source src="/static/videos/promo4.mp4" type="video/mp4">
@@ -116,7 +116,7 @@
         </div>
       </slick>
       <div class="info">
-        <h3>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </h3>
+        <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </p>
         <p><router-link to="/faq"><em>Learn more</em></router-link></p>
       </div>
     </section>
@@ -125,48 +125,30 @@
         Any questions running through your mind?
       </div>
       <rp-question id="q1">
-        <span slot="question">What is Racepass?</span>
-        <span slot="answer">Racepass is a subscription-based annual pass that helps runners run as many races as they can muster.</span>
+        <span slot="question">Can I see a list of races available?</span>
+        <span slot="answer"></span>
       </rp-question>
       <rp-question id="q2">
-        <span slot="question">Where can I use Racepass?</span>
-        <span slot="answer">Racepass can be used at over 5,000 race events across the nation and more are being added everyday. For complete race listings please see racepass.com/map.</span>
-      </rp-question>
-      <rp-question id="q3">
         <span slot="question">How many races can I run?</span>
         <span slot="answer">Each Racepass plan has its own limitations. Please see our pricing page for complete plan details.</span>
       </rp-question>
+      <rp-question id="q3">
+        <span slot="question">Are there blackout dates or races you don’t cover?</span>
+        <span slot="answer"></span>
+      </rp-question>
       <rp-question id="q6">
-        <span slot="question">What are the benefits of Racepass?</span>
-        <span slot="answer">Racepass eliminates the administrative headache of finding, registering and recruiting friends for races. It also allows you to run as many races as you can, tracking your times to help you train and run faster. It also provides you the flexibility to change or cancel races and not have to lose your money. See our cancelation policy below for more details.</span>
+        <span slot="question">What if I sign up for a race but have to cancel?</span>
+        <span slot="answer">One of the many benefits of Racepass is the flexibility it offers. As long as it’s more than 14 calendar days from race day, you can cancel any race at any time. If it is closer than 14 days then the race credit will be used.</span>
       </rp-question>
       <rp-question id="q4">
-        <span slot="question">When does Racepass membership begin?</span>
-        <span slot="answer">You can begin signing up for races immediately after completing your purchase.</span>
+        <span slot="question">Do you have a refund policy?</span>
+        <span slot="answer">Upon cancellation, all subsequent race registrations will be cancelled and the full registration amount of any race within 14 calendar days will be deducted from the refund as well. The remaining amount will be returned to you via your method of payment within 3-5 business days.</span>
       </rp-question>
       <div v-show="!isFaqExpanded" @click="isFaqExpanded = true;" id="faq-more-button" style="margin-bottom:75px;" class="button-row">
         <div class="button-continue shadowed">More FAQs</div>
       </div>
-      <div v-show="isFaqExpanded" id="faq-more">
-        <rp-question id="q5">
-          <span slot="question">Does my Racepass auto-renew?</span>
-          <span slot="answer">Racepass will allow you to auto-renew your membership. If you choose to not auto-renew, you can opt out through your subscription settings in your profile.</span>
-        </rp-question>
-        <rp-question id="q7">
-          <span slot="question">Where can I use Racepass?</span>
-          <span slot="answer">Racepass can be used at over 5,000 race events across the nation and more are being added everyday.</span>
-        </rp-question>
-        <rp-question id="q8">
-          <span slot="question">How many races can I run?</span>
-          <span slot="answer">Each Racepass plan is different. Check out our pricing tiers for complete plan details.</span>
-        </rp-question>
-        <rp-question id="q9">
-          <span slot="question">Is there a cancellation policy?</span>
-          <span slot="answer">Flexibility is a good thing. You can cancel your Racepass at anytime! To cancel your Racepass, head to your subscription settings in your profile.</span>
-        </rp-question>
-      </div>
     </div>
-    <div v-show="isFaqExpanded" id="faq-full" style="margin-bottom:75px;" class="button-row">
+    <div id="faq-full" style="margin-bottom:75px;" class="button-row">
       <router-link to="/faq"><div class="button-continue shadowed">See full list of FAQs</div></router-link>
     </div>
   </div>
@@ -244,7 +226,7 @@ export default {
 <style scoped>
 #promo {
   background-color: #323237;
-  font-size: 18px;
+  font-size: 14px;
   height: 38px;
   line-height: 38px;
   position: fixed;
@@ -299,7 +281,7 @@ export default {
 }
 #find-races-panel button {
   font-weight: 900;
-  padding: 10px 15px;
+  padding: 10px 20px;
 }
 @media screen and (max-width: 600px) {
     #banner1 .text {
@@ -361,6 +343,7 @@ export default {
 .button-continue {
   border-radius: 100px;
   font-weight: 300;
+  font-size: 15px;
   padding: 15px 25px;
   display: inline-block;
   background-color: #323237;
@@ -375,9 +358,10 @@ export default {
 }
 .text-features {
   text-align: center;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border: 0.5px solid #4A4A4A;
   color: #9b9b9b;
+  font-size: 12px;
 }
 .text-features .bullet {
   width: 7px;
@@ -506,6 +490,7 @@ export default {
   margin: 0 auto 30px auto;
   text-align: center;
   width: 50%;
+  max-width: 410px;
 }
 #pass-wrapper {
   flex-direction: row;
@@ -567,6 +552,7 @@ export default {
   border-radius: 2px;
   padding: 20px 5px 20px 5px;
   margin: 0px 23px;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
 }
 .pass-price-row {
   margin-top: 27px;
@@ -582,7 +568,6 @@ export default {
   font-size: 18px;
   height: 42px;
   font-weight: 900;
-  color: #4A4A4A;
 }
 .pass-buy button {
   width: 100%;
@@ -593,12 +578,6 @@ export default {
 #faq {
   max-width: 920px !important;
 }
-#faq-full .button-continue {
-  height: 43px;
-  border: 1px solid #f7f7f7;
-  border-radius: 100px;
-  font-family: Avenir;
-  padding: 11px;
-}
+
 
 </style>
