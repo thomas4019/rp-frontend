@@ -14,6 +14,17 @@
 export default {
   name: 'rp-question',
   props: ['id'],
+  methods: {
+    update () {
+      var hash = this.$route.hash.substr(1)
+      if (hash === this.id) {
+        this.isCollapsed = false
+      }
+    }
+  },
+  mounted () {
+    this.update()
+  },
   data () {
     return {
       isCollapsed: true

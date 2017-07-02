@@ -89,7 +89,7 @@
       <span slot="question">What if I have to change or cancel a race? </span>
       <span slot="answer">One of the many benefits of Racepass is the flexibility it offers. As long as it’s more than 14 calendar days from race day, you can cancel any race at any time. If it is closer than 14 days then the race credit will be used.</span>
     </rp-question>
-    <rp-question id="q28">
+    <rp-question id="refund">
       <span slot="question">Is there a refund policy if I cancel my Racepass membership?</span>
       <span slot="answer">Upon cancellation, all subsequent race registrations will be cancelled and the full registration amount of any race within 14 calendar days will be deducted from the refund as well. The remaining amount will be returned to you via your method of payment within 3-5 business days.</span>
     </rp-question>

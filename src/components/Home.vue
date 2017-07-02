@@ -117,7 +117,7 @@
       </slick>
       <div class="info">
         <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </p>
-        <p><router-link to="/faq"><em>Learn more</em></router-link></p>
+        <p><router-link to="/faq#refund"><em>Learn more</em></router-link></p>
       </div>
     </section>
     <div id="faq" class="container">
