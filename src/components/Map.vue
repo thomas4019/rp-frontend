@@ -1,7 +1,7 @@
 <template>
   <div>
     <gmap-map
-      :options="{styles: styles}"
+      :options="{styles: styles, mapTypeControl: false, streetViewControl: false}"
       :center="center"
       :zoom="zoom"
       style="width: 100%; height: 450px"
@@ -20,7 +20,7 @@
         :key="m"
         :position.sync="m.position"
         :clickable="true"
-        :icon="m.race_id == selected ? icon : m.icon"
+        :icon="m.icon"
         @mouseover="select(m)"
         @click="select(m)"
         :zIndex="m.race_id == selected ? 10 : 5"
@@ -70,12 +70,15 @@
           this.infoWindowPos = marker.position
           this.infoContent = '<div class="infowindow-body">' +
             '<div class="name">' + race.name + '</div>' +
-            '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
-            '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
-            ' • ' + race.location.city + ', ' + race.location.state +
-            '</div>' +
+            '<div class="distances">' + race.courses.map((course) => course.distance).join('<span class="bullet">•</span>') + '</div>' +
+            '<span class="bullet">•</span><div class="date">' + moment(race.datetime).format('MM/DD/YYYY') + '</div>' +
+            '<span class="bullet">•</span><div class="location">' + race.location.city + ', ' + race.location.state + '</div>' +
+            '<div class="link"><a target="_blank" href="' + race.website + '"><em>' + race.website + '</em></a></div>' +
             '</div>'
         }
+      },
+      prepMapInfoWindow () {
+        console.log(this, this.$parent, this.$parent.$children[1])
       },
       update (b) {
         if (!b) {
@@ -144,7 +147,7 @@
               icon: {
                 labelOrigin: {x: 15, y: 40},
                 url: '/static/imgs/mapiconA2x.png',
-                scaledSize: {width: 20, height: 34},
+                scaledSize: {width: 15, height: 25.5},
               },
               'position': {
                 'lat': parseFloat(race.location.coordinates.lat) + (pseudoRandom(race, 31) - 0.5) / 50,
@@ -162,15 +165,19 @@
         deep: true
       }
     },
+    mounted () {
+      this.prepMapInfoWindow()
+    },
     computed: {
       center () {
-        return (this.$store.state.user.address || {}).coordinates || {lat: 39.82, lng: -106.58}
+        return (this.$store.state.user.address || {}).coordinates || {lat: 39.0902, lng: -95.7129}
       },
       filters () {
         this.update()
         return this.$store.state.filters
       }
     },
+
     data () {
       console.log(this.$route.path)
       var zoom = this.$route.path.includes('/app') ? 10 : 4
@@ -211,14 +218,70 @@
     }
   })
 </script>
-
 <style>
-.infowindow-body {
-  color: black;
+/* Selects above the inner content in the info map box and pads it */
+.gm-style-iw div:first-child div:first-child {
+  padding: 20px 20px;
 }
-.name {
-	font-size: 18px;
+/* Selects the 1px border around info map box */
+.gm-style div:first-child div:nth-child(4) div:first-child[style*="cursor: default"]{
+  background-color: #323238;
+}
+/* Selects box around content again */
+.gm-style div:first-child div:nth-child(4) div:first-child[style*="cursor: default"] div:first-child div:nth-child(4) {
+  background-color: #323238 !important;
+}
+/* Selects the close button around info map box */
+.gm-style div:first-child div:nth-child(4) div:first-child[style*="cursor: default"] img {
+  display:none;
+}
+/* Selects the down arrow below the info map box */
+.gm-style div:first-child div:nth-child(4) div:first-child[style*="cursor: default"] div:first-child div:nth-child(3) div div {
+  background-color: #323238 !important;
+}
+.gm-style-iw {
+   width: 350px !important;
+   top: 0 !important;
+   left: 0 !important;
+   border-radius: 2px 2px 0 0;
+}
+.gm-style .gm-style-iw {
+  overflow: initial;
+}
+.infowindow-body {
+  color: #D8D8D8;
+  font-size: 12px;
+  padding: 0px 0px !important;
+  width: 350px;
+}
+.infowindow-body .distances,
+.infowindow-body .date, 
+.infowindow-body .location {
+  display: inline-block;
+  color: #9B9B9B;
+  font-size: 12px;
+  opacity: 0.6;
+  line-height: 16px;
+  font-weight: 300;
+}
+.infowindow-body span.bullet {
+  color: #9B9B9B;
+  font-size: 12px;
+  opacity: 0.6;
+  line-height: 16px;
+  font-weight: 300;
+  padding: 10px;
+}
+.infowindow-body .name {
+	font-size: 14px;
 	font-weight: 900;
-	line-height: 25px;
+	line-height: 19px;
+  color: #D6D6D6;
+  padding: 10px 0px !important;
+}
+.infowindow-body .link {
+  font-weight: 300;
+  line-height: 16px;
+  margin-top: 8px;
 }
 </style>
