@@ -239,6 +239,13 @@
 .gm-style div:first-child div:nth-child(4) div:first-child[style*="cursor: default"] div:first-child div:nth-child(3) div div {
   background-color: #323238 !important;
 }
+.gm-style-iw div:first-child {
+  overflow: initial !important;
+}
+.gm-style-iw div:first-child div:first-child {
+  overflow: initial !important;
+  overflow-wrap: break-word;
+}
 .gm-style-iw {
    width: 350px !important;
    top: 0 !important;
@@ -252,7 +259,8 @@
   color: #D8D8D8;
   font-size: 12px;
   padding: 0px 0px !important;
-  width: 350px;
+  max-width: 350px;
+  margin-right: -40px;
 }
 .infowindow-body .distances,
 .infowindow-body .date, 
