@@ -272,7 +272,6 @@ export default {
   #home #choose-from {
     margin: 0px 35px;
   }
-  
 }
 </style>
 

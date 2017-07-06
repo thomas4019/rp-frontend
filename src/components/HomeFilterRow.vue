@@ -183,76 +183,93 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-  .filter-row {
-    position: relative;
-    display: flex;
-    border: 0.5px solid #4A4A4A;
-    width: 830px;
-    margin: 20px auto 20px auto;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+.filter-row {
+  position: relative;
+  display: flex;
+  border: 0.5px solid #4A4A4A;
+  width: 830px;
+  margin: 20px auto 20px auto;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+}
+.filter {
+  position: relative;
+  padding: 5px 10px 5px 10px;
+  padding-bottom: 0px;
+  border-left: 0.5px solid #4A4A4A;
+  min-width: 80px;
+}
+.filter:first-child{
+    padding: 4px 10px 4px 15px;
+}
+.filter:first-child, 
+.filter:nth-child(2) {
+  border-left: none;
+}
+.name {
+  color: #9B9B9B;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 2px 0px 0px 0px;
+}
+.summary {
+  color: #0DFFAE;
+  font-size: 12px;
+}
+.summary i.fa {
+  color: #9B9B9B;
+  font-size: 1.2em;
+}
+.filter .popup {
+  position: absolute;
+  padding: 10px 15px;
+  top: 30px;
+  left: -5px;
+  width: 227px;
+  background-color: #323237;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
+  border-radius: 4px;
+  z-index: 100;
+}
+input[type=text] {
+  background: transparent;
+  color: #F7F7F7;
+  border: none;
+  font-size: 14px;
+  width: 90%;
+}
+input:focus {
+    outline:none;
+}
+input[type=text]::placeholder {
+  color: #F7F7F7;
+}
+#switcher {
+  padding: 5px 0px 0px 0px;
+}
+#switcher img {
+  height: 22px;
+  padding: 0px 4px 0px 0px;
+}
+@media screen and (max-width: 799px) {
+  #home-search .filter-row{
+    max-width: initial;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    margin-bottom: 18px;
+  }
+  .filter-row input,
+  .filter-row input::placeholder {
+    color: #0DFFAE;
+    width: initial;
   }
   .filter {
-    position: relative;
-    padding: 5px 10px 5px 10px;
-    padding-bottom: 0px;
-    border-left: 0.5px solid #4A4A4A;
-    min-width: 80px;
+    width: initial !important;
   }
-  .filter:first-child{
-      padding: 4px 10px 4px 15px;
+  .filter .name {
+    display: none;
   }
-  .filter:first-child, 
-  .filter:nth-child(2) {
-    border-left: none;
-  }
-  .name {
-    color: #9B9B9B;
-    font-size: 12px;
-    line-height: 16px;
-    padding: 2px 0px 0px 0px;
-  }
-  .summary {
-    color: #0DFFAE;
-    font-size: 12px;
-  }
-  .summary i.fa {
-    color: #9B9B9B;
-    font-size: 1.2em;
-  }
-  .filter .popup {
-    position: absolute;
-    padding: 10px 15px;
-    top: 30px;
-    left: -5px;
-    width: 227px;
-    background-color: #323237;
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
-    border-radius: 4px;
-    z-index: 100;
-  }
-  input[type=text] {
-    background: transparent;
-    color: #F7F7F7;
-    border: none;
-    font-size: 14px;
-    width: 90%;
-  }
-  input:focus {
-      outline:none;
-  }
-  input[type=text]::placeholder {
-    color: #F7F7F7;
-  }
-  #switcher {
-    padding: 5px 0px 0px 0px;
-  }
-  #switcher img {
-    height: 22px;
-    padding: 0px 4px 0px 0px;
-  }
+}
 </style>
 <style>
   .date-picker-wrapper {

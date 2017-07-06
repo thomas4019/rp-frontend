@@ -25,6 +25,17 @@ export default {
 }
 </script>
 
+<style scoped>
+@media screen and (max-width: 799px) {
+  #home-search {
+    width: 100%;
+  }
+  #home-search .filter-row {
+    margin: 0px 19px;
+  }
+}
+</style>
+
 <style>
 #home-search {
   max-width: 830px;

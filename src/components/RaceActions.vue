@@ -78,5 +78,12 @@ i.not-favorite {
 .favorite {
   color: #0DFFAE;
 }
-
+@media screen and (max-width: 799px) {
+  div.actions .actions {
+    margin: 0px 5px;
+  }
+  div.actions > i.fa {
+    margin: -4px 0px;
+  }
+}
 </style>
