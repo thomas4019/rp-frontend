@@ -2,13 +2,17 @@
   <div id="home">
     <div id="promo" class="shadowed"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
     <div id="banner1">
-      <video poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
+      <video class="hide-on-mobile" poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
         <source src="/static/videos/promo4.mp4" type="video/mp4">
         <source src="/static/videos/promo4.webm" type="video/webm">
       </video>
       <div id="find-races-panel">
         <div class="subtitle">Racepass is the first subscription to distance races. Get access to 5000+ races with one simple pass.</div>
-        <button class="shadowed" v-scroll-to="'#choose-from, 0px'">Find Races</button>
+        <div class="button-row hide-on-desktop">
+          <div id="findbyme" class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Find races near me</div>
+          <div class="button-continue-icon">⌵</div>
+        </div>
+        <button class="shadowed hide-on-mobile" v-scroll-to="'#choose-from, 0px'">Find Races</button>
       </div>
     </div>
     <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
@@ -46,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div id="featured-in-wrapper">
+    <div id="featured-in-wrapper" class="hide-on-mobile">
       <div id="featured-in">
         <h4>As featured in</h4>
         <div class="sources">
@@ -58,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div id="choose-from" class="callout" style="margin: 16px 0 41px 0; padding-top:40px">
+    <div id="choose-from" class="callout">
       Choose from more than 5,000 races
     </div>
 
@@ -209,7 +213,73 @@ export default {
 }
 </script>
 
+<style scoped>
+@media screen and (min-width: 800px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 799px) {
+  #home #banner1 {
+    height: initial;
+  }
+  #home #banner1 #find-races-panel {
+    margin-top: 33px;
+  }
+  #home #find-races-panel .subtitle {
+    font-size: 20px;
+    line-height: 27px;
+    margin: 0px 35px;
+  }
+  #findbyme {
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3);
+  }
+  #home .text-features {
+    background-color: #323237;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+    text-align: center;
+    border: none;
+    font-weight: 300;
+    padding: 16px 10px;
+  }
+  #home span.bullet {
+    margin: 0 8px;
+  }
+  #home .selling-point {
+    padding: 10px 20px;
+  }
+  #home #selling-points h2,
+  #home #choose-from {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 25px;
+  }
+  #home #selling-points h3 {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 22px;
+  }
+  #home #selling-points p {
+    font-weight: 300;
+    margin: 0px 35px;
+  }
+  #selling-points .selling-icon img {
+    height: 62px;
+  }
+  #selling-points .selling-icon {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+  }
+  #home #choose-from {
+    margin: 0px 35px;
+  }
+  
+}
+</style>
+
 <style>
+#home #choose-from {
+    margin: 16px 0 41px 0; padding-top:40px
+  }
 .slick-dots button:before {
   color: #f7f7f7 !important;
   height: 30px;

@@ -1,126 +1,136 @@
 <template>
-<div class="row justify-content-center">
-<div class="race-profile col-md-4 bordered">
-    <section id="race-title" class="container">
-        <h1 class="race-profile-title">{{race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
-        <h2 class="race-profile-dropdown">
-            <select v-model="course">
-                <option v-for="option in race.courses" v-bind:value="option">{{ option.distance }}</option>
-            </select>
-        </h2>
-    </section>
-    <section id="race-picture" class="container">
-        <img class="race-profile-picture" src="/static/imgs/profiles/default-race-header.png">
-    </section>
-    <section id="race-info" class="container line-below">
-        <div class="row">
-            <div class="col-sm-6">
-                <h2>Event Details</h2>
-                <dl>
-                    <dt>Distance</dt>
-                    <dd>{{course.distance}}</dd>
-                </dl>
-                <dl>
-                    <dt>Date</dt>
-                    <dd>{{race.datetime}}</dd>
-                </dl>
-                <dl>
-                    <dt>Start times(s)</dt>
-                    <dd>9:00am drop down</dd>
-                </dl>
-                <dl>
-                    <dt>Participants</dt>
-                    <dd>4,500</dd>
-                </dl>
-                <dl>
-                    <dt>Avg. finisher time</dt>
-                    <dd>3:34:12</dd>
-                </dl>
-                <dl>
-                    <dt>Course time limit</dt>
-                    <dd>6 hrs</dd>
-                </dl>
-                <dl>
-                    <dt>Race start elevation</dt>
-                    <dd>356’</dd>
-                </dl>
-                <dl>
-                    <dt>Race finish altitude</dt>
-                    <dd>10’</dd>
-                </dl>
-                <dl>
-                    <dt>Elevation Gain</dt>
-                    <dd>+2,182’</dd>
-                </dl>
-                <dl>
-                    <dt>Elevation Drop</dt>
-                    <dd>-2,528’</dd>
-                </dl>
-                <a><em>Elevation map</em></a>
-            </div>
-            <div class="col-sm-6">
-                <div >
-                    <button class="register">Register</button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="race-profile col-md-7 bordered">
+            <section id="race-title" class="container">
+                <h1 class="race-profile-title">{{race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
+                <h2 class="race-profile-dropdown hide-on-desktop">
+                    <select v-model="course">
+                        <option v-for="option in race.courses" v-bind:value="option">{{ option.distance }}</option>
+                    </select>
+                    
+                </h2>
+                <h2 class="race-profile-dropdown hide-on-mobile">
+                    <ul class="radio-buttons">
+                        <li v-for="option in race.courses" v-bind:key="option">
+                            <input v-model="course" v-bind:value="option" type="radio" ><label>{{ option.distance }}</label>
+                        </li>
+                    </ul>
+                </h2>
+            </section>
+            <section id="race-picture" class="container">
+                <img class="race-profile-picture" src="/static/imgs/profiles/default-race-header.png">
+            </section>
+            <section id="race-info" class="container line-below">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Event Details</h2>
+                        <dl>
+                            <dt>Distance</dt>
+                            <dd>{{course.distance}}</dd>
+                        </dl>
+                        <dl>
+                            <dt>Date</dt>
+                            <dd>{{race.datetime}}</dd>
+                        </dl>
+                        <dl>
+                            <dt>Start times(s)</dt>
+                            <dd>9:00am drop down</dd>
+                        </dl>
+                        <dl>
+                            <dt>Participants</dt>
+                            <dd>4,500</dd>
+                        </dl>
+                        <dl>
+                            <dt>Avg. finisher time</dt>
+                            <dd>3:34:12</dd>
+                        </dl>
+                        <dl>
+                            <dt>Course time limit</dt>
+                            <dd>6 hrs</dd>
+                        </dl>
+                        <dl>
+                            <dt>Race start elevation</dt>
+                            <dd>356’</dd>
+                        </dl>
+                        <dl>
+                            <dt>Race finish altitude</dt>
+                            <dd>10’</dd>
+                        </dl>
+                        <dl>
+                            <dt>Elevation Gain</dt>
+                            <dd>+2,182’</dd>
+                        </dl>
+                        <dl>
+                            <dt>Elevation Drop</dt>
+                            <dd>-2,528’</dd>
+                        </dl>
+                        <a><em>Elevation map</em></a>
+                    </div>
+                    <div class="col-sm-6">
+                        <div >
+                            <button class="register">Register</button>
+                        </div>
+                        <div>
+                            <RpMap class="map"></RpMap>
+                        </div>
+                        <div class="links">
+                            <a><em>Directions</em></a>
+                            <a><em>Course Map</em></a>
+                            <a><em>Aid Stations</em></a>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <RpMap class="map"></RpMap>
-                </div>
-                <div>
-                    <a><em>Directions</em></a>
-                    <a><em>Course Map</em></a>
-                    <a><em>Aid Stations</em></a>
-                </div>
-            </div>
+            </section>
+            <section id="race-details" class="container line-below">
+                <h2>Raceday Details</h2>
+                <dl class="editable">
+                    <dt>Amenities</dt>
+                    <dd>Shirt, finisher medal, food & drink</dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Packet / Race bib pick up</dt>
+                    <dd>In-person at Race Expo</dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Parking / transit</dt>
+                    <dd>Free bus transit for participants</dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Gear check</dt>
+                    <dd>Free for participants at race start</dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Race rules</dt>
+                    <dd>No pacers, infants, bib switching </dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Awards</dt>
+                    <dd>Top three finishers</dd>
+                </dl>
+                <dl class="editable">
+                    <dt>Divisions</dt>
+                    <dd>Male, female age brackets</dd>
+                </dl>
+
+                <h2>Records</h2>
+                <dl>
+                    <dt>Male</dt>
+                    <dd>Brad Hawthorne, 1987, 2:16:39</dd>
+                </dl>
+                <dl>
+                    <dt>Female</dt>
+                    <dd>Svetlana Vasilyeva, 1996, 2:41:34</dd>
+                </dl>
+                <a><em>View full records</em></a>
+            </section>
+
+            <section id="race-partners">
+                <h2>Event partners</h2>
+                <img class="race-profile-picture" src="/static/imgs/profiles/default-race-partner.png">
+            </section>
         </div>
-    </section>
-    <section id="race-details" class="container line-below">
-        <h2>Raceday Details</h2>
-        <dl class="editable">
-            <dt>Amenities</dt>
-            <dd>Shirt, finisher medal, food & drink</dd>
-        </dl>
-        <dl class="editable">
-            <dt>Packet / Race bib pick up</dt>
-            <dd>In-person at Race Expo</dd>
-        </dl>
-        <dl class="editable">
-            <dt>Parking / transit</dt>
-            <dd>Free bus transit for participants</dd>
-        </dl>
-        <dl class="editable">
-            <dt>Gear check</dt>
-            <dd>Free for participants at race start</dd>
-        </dl>
-        <dl class="editable">
-            <dt>Race rules</dt>
-            <dd>No pacers, infants, bib switching </dd>
-        </dl>
-        <dl class="editable">
-            <dt>Awards</dt>
-            <dd>Top three finishers</dd>
-        </dl>
-        <dl class="editable">
-            <dt>Divisions</dt>
-            <dd>Male, female age brackets</dd>
-        </dl>
-
-        <h2>Records</h2>
-        <dl>
-            <dt>Male</dt>
-            <dd>Brad Hawthorne, 1987, 2:16:39</dd>
-        </dl>
-        <dl>
-            <dt>Female</dt>
-            <dd>Svetlana Vasilyeva, 1996, 2:41:34</dd>
-        </dl>
-        <a><em>View full records</em></a>
-    </section>
-
-    <section id="race-partners">
-        <h2>Event partners</h2>
-        <img class="race-profile-picture" src="/static/imgs/profiles/default-race-partner.png">
-    </section>
-</div>
+    </div>
 </div>
 </template>
 
@@ -167,6 +177,19 @@ export default {
 </script>
 
 <style scoped>
+.race-profile {
+    margin-top:20px;
+}
+@media screen and (min-width: 800px) {
+  .hide-on-desktop {
+    display: none;
+  }
+}
+@media screen and (max-width: 799px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
 h1 {
 	color: #D6D6D6;
 	font-size: 16px;
@@ -267,8 +290,25 @@ select {
     outline:none;
     font-size: 12px;
   }
-  option {
-    background-color: #323237;
-    color: #0DFFAE;
-  }
+option {
+background-color: #323237;
+color: #0DFFAE;
+}
+.links a {
+    padding-right: 10px;
+}
+.radio-group label {
+   overflow: hidden;
+} .radio-group input {
+    /* This is on purpose for accessibility. Using display: hidden is evil.
+    This makes things keyboard friendly right out tha box! */
+   height: 1px;
+   width: 1px;
+   position: absolute;
+   top: -20px;
+} .radio-group .not-active  {
+   color: #3276b1;
+   background-color: #fff;
+}
+
 </style>

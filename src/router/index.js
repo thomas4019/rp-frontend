@@ -106,7 +106,13 @@ export default new Router({
       beforeEnter: ensureLogin
     },
     {
-      path: '/app/race/:route_id',
+      path: '/app/race/:route_id/',
+      name: 'RaceProfile',
+      component: RaceProfile,
+      beforeEnter: ensureLogin
+    },
+    {
+      path: '/app/race/:route_id/:slug',
       name: 'RaceProfile',
       component: RaceProfile,
       beforeEnter: ensureLogin

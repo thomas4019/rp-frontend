@@ -5,16 +5,17 @@
     <login :isCreation="false" />
   </modal>
   <nav id="landing-nav">
-    <router-link to="/"><img src="/static/imgs/logo_transparent.png" id="logo" /></router-link>
+    <router-link to="/" class="hide-on-mobile"><img src="/static/imgs/logo_transparent.png" id="logo" /></router-link>
     <ul id="primary-menu">
-      <li id="menu-about"><router-link to="/about">About</router-link></li>
+      <li class="hide-on-desktop" id="logo-mobile" ><router-link to="/"><img src="/static/imgs/logo_mobile.png"/></router-link></li>
+      <li class="hide-on-mobile" id="menu-about"><router-link to="/about">About</router-link></li>
       <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
       <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
       <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
-      <li id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
-      <li id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
-      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div class="button shadowed">Get Racepass</div></router-link></li>
-      <li><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
+      <li class="hide-on-mobile" id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
+      <li class="hide-on-mobile" id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
+      <li v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div id="getracepass" class="button shadowed">Get Racepass</div></router-link></li>
+      <li id="login-button"><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
     </ul>
   </nav>
 </div>
@@ -62,9 +63,29 @@ export default {
   padding: 6px 15px;
   margin-left: 5px;
 }
-@media screen and (max-width: 800px) {
-  #primary-menu li.hide-on-mobile {
-    display: none;
+@media screen and (max-width: 799px) {
+  ul {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+  }
+  #logo-mobile {
+    float: left;
+    margin: 0px 0px;
+  }
+  #login-button {
+    float:right;
+    margin: 0px 0px;
+  }
+  #login-button button {
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 16px;
+  }
+  #getracepass{
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 16px;
   }
 }
 .hollow {
