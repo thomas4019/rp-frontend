@@ -197,13 +197,15 @@ export default {
           settings: {
             infinite: true,
             slidesToShow: 3,
-            variableWidth: false
+            variableWidth: false,
           },
         },
         {
           breakpoint: 1000,
           settings: {
-            slidesToShow: 1
+            slidesToShow: 1,
+            arrows: false,
+            dots: false
           },
         }
         ],
@@ -272,6 +274,41 @@ export default {
   #home #choose-from {
     margin: 0px 35px;
   }
+  #pass-header {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 25px;
+  }
+  #home #choose-pass .info {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    width: 70%;
+  }
+  #choose-pass #pass-wrapper .pass {
+    width: 200px;
+  }
+  #pass-wrapper .pass-title {
+    font-size: 18px;
+    line-height: 25px;
+    margin: 15px auto 0px auto;
+  }
+  #pass-wrapper .pass-price-row {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  #pass-wrapper .pass-count {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  #pass-wrapper .pass-buy {
+    margin: 10px 23px 25px 23px;
+  }
+  #pass-wrapper .pass-buy button {
+    font-size: 14px;
+    line-height: 19px;
+    padding: 12px 0px;
+  }
 }
 </style>
 
@@ -304,7 +341,7 @@ export default {
 #promo a {
   color: #0dffae;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 900;
   text-decoration: none;
 }
 
@@ -344,6 +381,7 @@ export default {
   margin: 0 auto 30px auto;
   max-width: 400px;
   padding: 0px 10px;
+  font-weight: 900;
 }
 #find-races-panel button {
   font-weight: 900;
@@ -385,7 +423,7 @@ export default {
 #selling-points p {
   line-height: 16px;
   font-size: 12px;
-  margin: 0px;
+  margin: 0px 10%;
   color: #9B9B9B;
 }
 .selling-icon {

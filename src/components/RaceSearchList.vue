@@ -2,7 +2,7 @@
  <section >
     <div style="display:none">{{search_text}}</div>
     <RaceTable :races="races" />
-    <div id="navigation">
+    <div id="navigation" class="hide-on-mobile">
       <span id="position">
         Showing page {{page + 1}} of {{page_count}}
       </span>

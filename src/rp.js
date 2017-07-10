@@ -14,6 +14,17 @@ var rp = {
         }
       })
   },
+  getExternal: function (path) {
+    return fetch(path)
+      .then(function (response) {
+        var contentType = response.headers.get('content-type')
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          return response.json()
+        } else {
+          return response.text()
+        }
+      })
+  },
   post: function (path, data) {
     var base = (this.mode === 'dev' ? 'http://localhost:3000/' : 'https://api.racepass.com/')
     var token = localStorage.token

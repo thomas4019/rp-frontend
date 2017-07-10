@@ -1,6 +1,6 @@
 <template>
   <div class="filter-row">
-    <div class="filter" style="width:315px;">
+    <div class="filter" style="width:345px;">
       <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
     </div>
     <div class="filter" style="width:120px;" @click="showRacePopup($event)">
@@ -11,14 +11,14 @@
         <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
       </div>
     </div>
-    <div class="filter" style="width:180px;">
+    <div class="filter" style="width:150px;">
       <div class="name">Dates</div>
       <div class="summary">
         <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
         <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
       </div>
     </div>
-    <div class="filter" style="width:141px;">
+    <div class="filter" style="width:140px;">
       <div class="name">Location</div>
       <select v-model="filter_state" @change="updateFilter()">
         <option value="ALL">All</option>
@@ -280,7 +280,7 @@ input[type=text]::placeholder {
     background: transparent;
     color: #0DFFAE;
     font-size: 12px;
-    width: 70px;
+    width: 50px;
     padding: 0px 0px 0px 0px; 
     position: relative;
   }
@@ -292,19 +292,32 @@ input[type=text]::placeholder {
   }
   .vdp-datepicker__calendar {
     background-color: #323237;
+    border: none;
   }
   select {
     background: transparent;
     color: #0DFFAE;
     border: none;
-    padding: 0px 5px 0px 0px; 
+    padding: 0px 5px 0px 5px; 
+    margin-left: -5px;
     -webkit-appearance: none;
     -moz-appearance: none;
     outline:none;
     font-size: 12px;
+    position: relative;
+    top: -2px;
   }
   option {
     background-color: #323237;
     color: #0DFFAE;
+  }
+  .vdp-datepicker__calendar header {
+    border: none;
+  }
+  .vdp-datepicker__calendar header .next:after{
+      border-left: 10px solid #9B9B9B;
+  }
+  .vdp-datepicker__calendar header .prev:after {
+    border-right: 10px solid #9B9B9B;
   }
 </style>

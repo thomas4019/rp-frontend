@@ -10,18 +10,18 @@
         <div class="col-md-1"></div>
       </div>
       <div class="row no-gutters race" v-for="race in races" v-bind:key="race.id">
-        <div class="col-11 col-md-3 col-md-push-1 race-name">{{race.name}}</div>
-        <div class="col-1 col-md-1 col-md-push-11 actions">
+        <div class="col-10 col-md-3 push-md-1 race-name">{{race.name}}</div>
+        <div class="col-2 col-md-1 push-md-8 actions">
           <RaceActions :race="race"></RaceActions>
         </div>
-        <div class="col-1 col-md-1 distance">
+        <div class="col-2 col-md-1 pull-md-4 distance">
           <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
             {{course.distance}}
           </span>
         </div>
-        <div class="col-5 col-md-2 col-md-push-1 location">{{race.location.city}}, {{race.location.state}}</div>
-        <div class="col-3 col-md-2 datetime">{{race.datetime | formatDate }}</div>
-        <div class="col-2 col-md-3 website">
+        <div class="col-5 col-md-2 pull-md-1 location">{{race.location.city}}, {{race.location.state}}</div>
+        <div class="col-3 col-md-2 pull-md-1 datetime">{{race.datetime | formatDate }}</div>
+        <div class="col-2 col-md-3 pull-md-1 website">
           <a target="_blank" :href="race.website">
             <em class="hide-on-mobile">{{race.website | formatURL }}</em>
             <em class="hide-on-desktop">Visit Site</em>

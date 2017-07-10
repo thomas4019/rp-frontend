@@ -132,6 +132,7 @@
           // Avoid sending duplicate requests
           return
         }
+        console.log('Map Update')
         this.prevQuery = query
         var querytime = new Date()
         rp.get('race2?limit=' + this.limit + '&query=' + JSON.stringify(query))
@@ -155,6 +156,24 @@
               }
             }))
           })
+        if (this.$store.state.filters['location.state'] && this.$store.state.filters['location.state'] !== 'ALL') {
+          console.log('StATE', this.$store.state.filters['location.state'])
+          var stateName = this.$store.state.filters['location.state']
+          var key = 'AIzaSyDPHwV91x39GGO09KE34AHDJwYyA-j8dtk'
+          rp.getExternal('https://maps.googleapis.com/maps/api/geocode/json?components=administrative_area:' + stateName + '|country:US&key=' + key)
+          .then((data) => {
+            console.log('GEOCODE', data)
+            if (!data.results[0]) {
+              console.log(stateName)
+              console.error(data)
+            }
+            var latlng = data.results[0].geometry.location
+            if (data.status !== 'ZERO_RESULTS') {
+              this.searchCoordinates = latlng
+              this.zoom = this.$route.path.includes('/app') ? 10 : 6
+            }
+          })
+        }
       }
     },
     watch: {
@@ -170,7 +189,8 @@
     },
     computed: {
       center () {
-        return (this.$store.state.user.address || {}).coordinates || {lat: 39.0902, lng: -95.7129}
+        console.log('Computing center of map')
+        return this.searchCoordinates || (this.$store.state.user.address || {}).coordinates || {lat: 39.0902, lng: -95.7129}
       },
       filters () {
         this.update()
@@ -189,6 +209,7 @@
           url: '/static/imgs/mapicon2x.png',
           scaledSize: {width: 20, height: 34},
         },
+        searchCoordinates: null,
         zoom: zoom,
         markers: [],
         races: [],
