@@ -26,10 +26,10 @@
       <span class="bullet"></span>
       Cancel anytime
     </div>
-    <div id="selling-points-wrapper">
+    <section id="selling-points-wrapper">
       <div class="container" id="selling-points">
         <div class="row">
-          <h2>Racing made simple</h2>
+          <h2 class="centered bottom-margin">Racing made simple</h2>
         </div>
         <div class="row">
           <div class="col-sm-4 selling-point">
@@ -49,8 +49,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div id="featured-in-wrapper" class="hide-on-mobile">
+    </section>
+    <section id="featured-in-wrapper" class="hide-on-mobile">
       <div id="featured-in">
         <h4>As featured in</h4>
         <div class="sources">
@@ -61,97 +61,105 @@
           <div class="source-logo"><img src="/static/imgs/philadelphia.png" /></div>
         </div>
       </div>
-    </div>
-    <div id="choose-from" class="callout">
-      Choose from more than 5,000 races
-    </div>
-
-    <HomeSearch />
-
-    <div class="button-row">
-      <div class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Choose your pass</div>
-      <div class="button-continue-icon">⌵</div>
-    </div>
-    <section id="choose-pass">
-      <div id="pass-header" class="callout">Let's get you up and running</div>
-      <div class="info">Each pass buys you a pre-set number of races for the year. No matter which types of race you pick, if it's a 5k or a Marathon, Racepass covers the full registration cost of your races.</div>
-      <slick ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
-        <div class="pass-container">
-          <div class="pass pass-side">
-            <div class="pass-title">Contender</div>
-            <div class="pass-body">
-              <div class="pass-count">Covers registration for <em>three</em> Races</div>
-              <div class="distances">Marathon • Half Marathon<br />
-                  20K • 15K • 12k • 10k<br />
-                  5K • Fun Run
-              </div>
-              <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
-            </div>
-             <a id="buy1" @click="buy('3races')" class="pass-buy"><button>Buy Contender</button></a>
-          </div>
+    </section>
+    <section>
+      <div id="choose-from" class="container">
+        <div class="row">
+          <h2 class="centered bottom-margin">Choose from more than 5,000 races</h2>
         </div>
-        <div class="pass-container">
-          <div class="pass">
-            <div class="pass-title">Athlete</div>
-            <div class="pass-body">
-              <div class="pass-count">Covers registration for <em>six</em> Races</div>
-              <div class="distances">Marathon • Half Marathon<br />
-                  20K • 15K • 12k • 10k<br />
-                  5K • Fun Run
-              </div>
-              <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
-            </div>
-            <a id="buy2" @click="buy('5races')" class="pass-buy"><button>Buy Athlete</button></a>
-          </div>
+        <HomeSearch />
+        <div class="button-row">
+          <div class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Choose your pass</div>
+          <div class="button-continue-icon">⌵</div>
         </div>
-        <div class="pass-container">
-          <div class="pass">
-            <div class="pass-title">Pro</div>
-            <div class="pass-body">
-              <div class="pass-count">Covers registration for <em>twelve</em> Races</div>
-              <div class="distances">Marathon • Half Marathon<br />
-                20K • 15K • 12k • 10k<br />
-                5K • Fun Run
-              </div>
-              <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
-            </div>
-            <a id="buy3" class="pass-buy"><button>Buy Pro</button></a>
-          </div>
-        </div>
-      </slick>
-      <div class="info">
-        <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </p>
-        <p><router-link to="/faq#refund"><em>Learn more</em></router-link></p>
       </div>
     </section>
-    <div id="faq" class="container">
-      <div class="callout">
-        Any questions running through your mind?
+    <section id="choose-pass">
+      <div class="container">
+        <div class="row">
+          <h2 class="centered">Let's get you up and running</h2>
+        </div>
+        <div class="info">Each pass buys you a pre-set number of races for the year. No matter which types of race you pick, if it's a 5k or a Marathon, Racepass covers the full registration cost of your races.</div>
+        <slick ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
+          <div class="pass-container">
+            <div class="pass pass-side">
+              <div class="pass-title">Contender</div>
+              <div class="pass-body">
+                <div class="pass-count">Covers registration for <em>three</em> Races</div>
+                <div class="distances">Marathon • Half Marathon<br />
+                    20K • 15K • 12k • 10k<br />
+                    5K • Fun Run
+                </div>
+                <div class="pass-price-row"><span class="pass-price">${{passPrices['3races']}}</span>/yr</div>
+              </div>
+              <a id="buy1" @click="buy('3races')" class="pass-buy"><button>Buy Contender</button></a>
+            </div>
+          </div>
+          <div class="pass-container">
+            <div class="pass">
+              <div class="pass-title">Athlete</div>
+              <div class="pass-body">
+                <div class="pass-count">Covers registration for <em>six</em> Races</div>
+                <div class="distances">Marathon • Half Marathon<br />
+                    20K • 15K • 12k • 10k<br />
+                    5K • Fun Run
+                </div>
+                <div class="pass-price-row"><span class="pass-price">${{passPrices['5races']}}</span>/yr</div>
+              </div>
+              <a id="buy2" @click="buy('5races')" class="pass-buy"><button>Buy Athlete</button></a>
+            </div>
+          </div>
+          <div class="pass-container">
+            <div class="pass">
+              <div class="pass-title">Pro</div>
+              <div class="pass-body">
+                <div class="pass-count">Covers registration for <em>twelve</em> Races</div>
+                <div class="distances">Marathon • Half Marathon<br />
+                  20K • 15K • 12k • 10k<br />
+                  5K • Fun Run
+                </div>
+                <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
+              </div>
+              <a id="buy3" class="pass-buy"><button>Buy Pro</button></a>
+            </div>
+          </div>
+        </slick>
+        <div class="info wide">
+          <p>If you can't make your race, don't sweat it. We've got you covered. We are the only company in our industry to offer free race cancellation. </p>
+          <p><router-link to="/faq#refund"><em>Learn more</em></router-link></p>
+        </div>
       </div>
-      <rp-question id="q1">
-        <span slot="question">Can I see a list of races available?</span>
-        <span slot="answer">You can find all the races in our network in the map on the homepage or in your account. If you want to browse a list of races, select the list icon to the right of the search bar and filters. </span>
-      </rp-question>
-      <rp-question id="q2">
-        <span slot="question">How many races can I run?</span>
-        <span slot="answer">Each Racepass plan has its own limitations. Please see our pricing page for complete plan details.</span>
-      </rp-question>
-      <rp-question id="q3">
-        <span slot="question">Are there blackout dates or races you don’t cover?</span>
-        <span slot="answer">There are no blackout dates for the races listed in our network. If it's listed, you can run it. If you're looking for a race and we don't have it in our map or list results, then it's not in our network just yet. If you want us to include it, let us know by emailing support@racepass.com and we'll try to work our magic.</span>
-      </rp-question>
-      <rp-question id="q6">
-        <span slot="question">What if I sign up for a race but have to cancel?</span>
-        <span slot="answer">One of the many benefits of Racepass is the flexibility it offers. As long as it’s more than 14 calendar days from race day, you can cancel any race at any time. If it is closer than 14 days then the race credit will be used.</span>
-      </rp-question>
-      <rp-question id="q4">
-        <span slot="question">Do you have a refund policy?</span>
-        <span slot="answer">Upon cancellation, all subsequent race registrations will be cancelled and the full registration amount of any race within 14 calendar days will be deducted from the refund as well. The remaining amount will be returned to you via your method of payment within 3-5 business days.</span>
-      </rp-question>
-    </div>
-    <div id="faq-full" style="margin-bottom:75px;" class="button-row">
-      <router-link to="/faq"><div class="button-continue shadowed">See full list of FAQs</div></router-link>
-    </div>
+    </section>
+    <section>
+      <div id="faq" class="container">
+        <div class="row">
+          <h2 class="centered">Any questions running through your mind?</h2>
+        </div>
+        <rp-question id="q1">
+          <span slot="question">Can I see a list of races available?</span>
+          <span slot="answer">You can find all the races in our network in the map on the homepage or in your account. If you want to browse a list of races, select the list icon to the right of the search bar and filters. </span>
+        </rp-question>
+        <rp-question id="q2">
+          <span slot="question">How many races can I run?</span>
+          <span slot="answer">Each Racepass plan has its own limitations. Please see our pricing page for complete plan details.</span>
+        </rp-question>
+        <rp-question id="q3">
+          <span slot="question">Are there blackout dates or races you don’t cover?</span>
+          <span slot="answer">There are no blackout dates for the races listed in our network. If it's listed, you can run it. If you're looking for a race and we don't have it in our map or list results, then it's not in our network just yet. If you want us to include it, let us know by emailing support@racepass.com and we'll try to work our magic.</span>
+        </rp-question>
+        <rp-question id="q6">
+          <span slot="question">What if I sign up for a race but have to cancel?</span>
+          <span slot="answer">One of the many benefits of Racepass is the flexibility it offers. As long as it’s more than 14 calendar days from race day, you can cancel any race at any time. If it is closer than 14 days then the race credit will be used.</span>
+        </rp-question>
+        <rp-question id="q4">
+          <span slot="question">Do you have a refund policy?</span>
+          <span slot="answer">Upon cancellation, all subsequent race registrations will be cancelled and the full registration amount of any race within 14 calendar days will be deducted from the refund as well. The remaining amount will be returned to you via your method of payment within 3-5 business days.</span>
+        </rp-question>
+      </div>
+      <div id="faq-full" class="button-row">
+        <router-link to="/faq"><div class="button-continue shadowed">See full list of FAQs</div></router-link>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -274,17 +282,6 @@ export default {
   #home #choose-from {
     margin: 0px 35px;
   }
-  #pass-header {
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 25px;
-  }
-  #home #choose-pass .info {
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 16px;
-    width: 70%;
-  }
   #choose-pass #pass-wrapper .pass {
     width: 200px;
   }
@@ -310,12 +307,12 @@ export default {
     padding: 12px 0px;
   }
 }
+#faq h2 {
+  color: #fff;
+}
 </style>
 
 <style>
-#home #choose-from {
-    margin: 16px 0 41px 0; padding-top:40px
-  }
 .slick-dots button:before {
   color: #f7f7f7 !important;
   height: 30px;
@@ -392,25 +389,12 @@ export default {
         width: 290px;
     }
 }
-.container {
-  max-width: 1000px !important;
-}
 
-/* Styles for 3 column main features */
-#selling-points-wrapper {
-  margin: 0px 25px 0px 25px;
-}
 #selling-points {
   color: #f7f7f7;
-  padding: 20px 0px;
   text-align: center;
 }
-#selling-points h2 {
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 36px;
-  color: #D8D8D8;
-}
+
 #selling-points h3 {
   font-size: 18px;
   margin: 10px 0px;
@@ -418,7 +402,7 @@ export default {
   font-weight: 900;
 }
 .selling-point {
-  padding: 20px;
+  padding: 0px 20px;
 }
 #selling-points p {
   line-height: 16px;
@@ -476,16 +460,13 @@ export default {
   margin: 0px 15px;
 }
 
-
-#featured-in-wrapper {
-    margin: 70px 0px 70px 0px;
-}
 #featured-in-wrapper h4 {
 	color: #D8D8D8;
 	font-size: 18px;
+  font-weight: 300;
 	line-height: 25px;
 	text-align: center;
-  margin: 0px 0px 32px 0px;
+  margin: 0px 0px 25px 0px;
 }
 #featured-in-wrapper .sources {
   background-color: #323237;
@@ -583,11 +564,6 @@ export default {
 }
 
 
-/* Choose your pass page */
-#choose-pass {
-  font-size: 36px;
-  margin: 0px 25px 0px 25px;
-}
 #choose-pass .info {
   color: #D8D8D8;
   font-size: 14px;
@@ -596,13 +572,20 @@ export default {
   width: 50%;
   max-width: 410px;
 }
+.info p {
+  margin-bottom: 0px;
+}
+#choose-pass .info.wide {
+  max-width: initial;
+  width: 100%;
+}
 #pass-wrapper {
   flex-direction: row;
   text-align: center;
   font-size: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding: 0px;
 }
 .pass-container {

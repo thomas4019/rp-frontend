@@ -68,14 +68,11 @@ export default {
 footer {
 	background: #323237;
 	padding: 40px 15px 5px 15px;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
+  margin-top: 60px;
 }
 footer .disclaimer {
 	margin-top: 33px;
-	font-size: 9px;
+	font-size: 12px;
   color: #9B9B9B;
   font-weight: 300;
 }

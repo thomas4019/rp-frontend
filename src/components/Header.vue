@@ -40,9 +40,8 @@ export default {
   margin-top: 38px;
 }
 #logo {
-	width: 160px;
-	margin-top: 5px;
-	margin-left: 21px;
+	width: 180px;
+	margin-left: 19px;
 }
 #logo-mini {
 	height: 32px;
@@ -61,7 +60,6 @@ export default {
 #primary-menu button,
 #primary-menu .button {
   padding: 6px 15px;
-  margin-left: 5px;
 }
 @media screen and (max-width: 799px) {
   ul {

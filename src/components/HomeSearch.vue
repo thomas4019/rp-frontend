@@ -40,6 +40,7 @@ export default {
 #home-search {
   max-width: 830px;
   margin: auto;
+  margin-bottom: 55px;
 }
 #switcher {
   text-align: right;
