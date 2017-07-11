@@ -120,7 +120,7 @@
                 </div>
                 <div class="pass-price-row"><span class="pass-price">${{passPrices['unlimited']}}</span>/yr</div>
               </div>
-              <a id="buy3" class="pass-buy"><button>Buy Pro</button></a>
+              <a id="buy3" @click="buy('12races')" class="pass-buy"><button>Buy Pro</button></a>
             </div>
           </div>
         </slick>
