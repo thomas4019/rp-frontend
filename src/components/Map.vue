@@ -302,7 +302,7 @@
   color: #D8D8D8;
   font-size: 12px;
   padding: 0px 0px !important;
-  max-width: 350px;
+  max-width: 300px;
   margin-right: -40px;
 }
 .infowindow-body .distances,
@@ -321,7 +321,7 @@
   opacity: 0.6;
   line-height: 16px;
   font-weight: 300;
-  padding: 10px;
+  padding: 6px;
 }
 .infowindow-body .name {
 	font-size: 14px;
@@ -334,5 +334,8 @@
   font-weight: 300;
   line-height: 16px;
   margin-top: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>
