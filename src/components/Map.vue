@@ -77,8 +77,31 @@
             '</div>'
         }
       },
-      prepMapInfoWindow () {
-        console.log(this, this.$parent, this.$parent.$children[1])
+      getGeolocation () {
+        console.log(this.$store.state.user.address)
+        if (this.$store.state.user.address) {
+          var key = 'AIzaSyDPHwV91x39GGO09KE34AHDJwYyA-j8dtk'
+          var address = this.$store.state.user.address
+          var query = address.line1 + address.line2 + address.city + address.state + address.zip
+          rp.getExternal('https://maps.googleapis.com/maps/api/geocode/json?address=' + query + '&key=' + key)
+          .then((data) => {
+            console.log('GEOCODE', data)
+            if (!data.results[0]) {
+              console.error(data)
+            }
+            var latlng = data.results[0].geometry.location
+            if (data.status !== 'ZERO_RESULTS') {
+              this.searchCoordinates = latlng
+              this.zoom = this.$route.path.includes('/app') ? 10 : 6
+            }
+          })
+        } else if (navigator.geolocation) {
+          console.log('NAV')
+          navigator.geolocation.getCurrentPosition(position => {
+            console.log('NAV', position)
+            this.searchCoordinates = { lat: position.coords.latitude, lng: position.coords.latitude }
+          })
+        }
       },
       update (b) {
         if (!b) {
@@ -157,7 +180,6 @@
             }))
           })
         if (this.$store.state.filters['location.state'] && this.$store.state.filters['location.state'] !== 'ALL') {
-          console.log('StATE', this.$store.state.filters['location.state'])
           var stateName = this.$store.state.filters['location.state']
           var key = 'AIzaSyDPHwV91x39GGO09KE34AHDJwYyA-j8dtk'
           rp.getExternal('https://maps.googleapis.com/maps/api/geocode/json?components=administrative_area:' + stateName + '|country:US&key=' + key)
@@ -185,7 +207,7 @@
       }
     },
     mounted () {
-      this.prepMapInfoWindow()
+      this.getGeolocation()
     },
     computed: {
       center () {

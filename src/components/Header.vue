@@ -40,7 +40,7 @@ export default {
   margin-top: 38px;
 }
 #logo {
-	width: 180px;
+	width: 140px;
 	margin-left: 19px;
 }
 #logo-mini {

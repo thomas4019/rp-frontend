@@ -23,9 +23,9 @@
             <div class="col col-lg-6 align-self-end right">
               <div class="social">
                 <a class="heap" href="https://heapanalytics.com/?utm_source=badge" rel="nofollow"><img style="width:70px" src="//heapanalytics.com/img/badge.png" alt="Heap | Mobile and Web Analytics" /></a>
-                <a class="icon" href="https://www.facebook.com/RacepassUSA/"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/RacepassUSA/"><img style="width:35px" src="/static/imgs/fb_icon.png"  /></a>
                 <!-- <a class="icon" href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a> -->
-                <a class="icon" href="https://twitter.com/racepassusa?lang=en"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/racepassusa?lang=en"><img style="width:35px" src="/static/imgs/twitter_icon.png"  /></a>
                 <!-- <a class="icon" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> -->
               </div>
             </div>
@@ -113,21 +113,7 @@ ul.bottom-menu {
 #footer-bottom a {
 	font-size: 12px;
 }
-.social a.icon {
-  padding: 4px;
-  border-radius: 50%;
-  border: 1px solid #FFFFFF;
-}
-.social a.icon .fa {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  padding: 0px 3px;
-  font-size: 15px;
-}
-.social a.icon .fa.fa-facebook {
-  padding: 0px 5px;
-}
+
 .social .heap {
   margin-right: 15px;
 }

@@ -31,16 +31,16 @@
         <div class="row">
           <h2 class="centered bottom-margin">Racing made simple</h2>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/discover.png" /></div>
             <h3>Discover</h3>
             <p>Find more than 5,000 races anywhere in the world. Try local &amp; recommended races and invite friends to race.</p>
           </div>
-          <div class="col-sm-4 selling-point">
+          <div class="col-sm-3 selling-point">
             <div class="selling-icon"><img src="/static/imgs/register.png" /></div>
             <h3>Register</h3>
-            <p>Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
+            <p style="margin:initial">Register for any race with a single click. Manage your entire race calendar from one simple account.</p>
           </div>
           <div class="col-sm-4 selling-point">
             <div class="selling-icon"><img src="/static/imgs/race.png" /></div>
@@ -407,7 +407,7 @@ export default {
 #selling-points p {
   line-height: 16px;
   font-size: 12px;
-  margin: 0px 10%;
+  margin: 0px 15%;
   color: #9B9B9B;
 }
 .selling-icon {
