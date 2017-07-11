@@ -25,6 +25,12 @@
               10k • 5k • Fun Runs
             </p>
           </div>
+          <div v-if="passType=='12races'" class="pass-body">
+            <div class="pass-count">12 Races</div>
+            <p>26.2 • 13.1<br>
+              10k • 5k • Fun Runs
+            </p>
+          </div>
           <div v-if="passType=='unlimited'" class="pass-body">
             <div class="pass-count">Unlimited Races</div>
             <p>26.2 • 13.1<br>
@@ -360,8 +366,8 @@ export default {
     includeJs('https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js')
     loadBraintreeIfNotLoaded()
     if (localStorage.buyType === 'unlimited') {
-      // If the person clicked "pro" previously, change the selection to the 5 races plan.
-      localStorage.buyType = '5races'
+      // If the person clicked "pro" previously, change the selection to the 12 races plan.
+      localStorage.buyType = '12races'
     }
     this.passType = localStorage.buyType || '3races'
     this.passName = rp.passNames[this.passType]
@@ -375,6 +381,7 @@ export default {
         'Free Trial': 'freeTrial',
         'Contender': '3races',
         'Athlete': '5races',
+        'Pro': '12races',
         // Pro pass currently shouldn't show up in the dropdown
         // 'Pro': 'unlimited'
       },
