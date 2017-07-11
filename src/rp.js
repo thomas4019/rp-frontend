@@ -39,8 +39,8 @@ var rp = {
   passPrices: {
     'freeTrial': 0,
     '3races': 195,
-    '5races': 295,
-    'unlimited': 695,
+    '5races': 365,
+    'unlimited': 645,
   },
   passNames: {
     'freeTrial': 'Free Trial',
