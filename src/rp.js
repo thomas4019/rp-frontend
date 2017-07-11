@@ -51,8 +51,8 @@ var rp = {
   passRaceCount: {
     'freeTrial': 0,
     '3races': 3,
-    '5races': 5,
-    'unlimited': 200,
+    '5races': 6,
+    'unlimited': 12,
   },
   distanceMap: {
     'Half Marathon': 21.09,
