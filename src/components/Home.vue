@@ -75,17 +75,17 @@
       </div>
     </section>
     <section id="choose-pass">
-      <div class="container">
+      <div class="container" style="max-width: 1000px !important;">
         <div class="row">
           <h2 class="centered">Let's get you up and running</h2>
         </div>
         <div class="info">Each pass buys you a pre-set number of races for the year. No matter which types of race you pick, if it's a 5k or a Marathon, Racepass covers the full registration cost of your races.</div>
-        <slick ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
+        <slick  ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
           <div class="pass-container">
             <div class="pass pass-side">
               <div class="pass-title">Contender</div>
               <div class="pass-body">
-                <div class="pass-count">Covers registration for <em>three</em> Races</div>
+                <div class="pass-count">Covers registration for <em>three</em> races</div>
                 <div class="distances">Marathon • Half Marathon<br />
                     20K • 15K • 12k • 10k<br />
                     5K • Fun Run
@@ -99,7 +99,7 @@
             <div class="pass">
               <div class="pass-title">Athlete</div>
               <div class="pass-body">
-                <div class="pass-count">Covers registration for <em>six</em> Races</div>
+                <div class="pass-count">Covers registration for <em>six</em> races</div>
                 <div class="distances">Marathon • Half Marathon<br />
                     20K • 15K • 12k • 10k<br />
                     5K • Fun Run
@@ -113,7 +113,7 @@
             <div class="pass">
               <div class="pass-title">Pro</div>
               <div class="pass-body">
-                <div class="pass-count">Covers registration for <em>twelve</em> Races</div>
+                <div class="pass-count">Covers registration for <em>twelve</em> races</div>
                 <div class="distances">Marathon • Half Marathon<br />
                   20K • 15K • 12k • 10k<br />
                   5K • Fun Run

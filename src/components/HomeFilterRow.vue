@@ -189,7 +189,7 @@ export default {
   display: flex;
   border: 0.5px solid #4A4A4A;
   width: 830px;
-  margin: 20px auto 10px auto;
+  margin: 0px auto 10px auto;
   border-radius: 4px;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
 }
