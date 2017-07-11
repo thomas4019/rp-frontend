@@ -67,13 +67,16 @@ export default {
     text-align: center;
     width: 100%;
   }
+  #landing-nav {
+	  padding: 13px 0px 0px 0px;
+  }
   #logo-mobile {
     float: left;
     margin: 0px 0px;
   }
   #login-button {
     float:right;
-    margin: 0px 0px;
+    margin: 0px 15px 0px 0px;
   }
   #login-button button {
     font-size: 12px;
