@@ -67,13 +67,15 @@ h3.bottom-margin,
 h4.bottom-margin {
 	margin-bottom: 40px;
 }
+h1, h2, h3 {
+	color: #D8D8D8;
+}
 h1 {
 	font-size: 48px;
 	font-weight: lighter;
 }
 h2 {
 	font-size: 36px;
-	color: #D8D8D8;
 }
 h3 {
 	font-size: 24px;

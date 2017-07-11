@@ -307,9 +307,6 @@ export default {
     padding: 12px 0px;
   }
 }
-#faq h2 {
-  color: #fff;
-}
 </style>
 
 <style>
