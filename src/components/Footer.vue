@@ -4,7 +4,7 @@
       <div class="col-lg-8">
         <div id="footer-top" class="container">
           <div class="row justify-content-between">
-            <div class="col">
+            <div class="col-12 col-lg-6">
               <div class="links">
                 <ul class="bottom-menu" style="padding-right: 20px;">
                   <li class="header">Company</li>
@@ -20,7 +20,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col col-lg-6 align-self-end right">
+            <div class="col-12 col-lg-6 align-self-end right hide-on-mobile">
               <div class="social">
                 <a class="heap" href="https://heapanalytics.com/?utm_source=badge" rel="nofollow"><img style="width:70px" src="//heapanalytics.com/img/badge.png" alt="Heap | Mobile and Web Analytics" /></a>
                 <a href="https://www.facebook.com/RacepassUSA/"><img style="width:35px" src="/static/imgs/fb_icon.png"  /></a>
@@ -38,13 +38,13 @@
             <div class="col">
               <div class="copyright">2017 Racepass Inc. 450 Franklin Street, Mountain View, CA 94041</div>
             </div>
-            <div class="col col-lg-6 right terms-section">
+            <div class="col col-lg-6 right terms-section hide-on-mobile">
               <router-link to="/terms">Terms of Use</router-link>
               <router-link to="/privacy">Privacy Policy</router-link>
             </div>
           </div>
-          <p class="container disclaimer">All names, logos, and brands of third parties (e.g., race organizers) listed on our site are trademarks of their respective owners. Racepass and its products and services are not endorsed by, sponsored by, or affiliated with these third parties.  Our use of these names, logos, and brands is for identification purposes only, and does not imply any such endorsement, sponsorship, or affiliation.</p>
-          <p v-if="$route.path=='/'" class="container disclaimer">
+          <p class="container disclaimer hide-on-mobile">All names, logos, and brands of third parties (e.g., race organizers) listed on our site are trademarks of their respective owners. Racepass and its products and services are not endorsed by, sponsored by, or affiliated with these third parties.  Our use of these names, logos, and brands is for identification purposes only, and does not imply any such endorsement, sponsorship, or affiliation.</p>
+          <p v-if="$route.path=='/'" class="container disclaimer hide-on-mobile">
             <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">CC BY</a> footage from
             <a href="https://www.youtube.com/watch?v=B3ne77AoLog" target="_blank">BGM 2016 - Drone Teaser</a>,
             <a href="https://www.youtube.com/watch?v=thXGgK_APFU" target="_blank">United NYC Half 2016</a>,
@@ -137,5 +137,10 @@ ul.bottom-menu {
 }
 #video-attribution {
   display: none;
+}
+@media screen and (max-width: 799px) {
+  .copyright {
+    text-align: center;
+  }
 }
 </style>

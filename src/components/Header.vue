@@ -88,6 +88,12 @@ export default {
     font-weight: 900;
     line-height: 16px;
   }
+  #logo-mobile img {
+    width: 64px;
+  }
+  #logo-mobile {
+    margin-top: -5px;
+  }
 }
 .hollow {
   cursor: pointer;

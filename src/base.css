@@ -25,24 +25,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 14px;
 }
-@media screen and (max-width: 900px) {
-	body {
-		/* padding needs to be bigger since the footer is taller on small devices */
-		padding-bottom: 290px;
-	}
-}
-@media screen and (max-width: 750px) {
-	body {
-		/* padding needs to be bigger since the footer is taller on small devices */
-		padding-bottom: 300px;
-	}
-}
-@media screen and (max-width: 670px) {
-	body {
-		/* padding needs to be bigger since the footer is taller on small devices */
-		padding-bottom: 370px;
-	}
-}
 a, a:hover, a:visited {
 	color: #F7F7F7;
 	text-decoration: none;

@@ -19,7 +19,7 @@
       <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
       <login :isCreation="isCreation" />
     </modal>
-    <div class="text-features"style="">
+    <div class="text-features full-width-thin-ribbon"style="">
       <div class="feature">
         No race lotteries
       </div>
@@ -93,7 +93,7 @@
       </div>
     </section>
     <section id="choose-pass">
-      <div class="container" style="max-width: 1000px !important;">
+      <div class="container">
         <div class="row justify-content-center">
           <div class="col-10">
             <h2 class="centered">Let's get you up and running</h2>
@@ -102,6 +102,19 @@
             <div class="info">Each pass buys you a pre-set number of races for the year. No matter which types of race you pick, if it's a 5k or a Marathon, Racepass covers the full registration cost of your races.</div>
           </div>
         </div>
+      </div>
+      <div id="pass-selector" class="hide-on-desktop full-width-thin-ribbon no-padding-ribbon slick-menu-bar">
+        <div class="row justify-content-center">
+          <div class="col-10">
+            <div class="row">
+          <div v-on:click="setSlickRace(0)" class="col-4"><span :class="{selected: selectedSlickRaceIndex == 0 }">3 races/yr</span></div>
+          <div v-on:click="setSlickRace(1)" class="col-4"><span :class="{selected: selectedSlickRaceIndex == 1 }">6 races/yr</span></div>
+          <div v-on:click="setSlickRace(2)" class="col-4"><span :class="{selected: selectedSlickRaceIndex == 2 }">12 races/yr</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" style="max-width: 1000px !important;">
         <slick  ref="slick" :options="slickOptions" id="pass-wrapper" class="container row">
           <div class="pass-container">
             <div class="pass pass-side">
@@ -221,6 +234,12 @@ export default {
       localStorage.buyType = type
       this.isCreation = true
       this.$modal.show('login')
+    },
+    setSlickRace (index) {
+      if (this.$refs.slick) {
+        this.$refs.slick.goTo(index)
+        this.selectedSlickRaceIndex = index
+      }
     }
   },
   data () {
@@ -228,6 +247,7 @@ export default {
       isCreation: false,
       isFaqExpanded: false,
       passPrices: rp.passPrices,
+      selectedSlickRaceIndex: 0,
       slickOptions: {
         dots: true,
         centerMode: true,
@@ -246,6 +266,8 @@ export default {
           breakpoint: 1000,
           settings: {
             slidesToShow: 1,
+            swipeToSlide: false,
+            swipe: false,
             arrows: false,
             dots: false
           },
@@ -257,78 +279,7 @@ export default {
 }
 </script>
 
-<style scoped>
-@media screen and (min-width: 800px) {
-  .hide-on-desktop {
-    display: none !important;
-  }
-}
-@media screen and (max-width: 799px) {
-  #home #banner1 {
-    height: initial;
-  }
-  #home #banner1 #find-races-panel {
-    margin-top: 33px;
-  }
-  #home #find-races-panel .subtitle {
-    font-size: 20px;
-    line-height: 27px;
-    margin: 0px auto;
-  }
-  #findbyme {
-    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3);
-  }
-  #home .text-features {
-    background-color: #323237;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
-    text-align: center;
-    border: none;
-    font-weight: 300;
-    padding: 16px 10px;
-  }
-  #home span.bullet {
-    margin: 0 8px;
-  }
-  #home .selling-point {
-    padding: 10px 20px;
-  }
-  #home #choose-from {
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 25px;
-  }
-  #selling-points .selling-icon img {
-    height: 62px;
-  }
-  #selling-points .selling-icon {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
-  }
-  #choose-pass #pass-wrapper .pass {
-    width: 200px;
-  }
-  #pass-wrapper .pass-title {
-    font-size: 18px;
-    line-height: 25px;
-    margin: 15px auto 0px auto;
-  }
-  #pass-wrapper .pass-price-row {
-    font-size: 18px;
-    line-height: 25px;
-  }
-  #pass-wrapper .pass-count {
-    font-size: 14px;
-    line-height: 19px;
-  }
-  #pass-wrapper .pass-buy {
-    margin: 10px 23px 25px 23px;
-  }
-  #pass-wrapper .pass-buy button {
-    font-size: 14px;
-    line-height: 19px;
-    padding: 12px 0px;
-  }
-}
-</style>
+
 
 <style>
 .slick-dots button:before {
@@ -675,10 +626,117 @@ export default {
   color: #4A4A4A;
   font-size: 16px;
 }
-
 #faq {
   max-width: 920px !important;
 }
+</style>
 
-
+<style scoped>
+@media screen and (min-width: 800px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 799px) {
+  #home #banner1 {
+    height: initial;
+  }
+  #home #banner1 #find-races-panel {
+    margin-top: 33px;
+  }
+  #home #find-races-panel .subtitle {
+    font-size: 20px;
+    line-height: 27px;
+    margin: 0px auto;
+  }
+  #findbyme {
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3);
+  }
+  #home .text-features {
+    text-align: center;
+    border: none;
+    font-weight: 300;
+  }
+  .full-width-thin-ribbon {
+    background-color: #323237;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+    padding: 16px 10px;
+    text-align: center;
+  }
+  .no-padding-ribbon {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  #home span.bullet {
+    margin: 0 8px;
+  }
+  #home .selling-point {
+    padding: 10px 20px;
+  }
+  #home #choose-from {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 25px;
+  }
+  #selling-points .selling-icon img {
+    height: 62px;
+  }
+  #selling-points .selling-icon {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+  }
+  #choose-pass #pass-wrapper .pass {
+    width: 200px;
+  }
+  #pass-wrapper .pass-title {
+    font-size: 18px;
+    line-height: 25px;
+    margin: 15px auto 0px auto;
+  }
+  #pass-wrapper .pass-price-row {
+    margin-top: 17px;
+  }
+  #pass-wrapper .pass-price-row .pass-price {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  #pass-wrapper .pass-body {
+    height: initial;
+    padding-bottom: 15px;
+  }
+  #pass-wrapper .pass-count {
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: 900;
+    padding: 0px 5px;
+  }
+  #pass-wrapper .distances {
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 15px;
+    margin: 17px 0px;
+  }
+  #pass-wrapper .pass-buy {
+    margin: 10px 23px 25px 23px;
+  }
+  #pass-wrapper .pass-buy button {
+    font-size: 14px;
+    line-height: 19px;
+    padding: 12px 0px;
+  }
+  #pass-selector {
+    margin-top: 30px;
+  }
+  .slick-menu-bar {
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .slick-menu-bar span {
+    color: #9B9B9B;
+    padding: 16px 0px;
+    display: block;
+  }
+  .slick-menu-bar span.selected {
+    color: #0DFFAE;
+  }
+}
 </style>
