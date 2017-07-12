@@ -422,14 +422,7 @@ export default {
 .text-features .feature {
   display: inline-block;
 }
-.text-features .bullet {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #4A4A4A;
-  display: inline-block;
-  margin: 0px 15px;
-}
+
 
 #featured-in-wrapper h4 {
 	color: #D8D8D8;
@@ -628,6 +621,9 @@ export default {
 }
 #faq {
   max-width: 920px !important;
+}
+#home span.bullet {
+  margin: 0 15px;
 }
 </style>
 

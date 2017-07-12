@@ -1,83 +1,99 @@
 <template>
   <div class="filter-row">
-    <div class="filter" style="width:345px;">
-      <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
-    </div>
-    <div class="filter" style="width:120px;" @click="showRacePopup($event)">
-      <div class="name">Distance</div>
-      <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
-      <div class="popup" v-if="popup == 'distance'">
-        <br/><br/>
-        <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
+    <div class="hide-on-desktop container">
+      <div class="row">
+        <div class="col condensed-filter-bar">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <span>Any distance</span>
+          <span class="bullet"></span>
+          <span>Anywhere</span>
+          <span class="bullet"></span>
+          <span>Anytime</span>
+          <img src="/static/imgs/pin.png" @click="changeMode('map')" />
+          <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+        </div>
       </div>
     </div>
-    <div class="filter" style="width:150px;">
-      <div class="name">Dates</div>
-      <div class="summary">
-        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
-        <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
+    <div class="hide-on-mobile">
+      <div class="filter" style="width:345px;">
+        <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
       </div>
-    </div>
-    <div class="filter" style="width:140px;">
-      <div class="name">Location</div>
-      <select v-model="filter_state" @change="updateFilter()">
-        <option value="ALL">All</option>
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option value="CA">California</option>
-        <option value="CO">Colorado</option>
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="HI">Hawaii</option>
-        <option value="ID">Idaho</option>
-        <option value="IL">Illinois</option>
-        <option value="IN">Indiana</option>
-        <option value="IA">Iowa</option>
-        <option value="KS">Kansas</option>
-        <option value="KY">Kentucky</option>
-        <option value="LA">Louisiana</option>
-        <option value="ME">Maine</option>
-        <option value="MD">Maryland</option>
-        <option value="MA">Massachusetts</option>
-        <option value="MI">Michigan</option>
-        <option value="MN">Minnesota</option>
-        <option value="MS">Mississippi</option>
-        <option value="MO">Missouri</option>
-        <option value="MT">Montana</option>
-        <option value="NE">Nebraska</option>
-        <option value="NV">Nevada</option>
-        <option value="NH">New Hampshire</option>
-        <option value="NJ">New Jersey</option>
-        <option value="NM">New Mexico</option>
-        <option value="NY">New York</option>
-        <option value="NC">North Carolina</option>
-        <option value="ND">North Dakota</option>
-        <option value="OH">Ohio</option>
-        <option value="OK">Oklahoma</option>
-        <option value="OR">Oregon</option>
-        <option value="PA">Pennsylvania</option>
-        <option value="RI">Rhode Island</option>
-        <option value="SC">South Carolina</option>
-        <option value="SD">South Dakota</option>
-        <option value="TN">Tennessee</option>
-        <option value="TX">Texas</option>
-        <option value="UT">Utah</option>
-        <option value="VT">Vermont</option>
-        <option value="VA">Virginia</option>
-        <option value="WA">Washington</option>
-        <option value="WV">West Virginia</option>
-        <option value="WI">Wisconsin</option>
-        <option value="WY">Wyoming</option>
-      </select>
-    </div>
-    <div class="filter" style="width:70px;">
-      <div id="switcher">
-        <img src="/static/imgs/pin.png" @click="changeMode('map')" />
-        <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+      <div class="filter" style="width:120px;" @click="showRacePopup($event)">
+        <div class="name">Distance</div>
+        <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
+        <div class="popup" v-if="popup == 'distance'">
+          <br/><br/>
+          <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
+        </div>
+      </div>
+      <div class="filter" style="width:150px;">
+        <div class="name">Dates</div>
+        <div class="summary">
+          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
+          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
+        </div>
+      </div>
+      <div class="filter" style="width:140px;">
+        <div class="name">Location</div>
+        <select v-model="filter_state" @change="updateFilter()">
+          <option value="ALL">All</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+        </select>
+      </div>
+      <div class="filter" style="width:70px;">
+        <div id="switcher">
+          <img src="/static/imgs/pin.png" @click="changeMode('map')" />
+          <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+        </div>
       </div>
     </div>
   </div>
@@ -188,7 +204,7 @@ export default {
   position: relative;
   display: flex;
   border: 0.5px solid #4A4A4A;
-  width: 830px;
+  //width: 830px;
   margin: 0px auto 10px auto;
   border-radius: 4px;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
@@ -251,6 +267,24 @@ input[type=text]::placeholder {
 #switcher img {
   height: 22px;
   padding: 0px 4px 0px 0px;
+}
+.condensed-filter-bar {
+  font-size: 12px;
+  font-weight: 300;
+  color: #0DFFAE;
+  padding: 7px 0px;
+}
+.condensed-filter-bar .fa.fa-search {
+  color: #D8D8D8;
+}
+.condensed-filter-bar .bullet {
+  margin: 0px 8px;
+  width: 5px;
+  height: 5px;
+}
+.condensed-filter-bar img {
+  height: 20px;
+  padding-left: 10px;
 }
 @media screen and (max-width: 799px) {
   #home-search .filter-row{
