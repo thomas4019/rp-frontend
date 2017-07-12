@@ -24,8 +24,8 @@
         <input required v-model="email" class="full" type="email" placeholder="Your email" /><br>
         <input required @keyup.enter="isCreation ? pwdRegister(): pwdLogin()" v-model="password" class="full" type="password" placeholder="Choose a password" />
         <div>
-            <button type="button" v-if="isCreation" @click="pwdRegister()" id="login-button">Register</button>
-            <button type="button" v-if="!isCreation" @click="pwdLogin()" id="login-button">Login</button>
+            <button type="button" v-if="isCreation" @click="pwdRegister()" id="do-login-button">Register</button>
+            <button type="button" v-if="!isCreation" @click="pwdLogin()" id="do-login-button">Login</button>
         </div>
       </form>
     </div>
@@ -132,7 +132,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #login-container {
   max-width: 650px;
   margin: 10px auto;
@@ -170,7 +170,7 @@ export default {
     margin-top: 15px;
   }
 }
-#login-button {
+#do-login-button {
   float: right;
   padding: 10px;
   width: 100px;
