@@ -3,7 +3,7 @@
     <div class="hide-on-desktop container">
       <div class="row">
         <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
-          <i class="fa fa-search" aria-hidden="true"></i>
+          <img class="search" src="/static/imgs/search_icon.png"/>
           <span>Any distance</span>
           <span class="bullet"></span>
           <span>Anywhere</span>
@@ -14,26 +14,28 @@
         </div>
       </div>
     </div>
-    <div class="hide-on-mobile">
-      <div class="filter" style="width:345px;">
-        <div class="summary"><i class="fa fa-search" aria-hidden="true"></i><input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
+    <div class="row hide-on-mobile">
+      <div class="filter col" style="w idth:345px;">
+        <div class="summary">
+          <img class="search" src="/static/imgs/search_icon.png"/>
+          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
       </div>
-      <div class="filter" style="width:120px;" @click="showRacePopup($event)">
+      <div class="filter  col-md-2" style="w idth:120px;" @click="showRacePopup($event)">
         <div class="name">Distance</div>
-        <div class="summary">{{distances[0]}} - {{distances[1]}}</div>
+        <div class="summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any race distance' : distances[0] + ' - '+ distances[1]}}</div>
         <div class="popup" v-if="popup == 'distance'">
           <br/><br/>
           <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
         </div>
       </div>
-      <div class="filter" style="width:150px;">
+      <div class="filter  col-md-auto" style="w idth:150px;">
         <div class="name">Dates</div>
         <div class="summary">
           <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
           <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
         </div>
       </div>
-      <div class="filter" style="width:140px;">
+      <div class="filter  col-md-2" style="w idth:140px;">
         <div class="name">Location</div>
         <select v-model="filter_state" @change="updateFilter()">
           <option value="ALL">All</option>
@@ -89,7 +91,7 @@
           <option value="WY">Wyoming</option>
         </select>
       </div>
-      <div class="filter" style="width:70px;">
+      <div class="filter col-md-auto" style="w idth:70px;">
         <div id="switcher">
           <img src="/static/imgs/pin.png" @click="changeMode('map')" />
           <img src="/static/imgs/list.png"  @click="changeMode('list')" />
@@ -209,20 +211,18 @@ export default {
 </script>
 <style scoped>
 .filter-row {
-  position: relative;
-  display: flex;
+  //position: relative;
+  //display: flex;
   border: 0.5px solid #4A4A4A;
-  //width: 830px;
   margin: 0px auto 10px auto;
   border-radius: 4px;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
 }
 .filter {
-  position: relative;
-  padding: 5px 10px 5px 10px;
-  padding-bottom: 0px;
+  //position: relative;
+  padding: 5px 10px 0px 10px;
   border-left: 0.5px solid #4A4A4A;
-  min-width: 80px;
+  //min-width: 80px;
 }
 .filter:first-child{
     padding: 4px 10px 4px 15px;
@@ -245,6 +245,11 @@ export default {
   color: #9B9B9B;
   font-size: 1.2em;
 }
+.summary .search {
+  height: 20px;
+  margin-top: -3px;
+  padding-left: 10px;
+}
 .filter .popup {
   position: absolute;
   padding: 10px 15px;
@@ -261,7 +266,10 @@ input[type=text] {
   color: #F7F7F7;
   border: none;
   font-size: 14px;
-  width: 90%;
+  width: 88%;
+}
+.nameless {
+  padding-top: 10px;
 }
 input:focus {
     outline:none;
@@ -270,20 +278,18 @@ input[type=text]::placeholder {
   color: #F7F7F7;
 }
 #switcher {
-  padding: 5px 0px 0px 0px;
+  padding: 5px 5px 0px 0px;
 }
 #switcher img {
   height: 22px;
-  padding: 0px 4px 0px 0px;
+  padding: 0px 11px 0px 0px;
 }
 .condensed-filter-bar {
   font-size: 12px;
   font-weight: 300;
   color: #0DFFAE;
   padding: 7px 0px;
-}
-.condensed-filter-bar .fa.fa-search {
-  color: #D8D8D8;
+  text-align: center;
 }
 .condensed-filter-bar .bullet {
   margin: 0px 8px;
@@ -312,6 +318,10 @@ input[type=text]::placeholder {
   .filter .name {
     display: none;
   }
+  .search {
+    height: 15px;
+    padding-right: 10px;
+  }
 }
 </style>
 <style>
@@ -323,7 +333,7 @@ input[type=text]::placeholder {
     background: transparent;
     color: #0DFFAE;
     font-size: 12px;
-    width: 50px;
+    width: 60px;
     padding: 0px 0px 0px 0px; 
     position: relative;
   }
