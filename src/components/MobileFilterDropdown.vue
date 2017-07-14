@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="menu row justify-content-between">
+        <div v-if="!distanceOpen && !dateOpen && !locationOpen"  class="menu row justify-content-between">
           <div class="col-4">
             <span class="close" @click="closeDropdown()"><img src="/static/imgs/thin_arrow.png" /></span>
           </div>
@@ -11,7 +11,7 @@
             <span class="clear" @click="clearFilters()">Clear filters</span>
           </div>
         </div>
-        <div class="mobile-filter-option" :class="{solo: distanceOpen}">
+        <div v-if="!locationOpen && !dateOpen"  class="mobile-filter-option" :class="{solo: distanceOpen}">
           <div class="rp-border mobile-filter-non-solo"  @click="distanceOpen=true">
             <span class="mobile-filter-icon"><img src="/static/imgs/race.png" /></span>
             <div class="mobile-filter-summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any Distance' : distances[0] + ' - '+ distances[1]}} </div>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="mobile-filter-option" :class="{solo: locationOpen}">
+        <div v-if="!distanceOpen && !dateOpen" class="mobile-filter-option" :class="{solo: locationOpen}">
           <div class="rp-border mobile-filter-non-solo"  @click="locationOpen=true">
             <span class="mobile-filter-icon"><img src="/static/imgs/discover.png" /></span>
             <div class="mobile-filter-summary">{{filter_state == 'ALL'? 'Search city, zip code, state or country' : filter_state}} </div>
@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        <div class="mobile-filter-option" :class="{solo: dateOpen}">
+        <div v-if="!locationOpen && !distanceOpen"   class="mobile-filter-option" :class="{solo: dateOpen}">
           <div class="rp-border mobile-filter-non-solo"  @click="dateOpen=true">
             <span class="mobile-filter-icon"><img src="/static/imgs/register.png" /></span>
             <div class="mobile-filter-summary">
@@ -99,7 +99,7 @@
           </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div  v-if="!distanceOpen && !dateOpen && !locationOpen" class="row justify-content-center">
           <div class="col">
             <button class="hollow shadowed rounded search"  @click="dateOpen=false">Search</button>
           </div>
