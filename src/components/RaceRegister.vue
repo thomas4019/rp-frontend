@@ -78,11 +78,9 @@ export default {
   }
 </style>
 <style>
-  .rp-modal {
+  .register-modal {
     padding: 40px !important;
     text-align: center;
-  }
-  .register-modal {
     padding: 40px 60px !important;
   }
 </style>
