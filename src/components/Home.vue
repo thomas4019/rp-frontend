@@ -638,7 +638,7 @@ export default {
     height: initial;
   }
   #home #banner1 #find-races-panel {
-    margin-top: 33px;
+    margin-top: 95px;
   }
   #home #find-races-panel .subtitle {
     font-size: 20px;

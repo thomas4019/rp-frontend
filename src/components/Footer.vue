@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="row justify-content-center">
-      <div class="col-lg-8">
+      <div class="col-lg-8 col-10">
         <div id="footer-top" class="container">
           <div class="row justify-content-between">
             <div class="col-12 col-lg-6">
@@ -139,8 +139,12 @@ ul.bottom-menu {
   display: none;
 }
 @media screen and (max-width: 799px) {
+  #footer-top {
+    padding-bottom: 25px;
+  }
   .copyright {
     text-align: center;
+    margin: 20px 0px;
   }
 }
 </style>

@@ -327,6 +327,16 @@ section.solo {
   background-color: #22262B;
   padding: 12px 8px;
 }
+.dropdown-arrow {
+  opacity: 1;
+  background: url(/static/imgs/thin_arrow.png) no-repeat scroll 0px 0px;
+  transform: rotate(180deg);
+  height: 15px;
+  width: 12px;
+  background-size: contain;
+  display: block;
+  margin: 10px 0px 5px 0px;
+}
 
 
 @media screen and (min-width: 800px) {

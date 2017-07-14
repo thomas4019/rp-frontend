@@ -7,25 +7,59 @@
   <nav id="landing-nav">
     <router-link to="/" class="hide-on-mobile"><img src="/static/imgs/logo_transparent.png" id="logo" /></router-link>
     <ul id="primary-menu">
-      <li class="hide-on-desktop" id="logo-mobile" ><router-link to="/"><img src="/static/imgs/logo_mobile.png"/></router-link></li>
+      <div class="hide-on-desktop" id="logo-mobile" @click="showMobileMenu()">
+        <div class="row no-gutters justify-content-start">
+          <div class="col-3">
+            <div class="row no-gutters" style="padding-left: 6px;">
+              <div class="">
+                <img src="/static/imgs/logo_mobile.png"/>
+              </div>
+              <div class="">
+                <span class="dropdown-arrow" ></span>
+              </div>
+            </div>  
+          </div>
+          <div class="col-6">
+            <router-link v-scroll-to="'#choose-pass, 0px'" to="/#choose-pass">
+            <div id="getracepass" class="button shadowed">Get Racepass</div>
+            </router-link>
+          </div>  
+          <div class="col-3" id="login-button">
+            <button class="hollow shadowed" @click="$modal.show('login-header')">Login</button>
+          </div>
+        </div>
+      </div>
       <li class="hide-on-mobile" id="menu-about"><router-link to="/about">About</router-link></li>
       <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
       <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
       <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
       <li class="hide-on-mobile" id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
       <li class="hide-on-mobile" id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
-      <li v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div id="getracepass" class="button shadowed">Get Racepass</div></router-link></li>
-      <li id="login-button"><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
+      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div id="getracepass" class="button shadowed">Get Racepass</div></router-link></li>
+      <li class="hide-on-mobile" id="login-button"><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
     </ul>
   </nav>
+  <MobileHeader ref="mobileHeader"></MobileHeader>
 </div>
 </template>
 
 <script>
 import Login from '@/components/Login'
+import MobileHeader from '@/components/MobileHeader'
 export default {
   components: {
     'login': Login,
+    MobileHeader,
+  },
+  methods: {
+    showMobileMenu () {
+      this.$refs.mobileHeader.showMobileMenu()
+    }
+  },
+  data () {
+    return {
+      open: false
+    }
   },
 }
 </script>
@@ -35,9 +69,8 @@ export default {
 	padding: 13px 15px 0px 0px;
 	margin-bottom: 0px;
   overflow: hidden;
-}
-.onHome {
-  margin-top: 38px;
+  background-color: #22262B;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
 }
 #logo {
 	width: 140px;
@@ -68,15 +101,16 @@ export default {
     width: 100%;
   }
   #landing-nav {
-	  padding: 13px 0px 0px 0px;
+    padding: 13px 0px 13px 0px;
+    z-index: 200;
+    position: fixed;
+    width: 100%;
   }
   #logo-mobile {
-    float: left;
     margin: 0px 0px;
   }
   #login-button {
-    float:right;
-    margin: 0px 15px 0px 0px;
+    margin: 0px 0px;
   }
   #login-button button {
     font-size: 12px;
@@ -87,20 +121,33 @@ export default {
     font-size: 12px;
     font-weight: 900;
     line-height: 16px;
+    margin: 0 auto;
   }
   #logo-mobile img {
-    width: 64px;
+    width: 58px;
   }
   #logo-mobile {
     margin-top: -5px;
   }
+  
+  #primary-menu {
+    float: none;
+    padding: 0px 0px;
+  }
+  #primary-menu li {
+    margin-left: 0px;
+  }
+  #getracepass {
+    max-width: 120px;
+  }
+}
+#getracepass {
+  font-size: 12px;
+  font-weight: 300;
 }
 .hollow {
   cursor: pointer;
 }
-nav li {
-
-} 
 </style>
 <style>
 .shadowed {
