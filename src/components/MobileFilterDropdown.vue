@@ -101,7 +101,7 @@
 
         <div  v-if="!distanceOpen && !dateOpen && !locationOpen" class="row justify-content-center">
           <div class="col">
-            <button class="hollow shadowed rounded search"  @click="dateOpen=false">Search</button>
+            <button class="hollow shadowed rounded search"  @click="closeDropdown()">Search</button>
           </div>
         </div>
 
