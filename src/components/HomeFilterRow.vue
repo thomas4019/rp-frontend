@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <MobileFilterDropdown :open="mobileSearchOpen"></MobileFilterDropdown>
+    <MobileFilterDropdown ref="mobileSearch"></MobileFilterDropdown>
     
   </div>
 </template>
@@ -146,7 +146,7 @@ export default {
       this.$store.commit('search', this.search_text)
     },
     expandSeachDropdown () {
-      this.mobileSearchOpen = true
+      this.$refs.mobileSearch.openDropdown()
     }
   },
   watch: {
@@ -172,7 +172,6 @@ export default {
     var end = new Date()
     end.setDate(end.getDate() + 364)
     return {
-      mobileSearchOpen: false,
       popup: 'none',
       start_date: start.toISOString(),
       end_date: end.toISOString(),

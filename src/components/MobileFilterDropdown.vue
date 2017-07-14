@@ -5,7 +5,7 @@
       <div class="col-12">
         <div class="menu row justify-content-between">
           <div class="col-4">
-            <span class="close" @click="distanceOpen=false"><img src="/static/imgs/thin_arrow.png" /></span>
+            <span class="close" @click="closeDropdown()"><img src="/static/imgs/thin_arrow.png" /></span>
           </div>
           <div class="col-4">
             <span class="clear" @click="clearFilters()">Clear filters</span>
@@ -101,7 +101,7 @@
 
         <div class="row justify-content-center">
           <div class="col">
-            <button class="hollow shadowed rounded"  @click="dateOpen=false">Search</button>
+            <button class="hollow shadowed rounded search"  @click="dateOpen=false">Search</button>
           </div>
         </div>
 
@@ -126,16 +126,21 @@ export default {
     Datepicker,
     vueSlider
   },
-  props: {
-    open: {
-      type: Boolean,
-      default: false
-    }
-  },
   methods: {
-    showRacePopup ($event) {
-      this.popup = 'distance'
-      $event.stopPropagation()
+    openDropdown () {
+      this.open = true
+    },
+    closeDropdown () {
+      this.open = false
+    },
+    clearFilters () {
+      this.distances = ['1K', '26.2 mile']
+      this.filter_state = 'ALL'
+      this.search_text = ''
+      this.address = ''
+      this.start_date = this.original_start_date
+      this.end_date = this.original_end_date
+      this.updateFilter()
     },
     updateFilter () {
       var filter = {
@@ -205,6 +210,7 @@ export default {
     var end = new Date()
     end.setDate(end.getDate() + 364)
     return {
+      open: false,
       distanceOpen: false,
       locationOpen: false,
       dateOpen: false,
@@ -276,8 +282,11 @@ Vue.filter('formatDate', function (value) {
 })
 </script>
 <style scoped>
+button.search {
+  border: none;
+}
 .mobile-search-dropdown .menu {
-  margin: 20px 0px;
+  margin: 35px 0px;
 }
 .mobile-search-dropdown .menu .close {
   opacity: 1;
