@@ -31,7 +31,7 @@ export default {
     width: 100%;
   }
   #home-search .filter-row {
-    margin: 0px 19px;
+    //margin: 0px 19px;
   }
 }
 </style>

@@ -39,7 +39,7 @@
   Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyAYMq0Meyau1Q9hMFlyETxUdcv-io5NjwI',
-      // libraries: 'places', //// If you need to use place input
+      libraries: 'places', // If you need to use place input
     }
   })
 

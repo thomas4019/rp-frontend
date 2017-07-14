@@ -2,7 +2,7 @@
   <div class="filter-row">
     <div class="hide-on-desktop container">
       <div class="row">
-        <div class="col condensed-filter-bar">
+        <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
           <i class="fa fa-search" aria-hidden="true"></i>
           <span>Any distance</span>
           <span class="bullet"></span>
@@ -96,12 +96,16 @@
         </div>
       </div>
     </div>
+    <MobileFilterDropdown :open="mobileSearchOpen"></MobileFilterDropdown>
+    
   </div>
 </template>
 
 <script>
 import Datepicker from 'vuejs-datepicker'
 import vueSlider from 'vue-slider-component'
+import MobileFilterDropdown from '@/components/MobileFilterDropdown'
+
 function onBodyClick () {
   this.popup = 'none'
 }
@@ -109,7 +113,8 @@ export default {
   name: 'filter-row',
   components: {
     Datepicker,
-    vueSlider
+    vueSlider,
+    MobileFilterDropdown
   },
   methods: {
     showRacePopup ($event) {
@@ -139,6 +144,9 @@ export default {
     },
     searchUpdate () {
       this.$store.commit('search', this.search_text)
+    },
+    expandSeachDropdown () {
+      this.mobileSearchOpen = true
     }
   },
   watch: {
@@ -164,6 +172,7 @@ export default {
     var end = new Date()
     end.setDate(end.getDate() + 364)
     return {
+      mobileSearchOpen: false,
       popup: 'none',
       start_date: start.toISOString(),
       end_date: end.toISOString(),
@@ -286,6 +295,7 @@ input[type=text]::placeholder {
   height: 20px;
   padding-left: 10px;
 }
+
 @media screen and (max-width: 799px) {
   #home-search .filter-row{
     max-width: initial;

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <div id="promo" class="shadowed"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div>
+    <!-- <div id="promo" class="shadowed"><a id="freeTrial" @click="buy('freeTrial')">Try Racepass free</a></div> -->
     <div id="banner1">
       <video class="hide-on-mobile" poster="/static/videos/promo4.jpg" id="bgvid" playsinline autoplay muted loop>
         <source src="/static/videos/promo4.mp4" type="video/mp4">
