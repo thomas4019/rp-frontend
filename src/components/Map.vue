@@ -211,7 +211,7 @@
     },
     computed: {
       center () {
-        console.log('Computing center of map')
+        console.log('Computing center of map', this.searchCoordinates, (this.$store.state.user.address || {}).coordinates, {lat: 39.0902, lng: -95.7129})
         return this.searchCoordinates || (this.$store.state.user.address || {}).coordinates || {lat: 39.0902, lng: -95.7129}
       },
       filters () {

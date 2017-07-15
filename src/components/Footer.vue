@@ -68,7 +68,6 @@ export default {
 footer {
 	background: #323237;
 	padding: 40px 15px 5px 15px;
-  margin-top: 60px;
 }
 footer .disclaimer {
 	margin-top: 33px;

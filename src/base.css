@@ -160,6 +160,7 @@ table.divided tr td {
 table.divided tr:last-child td {
 	border-bottom: none;
 }
+footer,
 section {
 	margin-top: 80px;
 }
