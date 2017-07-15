@@ -144,6 +144,7 @@ export default {
 #getracepass {
   font-size: 12px;
   font-weight: 300;
+  font-weight: 900;
 }
 .hollow {
   cursor: pointer;

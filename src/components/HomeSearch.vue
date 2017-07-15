@@ -1,5 +1,5 @@
 <template>
-  <div id="home-search">
+  <div id="home-search" class="container">
     <HomeFilterRow />
     <RpMap v-if="mode == 'map'"/>
     <RaceSearchList v-if="mode != 'map'" />

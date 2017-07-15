@@ -70,9 +70,9 @@
           this.infoWindowPos = marker.position
           this.infoContent = '<div class="infowindow-body">' +
             '<div class="name">' + race.name + '</div>' +
-            '<div class="distances">' + race.courses.map((course) => course.distance).join('<span class="bullet">•</span>') + '</div>' +
-            '<span class="bullet">•</span><div class="date">' + moment(race.datetime).format('MM/DD/YYYY') + '</div>' +
-            '<span class="bullet">•</span><div class="location">' + race.location.city + ', ' + race.location.state + '</div>' +
+            '<div class="distances">' + race.courses.map((course) => course.distance).join('<span class="bullet"></span>') + '</div>' +
+            '<span class="bullet"></span><div class="date">' + moment(race.datetime).format('MM/DD/YYYY') + '</div>' +
+            '<span class="bullet"></span><div class="location">' + race.location.city + ', ' + race.location.state + '</div>' +
             '<div class="link"><a target="_blank" href="' + race.website + '"><em>' + race.website + '</em></a></div>' +
             '</div>'
         }
@@ -316,12 +316,10 @@
   font-weight: 300;
 }
 .infowindow-body span.bullet {
-  color: #9B9B9B;
-  font-size: 12px;
-  opacity: 0.6;
-  line-height: 16px;
-  font-weight: 300;
-  padding: 6px;
+  background-color: #9B9B9B;
+  width: 5px;
+  height: 5px;
+  margin: 1px 8px;
 }
 .infowindow-body .name {
 	font-size: 14px;

@@ -44,6 +44,9 @@ export default {
   },
   methods: {
     isSelectedDistance (race, course) {
+      if (!this.$store.state.user.race_signups) {
+        return false
+      }
       var matching = this.$store.state.user.race_signups.filter((rs) => rs.race_id === race._id)
       if (!matching.length) {
         return false
