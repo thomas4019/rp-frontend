@@ -99,7 +99,7 @@
           console.log('NAV')
           navigator.geolocation.getCurrentPosition(position => {
             console.log('NAV', position)
-            this.searchCoordinates = { lat: position.coords.latitude, lng: position.coords.latitude }
+            this.searchCoordinates = { lat: position.coords.latitude, lng: position.coords.longitude }
           })
         }
       },
