@@ -265,11 +265,22 @@ export default {
         {
           breakpoint: 1000,
           settings: {
+            slidesToShow: 3,
+            dots: false,
+            infinite: true,
+            centerPadding: '0px',
+            variableWidth: false,
+          },
+        },
+        {
+          breakpoint: 800,
+          settings: {
             slidesToShow: 1,
             swipeToSlide: false,
             swipe: false,
             arrows: false,
-            dots: false
+            dots: false,
+            variableWidth: false,
           },
         }
         ],
@@ -628,9 +639,15 @@ export default {
 </style>
 
 <style scoped>
-@media screen and (min-width: 800px) {
-  .hide-on-desktop {
-    display: none !important;
+@media screen and (max-width: 1000px) {
+  .distances {
+    margin: 20px 0px 10px 0px;
+  }
+  .pass-price-row {
+    margin-top: 10px;
+  }
+  .pass-buy {
+    margin: 20px 17px;
   }
 }
 @media screen and (max-width: 799px) {

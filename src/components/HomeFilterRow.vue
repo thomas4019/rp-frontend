@@ -33,6 +33,12 @@
         <div class="summary">
           <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
           <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
+          
+          <!--<span @click="start_hidden=!start_hidden">{{start_date | formatDate}}</span>
+          <span v-show="start_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker></span>
+                    
+          - <span @click="end_hidden=!end_hidden">{{end_date | formatDate}}</span>
+          <span v-show="end_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker></span>-->
         </div>
       </div>
       <div class="filter  col-md-2" style="w idth:140px;">
@@ -177,6 +183,8 @@ export default {
       popup: 'none',
       start_date: start.toISOString(),
       end_date: end.toISOString(),
+      end_hidden: false,
+      start_hidden: false,
       tooltip: 'always',
       dataKMs: {
         '1K': 1,
@@ -267,6 +275,7 @@ input[type=text] {
   border: none;
   font-size: 14px;
   width: 85%;
+  padding-right: 0px;
 }
 .nameless {
   padding-top: 10px;
@@ -300,7 +309,11 @@ input[type=text]::placeholder {
   height: 20px;
   padding-left: 5px;
 }
-
+@media screen and (max-width: 1100px) { 
+    input[type=text] {
+      width: 80%;
+    }
+}
 @media screen and (max-width: 799px) {
   #home-search .filter-row{
     max-width: initial;

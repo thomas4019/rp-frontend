@@ -85,12 +85,12 @@
                 <h3 class="centered">Date Range</h3>
                 <div class="mobile-filter-summary">
                   <div class="rp-border date">
-                    <span>Starts</span>
-                    <span><datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker></span>
+                    <span @click="start_hidden=!start_hidden">Starts {{start_date | formatDate}}</span>
+                    <span v-show="start_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker></span>
                   </div>
                   <div class="rp-border date">
-                    <span>Ends</span>
-                    <span><datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker></span>
+                    <span @click="end_hidden=!end_hidden">Ends {{end_date | formatDate}}</span>
+                    <span v-show="end_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker></span>
                   </div>
                 </div>
                 <button class="hollow shadowed rounded"  @click="dateOpen=false">Add filter</button>
@@ -215,6 +215,8 @@ export default {
       locationOpen: false,
       dateOpen: false,
       mobileSearchOpen: false,
+      end_hidden: false,
+      start_hidden: false,
       popup: 'none',
       start_date: start.toISOString(),
       original_start_date: start.toISOString(),
@@ -331,6 +333,7 @@ button.search {
   display: block;
   position: fixed;
   top: 0px;
+  left: 0px;
 }
 .mobile-filter-solo {
   display: none;
@@ -383,7 +386,7 @@ button.rounded {
   width: initial;
   height: initial;
   padding: 10px 50px;
-  background-color: #323237;
+  background-color: #22262b;
   border-radius: 100px;
   font-weight: 300;
   line-height: 16px;

@@ -34,9 +34,6 @@ export default {
     //margin: 0px 19px;
   }
 }
-</style>
-
-<style>
 #home-search {
   max-width: 830px;
   margin: auto;
