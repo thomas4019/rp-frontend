@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="display:none">{{search_text}}</div>
-    <RaceTable :races="races" />
+    <RaceTable :showRegister="showRegister" :races="races" />
     <div id="navigation" class="hide-on-mobile">
       <span id="position">
         Showing page {{page + 1}} of {{page_count}}
@@ -21,6 +21,12 @@ export default {
   name: 'race-search-list',
   components: {
     RaceTable
+  },
+  props: {
+    showRegister: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     update () {

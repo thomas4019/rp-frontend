@@ -4,8 +4,10 @@
       <FilterRow />
     </div>
     <br/>
-    <RpMap v-if="mode == 'map'"/>
-    <RaceSearchList v-if="mode != 'map'" />
+    <div class="container">
+      <RpMap v-if="mode == 'map'"/>
+      <RaceSearchList :showRegister="true" v-if="mode != 'map'" />
+    </div>
   </div>
 </template>
 
