@@ -382,3 +382,20 @@ section.solo {
 .vdp-datepicker__calendar header .prev:after {
   border-right: 10px solid #9B9B9B;
 }
+select {
+  background: transparent;
+  color: #0DFFAE;
+  border: none;
+  padding: 0px 5px 0px 5px; 
+  margin-left: -5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline:none;
+  font-size: 12px;
+  position: relative;
+  top: -2px;
+}
+option {
+  background-color: #323237;
+  color: #0DFFAE;
+}

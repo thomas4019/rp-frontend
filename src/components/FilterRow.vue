@@ -224,17 +224,7 @@ export default {
   }
 </style>
 <style>
-  select {
-    background: transparent;
-    color: #0DFFAE;
-    border: none;
-    padding: 5px;
-  }
-  option {
-    background-color: #323237;
-    color: #0DFFAE;
-  }
-  #switcher img {
-    height: 40px;
-  }
+#switcher img {
+  height: 40px;
+}
 </style>
