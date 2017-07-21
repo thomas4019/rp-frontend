@@ -4,11 +4,13 @@
       <div class="row">
         <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
           <img class="search" src="/static/imgs/search_icon.png"/>
-          <span>Any distance</span>
+          <span>{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</span>
           <span class="bullet"></span>
-          <span>Anywhere</span>
+          <span v-if="filter_state==='ALL'">Anywhere</span>
+          <span v-else>{{filter_state}}</span>
           <span class="bullet"></span>
-          <span>Anytime</span>
+          <span v-if="start_date == original_start_date && end_date == original_end_date">Anytime</span>
+          <span v-else>{{start_date | formatDate}} - {{end_date | formatDate}}</span>
           <img src="/static/imgs/pin.png" @click="changeMode('map')" />
           <img src="/static/imgs/list.png"  @click="changeMode('list')" />
         </div>
@@ -104,7 +106,7 @@
         </div>
       </div>
     </div>
-    <MobileFilterDropdown ref="mobileSearch"></MobileFilterDropdown>
+    <MobileFilterDropdown :filter_state.sync="filter_state" ref="mobileSearch"></MobileFilterDropdown>
     
   </div>
 </template>
@@ -183,6 +185,8 @@ export default {
       popup: 'none',
       start_date: start.toISOString(),
       end_date: end.toISOString(),
+      original_start_date: start.toISOString(),
+      original_end_date: end.toISOString(),
       end_hidden: false,
       start_hidden: false,
       tooltip: 'always',

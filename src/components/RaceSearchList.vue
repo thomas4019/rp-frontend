@@ -1,5 +1,5 @@
 <template>
- <section >
+  <div>
     <div style="display:none">{{search_text}}</div>
     <RaceTable :races="races" />
     <div id="navigation" class="hide-on-mobile">
@@ -10,7 +10,7 @@
       <span style="display: inline-block; width:0px;"></span>
       <button @click="next()">Next</button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>

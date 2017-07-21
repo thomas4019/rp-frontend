@@ -1,35 +1,33 @@
 <template>
- <section>
-    <div class="race-table">
-      <div class="row no-gutters hide-on-mobile" id="header">
-        <div class="col-md-1">Type</div>
-        <div class="col-md-3">Race</div>
-        <div class="col-md-2">Location</div>
-        <div class="col-md-2">Date</div>
-        <div class="col-md-3">Website</div>
-        <div class="col-md-1"></div>
+  <div class="race-table">
+    <div class="row no-gutters hide-on-mobile" id="header">
+      <div class="col-md-1">Type</div>
+      <div class="col-md-3">Race</div>
+      <div class="col-md-2">Location</div>
+      <div class="col-md-2">Date</div>
+      <div class="col-md-2">Website</div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row no-gutters race" v-for="race in races" v-bind:key="race.id">
+      <div class="col-10 col-md-3 push-md-1 race-name">{{race.name}}</div>
+      <div class="col-2 col-md-2 push-md-7 actions">
+        <RaceActions :race="race" :showRegister="showRegister"></RaceActions>
       </div>
-      <div class="row no-gutters race" v-for="race in races" v-bind:key="race.id">
-        <div class="col-10 col-md-3 push-md-1 race-name">{{race.name}}</div>
-        <div class="col-2 col-md-1 push-md-8 actions">
-          <RaceActions :race="race"></RaceActions>
-        </div>
-        <div class="col-2 col-md-1 pull-md-4 distance">
-          <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
-            {{course.distance}}
-          </span>
-        </div>
-        <div class="col-5 col-md-2 pull-md-1 location">{{race.location.city}}, {{race.location.state}}</div>
-        <div class="col-3 col-md-2 pull-md-1 datetime">{{race.datetime | formatDate }}</div>
-        <div class="col-2 col-md-3 pull-md-1 website">
-          <a target="_blank" :href="race.website">
-            <em class="hide-on-mobile">{{race.website | formatURL }}</em>
-            <em class="hide-on-desktop">Visit Site</em>
-          </a>
-        </div>
+      <div class="col-2 col-md-1 pull-md-5 distance">
+        <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
+          {{course.distance}}
+        </span>
+      </div>
+      <div class="col-5 col-md-2 pull-md-2 location">{{race.location.city}}, {{race.location.state}}</div>
+      <div class="col-3 col-md-2 pull-md-2 datetime">{{race.datetime | formatDate }}</div>
+      <div class="col-2 col-md-2 pull-md-2 website">
+        <a target="_blank" :href="race.website">
+          <em class="hide-on-mobile">{{race.website | formatURL }}</em>
+          <em class="hide-on-desktop">Visit Site</em>
+        </a>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -54,7 +52,14 @@ export default {
       return course.distance === matching[0].distance
     },
   },
-  props: ['races']
+  props: {
+    showRegister: {
+      type: Boolean,
+      default: false
+    },
+    races: {
+    },
+  }
 }
 Vue.filter('formatDate', function (value) {
   if (value) {

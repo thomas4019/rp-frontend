@@ -35,22 +35,22 @@
   <section id="registered-races" style="margin-top: 10px;" class="container">
     <h3 style="float: left;">Registered Races</h3>
     <router-link to="search" class="button" style="margin: 0px 0px 0px 15px;" >Add race</router-link>
-    <race-table v-bind:races="registered_races"/>
+    <race-table :showRegister="true" v-bind:races="registered_races"/>
   </section>
 
   <section v-if="completed_races.length" id="completed-races" style="margin-top: 10px;" class="container">
     <h3 style="float: left;">Completed Races</h3>
-    <race-table v-bind:races="completed_races"/>
+    <race-table :showRegister="true" v-bind:races="completed_races"/>
   </section>
 
   <section v-if="favorite_races.length" id="favorite-races" class="container">
     <h3>Race Wishlist</h3>
-    <race-table v-bind:races="favorite_races" v-bind:action="test"/>
+    <race-table :showRegister="true" v-bind:races="favorite_races" v-bind:action="test"/>
   </section>
 
   <section id="upcoming-races" class="container">
     <h3>Suggested Races Near You</h3>
-    <race-table v-bind:races="upcoming_races" v-bind:action="test"/>
+    <race-table :showRegister="true" v-bind:races="upcoming_races" v-bind:action="test"/>
   </section>
 
   <div class="callout-small">

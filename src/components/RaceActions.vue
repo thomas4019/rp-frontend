@@ -2,10 +2,12 @@
   <div class="actions">
     <RaceRegister ref="reg" />
     <RaceCancel ref="cancel" />
-    <!--<button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
-    <div v-else-if="isRegistered(race)"></div>
-    <button v-else-if="isAvailable(race)" class="hollow" @click="register(race)">Register</button>
-    <button v-else class="hollow" disabled="disabled">Finished</button>-->
+    <div v-if="showRegister">
+      <button v-if="isRegistered(race) && isAvailable(race)" class="hollow" @click="cancel(race)">Cancel</button>
+      <div v-else-if="isRegistered(race)"></div>
+      <button v-else-if="isAvailable(race)" class="hollow" @click="register(race)">Register</button>
+      <button v-else class="hollow" disabled="disabled">Finished</button>
+    </div>
     <i @click="toggleFavorite(race._id)" style="position:relative;top:5px;" class=" fa fa-2x fa-heart-o" :class="{  'favorite' : isFavorite(race), 'not-favorite': !isFavorite(race) }" aria-hidden="true"></i>
     <!--<a style="position:relative;top:4px;" href="https://www.facebook.com/sharer/sharer.php?u=example.org&p[summary]=YOUR_DESCRIPTION">
       <i class="favorite fa fa-share-alt fa-2x" aria-hidden="true"></i>
@@ -56,7 +58,14 @@ export default {
       this.$refs.cancel.show()
     }
   },
-  props: ['race']
+  props: {
+    showRegister: {
+      type: Boolean,
+      default: false
+    },
+    race: {
+    },
+  }
 }
 </script>
 <style scoped>
