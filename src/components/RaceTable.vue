@@ -55,7 +55,7 @@ export default {
   props: {
     showRegister: {
       type: Boolean,
-      default: false
+      default: true
     },
     races: {
     },

@@ -37,10 +37,4 @@ export default {
   width: 100%;
   margin: auto;
 }
-#switcher {
-  text-align: right;
-}
-#switcher img {
-  height: 50px;
-}
 </style>

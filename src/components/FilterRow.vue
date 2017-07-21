@@ -224,27 +224,6 @@ export default {
   }
 </style>
 <style>
-  .date-picker-wrapper {
-    clear: none;
-    display: inline-block;
-  }
-  .date-picker {
-    background: transparent;
-    color: #0DFFAE !important;
-    font-size: 14px;
-    width: 90px;
-    padding: 5px; 
-    position: relative;
-  }
-  .date-picker * {
-    z-index:100;
-  }
-  .date-picker:focus {
-    outline: none;
-  }
-  .vdp-datepicker__calendar {
-    background-color: #323237 !important;
-  }
   select {
     background: transparent;
     color: #0DFFAE;
