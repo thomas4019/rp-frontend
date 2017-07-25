@@ -1,6 +1,14 @@
 <template>
   <div id="login-container">
-    <h1>Welcome to Racepass!</h1>
+    <h1 v-if="isCreation">We haven’t launched in your area yet</h1>
+    <h1 v-else>Welcome to Racepass!</h1>
+    <div v-if="isCreation" class="subinfo container">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          Create an account to join the waitlist and we’ll let you know as soon as we’re open in your region.
+        </div>
+      </div>
+    </div>
     <div class="login-panel">
       <div style="flex: 1;">
         <div v-if="isCreation">Create account with social:</div>
@@ -154,6 +162,20 @@ export default {
   flex-direction: column;
   text-align: center;
   margin-top: 35px;
+}
+.subinfo {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+h1 {
+  color: #FFFFFF;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 41px;
 }
 @media screen and (max-width: 750px) {
   .login-panel {

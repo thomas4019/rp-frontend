@@ -20,9 +20,9 @@
         <dt>2017 Races</dt>
         <dd></dd>
       </dl>
-      <dl>
+      <dl v-if="passName">
         <dt>Pass Type</dt>
-        <dd v-if="passName">{{passName}}</dd>
+        <dd >{{passName}}</dd>
         <dd v-if="!passName">None <router-link to="/app/payment"><em>Buy a pass now</em></router-link></dd>
       </dl>
       <dl>

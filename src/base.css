@@ -63,6 +63,7 @@ h2 {
 h3 {
 	font-size: 24px;
 }
+
 @media screen and (max-width: 799px) {
 	h1 {
 		font-size: 36px;
@@ -119,6 +120,12 @@ button.rounded, .button.rounded {
 	height: 40px;
 	background-color: #0DFFAE;
 	border-radius: 100px;
+}
+button.grey {
+	background: none;
+	border-color: #4A4A4A;
+	color: #9B9B9B;
+	box-shadow: none;
 }
 p {
 	color: #ABAEB7;
@@ -272,7 +279,6 @@ section.solo {
 	height: 47.45px;
 	background-color: #3955A2;
 	border-radius: 8px;
-	font-family: 'Lato';
 	font-size: 14px;
 	font-weight: 900;
 	line-height: 19px;

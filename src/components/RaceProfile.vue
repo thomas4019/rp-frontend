@@ -1,135 +1,253 @@
 <template>
-<div class="container">
+<div class="race-profile">
+  <section id="race-picture" v-if="race.banner_picture">
+      <img class="race-profile-picture" :src="race.banner_picture">
+  </section>
+  <div class="container" style="margin-top: 20px;">
     <div class="row justify-content-center">
-        <div class="race-profile col-md-7 bordered">
-            <section id="race-title" class="container">
-                <h1 class="race-profile-title">{{race.name}} <span class="race-profile-check"><i class="fa fa-check" aria-hidden="true"></i>Premier Partner</span></h1>
-                <h2 class="race-profile-dropdown hide-on-desktop">
-                    <select v-model="course">
-                        <option v-for="option in race.courses" v-bind:value="option">{{ option.distance }}</option>
-                    </select>
-                    
-                </h2>
-                <h2 class="race-profile-dropdown hide-on-mobile">
-                    <ul class="radio-buttons">
-                        <li v-for="option in race.courses" v-bind:key="option">
-                            <input v-model="course" v-bind:value="option" type="radio" ><label>{{ option.distance }}</label>
-                        </li>
-                    </ul>
-                </h2>
-            </section>
-            <section id="race-picture" class="container">
-                <img class="race-profile-picture" src="/static/imgs/profiles/default-race-header.png">
-            </section>
-            <section id="race-info" class="container line-below">
+        <div class="race-profile col-md-10">
+          <div class="row">
+            <div class="col-md-4 col-12 push-md-8 bordered actions">
+              <button>Register</button>
+              <hr />
+              <button class="grey">Add to wishlist</button>
+            </div>
+            <div class="col-md-8 col-12 pull-md-4">
+              <section id="race-title" class="line-below">
+                  <h1 class="race-profile-title">{{race.name}}</h1>
+                  <h3>{{race.location.city}} {{race.location.state}} {{race.location.country}}</h3>
+              </section>
+              <section class="line-below">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Event Details</h2>
-                        <dl>
-                            <dt>Distance</dt>
-                            <dd>{{course.distance}}</dd>
-                        </dl>
-                        <dl>
-                            <dt>Date</dt>
-                            <dd>{{race.datetime}}</dd>
-                        </dl>
-                        <dl>
-                            <dt>Start times(s)</dt>
-                            <dd>9:00am drop down</dd>
-                        </dl>
-                        <dl>
-                            <dt>Participants</dt>
-                            <dd>4,500</dd>
-                        </dl>
-                        <dl>
-                            <dt>Avg. finisher time</dt>
-                            <dd>3:34:12</dd>
-                        </dl>
-                        <dl>
-                            <dt>Course time limit</dt>
-                            <dd>6 hrs</dd>
-                        </dl>
-                        <dl>
-                            <dt>Race start elevation</dt>
-                            <dd>356’</dd>
-                        </dl>
-                        <dl>
-                            <dt>Race finish altitude</dt>
-                            <dd>10’</dd>
-                        </dl>
-                        <dl>
-                            <dt>Elevation Gain</dt>
-                            <dd>+2,182’</dd>
-                        </dl>
-                        <dl>
-                            <dt>Elevation Drop</dt>
-                            <dd>-2,528’</dd>
-                        </dl>
-                        <a><em>Elevation map</em></a>
-                    </div>
-                    <div class="col-sm-6">
-                        <div >
-                            <button class="register">Register</button>
-                        </div>
-                        <div>
-                            <RpMap class="map"></RpMap>
-                        </div>
-                        <div class="links">
-                            <a><em>Directions</em></a>
-                            <a><em>Course Map</em></a>
-                            <a><em>Aid Stations</em></a>
-                        </div>
-                    </div>
+                  <div class="col-12 col-md-4">
+                      <h2>Event distances</h2>
+                  </div>
+                  <div class="col-12 col-md-8">
+                      <ul class="radio-buttons">
+                          <li v-for="option in race.courses" v-bind:key="option">
+                              <input v-model="course" v-bind:value="option" type="radio" ><label>{{ option.distance }}</label>
+                          </li>
+                      </ul>
+                  </div>
                 </div>
-            </section>
-            <section id="race-details" class="container line-below">
-                <h2>Raceday Details</h2>
-                <dl class="editable">
-                    <dt>Amenities</dt>
-                    <dd>Shirt, finisher medal, food & drink</dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Packet / Race bib pick up</dt>
-                    <dd>In-person at Race Expo</dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Parking / transit</dt>
-                    <dd>Free bus transit for participants</dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Gear check</dt>
-                    <dd>Free for participants at race start</dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Race rules</dt>
-                    <dd>No pacers, infants, bib switching </dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Awards</dt>
-                    <dd>Top three finishers</dd>
-                </dl>
-                <dl class="editable">
-                    <dt>Divisions</dt>
-                    <dd>Male, female age brackets</dd>
-                </dl>
+              </section>
+              <section class="line-below quick-look">
+                <div class="row">
+                  <div class="col-md-3">
+                    <span class="icon">{{course.distance}}</span> Race distance
+                  </div>
+                  <div class="col-md-3">
+                    <span class="icon">{icon}</span>{{race.datetime}}
+                  </div>
+                </div>
+              </section>
 
-                <h2>Records</h2>
-                <dl>
-                    <dt>Male</dt>
-                    <dd>Brad Hawthorne, 1987, 2:16:39</dd>
-                </dl>
-                <dl>
-                    <dt>Female</dt>
-                    <dd>Svetlana Vasilyeva, 1996, 2:41:34</dd>
-                </dl>
-                <a><em>View full records</em></a>
-            </section>
+            </div>
+          </div>
+          <RpAbout :about="'cat'" v-if="course.about"></RpAbout>
+          <RpSponsors :sponsors="['cat']" v-if="course.sponsors"></RpSponsors>
 
-            <section id="race-partners">
-                <h2>Event partners</h2>
-                <img class="race-profile-picture" src="/static/imgs/profiles/default-race-partner.png">
-            </section>
+          <section class="line-below" v-if="course.map || course.participants || course.average_finish_time || course.course_time_limit">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Race</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <dl v-if="course.map && course.map.start_location && course.map.start_location.location">
+                    <dt>Start location</dt>
+                    <dd>{{course.map.start_location.location}}</dd>
+                </dl>
+                <dl v-if="course.map && course.map.start_location && course.map.end_location.location">
+                    <dt>Finish location</dt>
+                    <dd>{{course.map.end_location.location}}</dd>
+                </dl>
+                <dl v-if="course.participants">
+                    <dt>Participants</dt>
+                    <dd>{{course.participants}}</dd>
+                </dl>
+                <dl v-if="course.average_finish_time">
+                    <dd>{{course.average_finish_time}}</dd>
+                </dl>
+                <dl v-if="course.course_time_limit">
+                    <dt>Course time limit</dt>
+                    <dd>{{course.course_time_limit}}</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+          <section class="line-below" v-if="course.map">
+            <h3>Course map</h3>
+            <RpMap class="map"></RpMap>
+            <div class="row" v-if="course.map.stations">
+              <div class="col-12 col-md-1">
+                <h3>Aid stations</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <ol>
+                  <li>Mile 2.6</li>
+                  <li>Mile 4.8</li>
+                  <li>Mile 7.8</li>
+                </ol>
+              </div>
+            </div>
+          </section>              
+
+          <section class="line-below" v-if="course.map && course.map.elevation">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Elevation Map</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <h3>Summary</h3>
+                <dl>
+                  <dt>Race start elevation</dt>
+                    <dd>356’</dd>
+                </dl>
+                <dl>
+                    <dt>Race finish altitude</dt>
+                    <dd>10’</dd>
+                </dl>
+                <dl>
+                    <dt>Elevation Gain</dt>
+                    <dd>+2,182’</dd>
+                </dl>
+                <dl>
+                    <dt>Elevation Drop</dt>
+                    <dd>-2,528’</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+          <section class="line-below" v-if="course.waves">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Waves</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <dl>
+                    <dt>Wave 1</dt> <dd>5:30am</dd>
+                    <dt>Wave 2</dt> <dd>5:32am</dd>
+                    <dt>Wave 3</dt> <dd>5:42am</dd>
+                    <dt>Wave 4</dt> <dd>5:52am</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="line-below" v-if="course.amenities">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Amenities</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <dl>
+                    <dt>Amenities</dt> <dd>Finisher Medal</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="line-below" v-if="course.awards">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Awards</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>Gifts will be issued to the top...</p>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="line-below" v-if="course.scoring">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Scoring</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>The top 3 overall Men and Women in the full...</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="line-below" v-if="course.divisions">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Divisions</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>Open & Masters</p>
+                <p>Age groups:</p>
+                <ul>
+                  <li>19 and under</li>
+                  <li>20-24</li>
+                  <li>25-29</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="line-below" v-if="course.records">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Course Records</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>Male/Female</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="line-below" v-if="course.expo">
+            <h3>Expo</h3>
+            <dl>
+                <dt>Date(s) & Time(s)</dt> <dd>.....</dd>
+                <dt>Location</dt> <dd>.....</dd>
+                <dt>Admission</dt> <dd>Free to the public</dd>
+            </dl>
+          </section>
+
+
+          <section class="line-below" v-if="course.expo && course.expo.lat">
+            <h3>Expo map</h3>
+            <RpMap class="map"></RpMap>
+          </section>
+
+
+          <section class="line-below" v-if="course.bibs">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Bib pick-up</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>All Marathon, 1st Half Marathon, 2nd Half Marathon, 5k and Ultramarathon.</p>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="line-below" v-if="course.transit">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Parking & transit</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <p>Parking at the Expo is etremely difficult during race....</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="line-below" v-if="course.recommendations">
+            <h3>Recommended Races</h3>
+            <p>Based on this race</p>
+          </section>
         </div>
+      </div>
     </div>
 </div>
 </template>
@@ -137,6 +255,8 @@
 
 <script>
 import RpMap from '@/components/RaceProfileMap'
+import RpAbout from '@/components/RaceProfileAbout'
+import RpSponsors from '@/components/RaceProfileSponsors'
 import rp from '../rp'
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
@@ -151,7 +271,9 @@ Vue.use(VueGoogleMaps, {
 export default {
   name: 'race-profile',
   components: {
-    RpMap
+    RpMap,
+    RpAbout,
+    RpSponsors,
   },
   methods: {
     update () {
@@ -176,10 +298,29 @@ export default {
 }
 </script>
 
-<style scoped>
-.race-profile {
-    margin-top:20px;
+<style>
+/* This applies to all Components included */
+.race-profile h1 {
+  font-size: 24px;
 }
+.race-profile h2 {
+  font-size: 18px;
+  display: inline-block;
+}
+.race-profile h3 {
+  font-size: 14px;
+  display: inline-block;
+}
+.race-profile p {
+  font-size: 14px;
+  color: #9B9B9B;
+  font-weight: 300;
+  line-height: 19px;
+}
+</style>
+
+
+<style scoped>
 @media screen and (min-width: 800px) {
   .hide-on-desktop {
     display: none;
@@ -190,18 +331,17 @@ export default {
     display: none;
   }
 }
-h1 {
-	color: #D6D6D6;
-	font-size: 16px;
-	font-weight: 900;
-	line-height: 22px;
+.race-profile .actions {
+  padding: 15px;
 }
-h2 {
-	color: #D8D8D8;
-	font-size: 12px;
-	font-weight: 900;
-	line-height: 16px;
-    margin: 10px 0px 5px 0px;
+hr {
+  border-bottom: 1px solid #4A4A4A;
+}
+.race-profile h1,
+.race-profile h2,
+.race-profile h3 {
+  font-weight: 300;
+  color: #D6D6D6;
 }
 dl {
     margin: 3px;
@@ -216,41 +356,50 @@ dl.editable::after {
 }
 dt {
 	color: #9B9B9B;
-	font-size: 11px;
+	font-size: 14px;
 	font-weight: 300;
 	line-height: 15px;
-    display: inline-block;
-    width: 50%;
+  display: inline-block;
+  width: 20%;
 }
 dd {
 	color: #D8D8D8;
-	font-size: 11px;
-	font-weight: 900;
-	line-height: 15px;
-    display: inline-block;
-    margin-bottom: 0px;
-}
-button {
-	color: #22262B;
 	font-size: 14px;
 	font-weight: 900;
-	line-height: 19px;
-	text-align: center;
-    width: 100%;
-    padding: 5px 0px 5px 0px;
+	line-height: 15px;
+  display: inline-block;
+  margin-bottom: 0px;
 }
-button.register {
-    margin-top: 12px;
+.quick-look {
+  color: #9B9B9B;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: center;
+  
+}
+span.icon {
+  width: 100%;
+  display: block;
+  font-size: 18px;
+  color: #D8D8D8;
+}
+button {
+  width: 100%;
+  padding: 5px 0px 5px 0px;
+  border-radius: 4px;
 }
 .map {
     margin: 10px 0px 10px 0px;
 }
 section {
-    padding-bottom: 20px;
-    margin-top: 10px;
+    padding-bottom: 13px;
+    margin-top: 13px;
+}
+section:first-child {
+  margin-top: 0px;
 }
 section.line-below {
-    border-bottom: 0.5px solid #979797; 
+    border-bottom: 1px solid #4A4A4A;
 }
 span.race-profile-check {
     color: #9B9B9B;
@@ -277,7 +426,7 @@ span.race-profile-check .fa.fa-check {
     padding: 5px 0px 5px 0px;
 }
 #race-picture {
-    padding: 5px 0px 5px 0px;
+    padding: 0px 0px 15px 0px;
 }
 img.race-profile-picture {
     width:100%;
@@ -309,6 +458,9 @@ color: #0DFFAE;
 } .radio-group .not-active  {
    color: #3276b1;
    background-color: #fff;
+}
+ul.radio-buttons {
+  margin: 0;
 }
 
 </style>
