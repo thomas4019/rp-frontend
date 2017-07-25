@@ -250,7 +250,7 @@
             height: -35
           }
         },
-        limit: 10000,
+        limit: 1000,
         last_update_time: null,
       }
     }
