@@ -11,11 +11,16 @@
       </div>
     </div>
   </div>
+  <div id="lower-menu" v-if="isAdmin">
+    <router-link to="/app/races">
+      <button class="hollow">Bulk Race Editor</button>
+    </router-link>
+  </div>
   <!--<div id="lower-menu">
     <button class="hollow">Change Pass</button>
     <button class="hollow">Billing Settings</button>
-    <button class="hollow">Cancel Account</button>-->
-  </div>
+    <button class="hollow">Cancel Account</button>
+  </div>-->
 </div>
 </template>
 
@@ -37,6 +42,9 @@ export default {
     },
     photo () {
       return this.$store.state.photo
+    },
+    isAdmin () {
+      return this.$store.state.user.roles.indexOf('Admin') !== -1
     }
   }
 }

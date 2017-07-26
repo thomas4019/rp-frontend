@@ -16,6 +16,7 @@ import Login from '@/components/Login'
 import Payment from '@/components/Payment'
 import RaceSearch from '@/components/RaceSearch'
 import RaceProfile from '@/components/RaceProfile'
+import RaceEditor from '@/components/RaceEditor'
 import NotFoundComponent from '@/components/NotFoundComponent'
 import StyleGuide from '@/components/StyleGuide'
 
@@ -112,8 +113,14 @@ export default new Router({
       beforeEnter: ensureLogin
     },
     {
+      path: '/app/races',
+      name: 'BulkRaceEditor',
+      component: RaceEditor,
+      beforeEnter: ensureLogin
+    },
+    {
       path: '/app/race/:route_id/:slug',
-      name: 'RaceProfile',
+      name: 'RaceProfileSlug',
       component: RaceProfile,
       beforeEnter: ensureLogin
     },
