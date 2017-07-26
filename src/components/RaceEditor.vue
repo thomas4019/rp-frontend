@@ -19,15 +19,18 @@
           <table class="table">
              <thead>
               <tr>
-                <th colspan="16">Race</th>
-                <th class="course" colspan="17">Courses</th>
+                <th colspan="18">Race</th>
+                <th class="course" colspan="16">Courses</th>
               <tr>
+                <th></th>
                 <th>#</th>
                 <th>Name</th>
                 <th>Date & Time</th>
                 <th>City</th>
                 <th>State</th>
                 <th>Country</th>
+                <th>City Latitude</th>
+                <th>City Longitude</th>
                 <th>Min KM Dist.</th>
                 <th>Max KM Dist.</th>
                 <th>Website</th>
@@ -52,7 +55,6 @@
                 <th class="course">waves</th>
                 <th class="course">amenities</th>
                 <th class="course">records</th>
-                <th class="course">records</th>
                 <th class="course">expo</th>
                 <th class="course">map</th>
               </tr>
@@ -60,12 +62,15 @@
 
             <tbody v-for="race in races">
               <tr class="race-row">
+                <td :rowspan="race.courses.length"><button @click="save(race)">Save</button></td>
                 <td :rowspan="race.courses.length">{{race._id}}</td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.name"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.datetime"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.location.city"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.location.state"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.location.country"/></td>
+                <td :rowspan="race.courses.length"><input type="number" v-model.number="race.location.coordinates.lat"/></td>
+                <td :rowspan="race.courses.length"><input type="number" v-model.number="race.location.coordinates.lng"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.distance_km_min"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.distance_km_max"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.website"/></td>
@@ -77,39 +82,37 @@
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.slug"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.terms"/></td>
                 <td class="single-course"><input type="text" v-model="race.courses[0].distance"/></td>
-                <td><input type="text" v-model="race.courses[0].distance_km"/></td>
+                <td><input type="number" v-model.number="race.courses[0].distance_km"/></td>
                 <td><input type="text" v-model="race.courses[0].about"/></td>
                 <td><input type="text" v-model="race.courses[0].awards"/></td>
                 <td><input type="text" v-model="race.courses[0].bibs"/></td>
                 <td><input type="text" v-model="race.courses[0].transit"/></td>
                 <td><input type="text" v-model="race.courses[0].scoring"/></td>
                 <td><input type="text" v-model="race.courses[0].average_finish_time"/></td>
-                <td><input type="text" v-model="race.courses[0].participants"/></td>
+                <td><input type="number" v-model.number="race.courses[0].participants"/></td>
                 <td><input type="text" v-model="race.courses[0].course_time_limit"/></td>
-                <td><input type="text" v-model="race.courses[0].divisions"/></td>
-                <td><input type="text" v-model="race.courses[0].waves"/></td>
-                <td><input type="text" v-model="race.courses[0].amenities"/></td>
-                <td><input type="text" v-model="race.courses[0].records"/></td>
-                <td><input type="text" v-model="race.courses[0].records"/></td>
-                <td><input type="text" v-model="race.courses[0].expo"/></td>
-                <td><input type="text" v-model="race.courses[0].map"/></td>
+                <td><input type="text" v-model="race.courses[0].divisions"/></td> <!-- todo array of strings -->
+                <td><input type="text" v-model="race.courses[0].waves"/></td> <!-- todo array of strings -->
+                <td><input type="text" v-model="race.courses[0].amenities"/></td> <!-- todo array of strings -->
+                <td><input type="text" v-model="race.courses[0].records"/></td> <!-- todo object of male/female strings -->
+                <td><input type="text" v-model="race.courses[0].expo"/></td> <!-- todo object with lat/num, lng/num, date/str, location/str, admission/str -->
+                <td><input type="text" v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
               </tr>
                 <template v-for="(course, index) in race.courses">
                   <tr class="course-row" v-show="index !== 0">
                     <td><input type="text" v-model="course.distance"/></td>
-                    <td><input type="text" v-model="course.distance_km"/></td>
+                    <td><input type="number" v-model.number="course.distance_km"/></td>
                     <td><input type="text" v-model="course.about"/></td>
                     <td><input type="text" v-model="course.awards"/></td>
                     <td><input type="text" v-model="course.bibs"/></td>
                     <td><input type="text" v-model="course.transit"/></td>
                     <td><input type="text" v-model="course.scoring"/></td>
                     <td><input type="text" v-model="course.average_finish_time"/></td>
-                    <td><input type="text" v-model="course.participants"/></td>
+                    <td><input type="number" v-model.number="course.participants"/></td>
                     <td><input type="text" v-model="course.course_time_limit"/></td>
                     <td><input type="text" v-model="course.divisions"/></td>
                     <td><input type="text" v-model="course.waves"/></td>
                     <td><input type="text" v-model="course.amenities"/></td>
-                    <td><input type="text" v-model="course.records"/></td>
                     <td><input type="text" v-model="course.records"/></td>
                     <td><input type="text" v-model="course.expo"/></td>
                     <td><input type="text" v-model="course.map"/></td>
@@ -154,6 +157,41 @@ export default {
         this.races = races
         console.log(races)
       })
+    },
+    saveSuccessful (race) {
+      this.$set(race, 'wasSaved', true)
+      setTimeout(() => {
+        this.$set(race, 'wasSaved', false)
+      }, 1000)
+    },
+    save (race) {
+      var data = {
+        $set: {
+          'name': race.name,
+          'datetime': race.datetime,
+          'location': race.location,
+          'courses': race.courses,
+          'distance_km_min': race.distance_km_min,
+          'distance_km_max': race.distance_km_max,
+          'website': race.website,
+          'facebook': race.facebook,
+          'twitter': race.twitter,
+          'source': race.source,
+          'status': race.status,
+          'prominance': race.prominance,
+          'slug': race.slug,
+          'terms': race.terms,
+        }
+      }
+      // fix number conversions
+      console.log(data)
+      rp.post('race2/' + race._id + '/update', data)
+      .then((result) => {
+        console.log(result)
+      }, (err) => {
+        console.error('error signing in')
+        console.error(err)
+      })
     }
   },
   mounted () {
@@ -171,6 +209,7 @@ export default {
 </script>
 
 <style scoped>
+.table input[type=number],
 .table input[type=text] {
   border: none;
   background: none;
@@ -189,11 +228,16 @@ table {
 .course-row:nth-child(odd) {
   background-color: #292929
 }
+.race-row button {
+  font-size: 12px;
+  padding: 2px 10px;
+}
 th.course {
   background-color: #444;
 }
 td, th {
   max-width: 150px;
+  min-width: 50px;
   word-wrap: break-word;
 }
 tbody:hover td[rowspan], tr:hover td {
