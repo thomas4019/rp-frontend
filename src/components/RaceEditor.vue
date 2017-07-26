@@ -91,12 +91,12 @@
                 <td><input type="text" v-model="race.courses[0].average_finish_time"/></td>
                 <td><input type="number" v-model.number="race.courses[0].participants"/></td>
                 <td><input type="text" v-model="race.courses[0].course_time_limit"/></td>
-                <td><input type="text" v-model="race.courses[0].divisions"/></td> <!-- todo array of strings -->
-                <td><input type="text" v-model="race.courses[0].waves"/></td> <!-- todo array of strings -->
-                <td><input type="text" v-model="race.courses[0].amenities"/></td> <!-- todo array of strings -->
-                <td><input type="text" v-model="race.courses[0].records"/></td> <!-- todo object of male/female strings -->
-                <td><input type="text" v-model="race.courses[0].expo"/></td> <!-- todo object with lat/num, lng/num, date/str, location/str, admission/str -->
-                <td><input type="text" v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
+                <td><input type="text" disabled v-model="race.courses[0].divisions"/></td> <!-- todo array of strings -->
+                <td><input type="text" disabled v-model="race.courses[0].waves"/></td> <!-- todo array of strings -->
+                <td><input type="text" disabled v-model="race.courses[0].amenities"/></td> <!-- todo array of strings -->
+                <td><input type="text" disabled v-model="race.courses[0].records"/></td> <!-- todo object of male/female strings -->
+                <td><input type="text" disabled v-model="race.courses[0].expo"/></td> <!-- todo object with lat/num, lng/num, date/str, location/str, admission/str -->
+                <td><input type="text" disabled v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
               </tr>
                 <template v-for="(course, index) in race.courses">
                   <tr class="course-row" v-show="index !== 0">
@@ -110,12 +110,12 @@
                     <td><input type="text" v-model="course.average_finish_time"/></td>
                     <td><input type="number" v-model.number="course.participants"/></td>
                     <td><input type="text" v-model="course.course_time_limit"/></td>
-                    <td><input type="text" v-model="course.divisions"/></td>
-                    <td><input type="text" v-model="course.waves"/></td>
-                    <td><input type="text" v-model="course.amenities"/></td>
-                    <td><input type="text" v-model="course.records"/></td>
-                    <td><input type="text" v-model="course.expo"/></td>
-                    <td><input type="text" v-model="course.map"/></td>
+                    <td><input disabled type="text" v-model="course.divisions"/></td>
+                    <td><input disabled type="text" v-model="course.waves"/></td>
+                    <td><input disabled type="text" v-model="course.amenities"/></td>
+                    <td><input disabled type="text" v-model="course.records"/></td>
+                    <td><input disabled type="text" v-model="course.expo"/></td>
+                    <td><input disabled type="text" v-model="course.map"/></td>
                   </tr>
                 </template>
             </tbody>
