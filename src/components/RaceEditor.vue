@@ -3,24 +3,31 @@
   <div class="">
     <div class="row">
       <div class="col-12">
-        <section id="race-title" class="line-below">
+        <div style="margin-top:20px" id="race-title" class="line-below">
           <h1 class="race-profile-title">Bulk Editor</h1>
-        </section>
-        <section class="line-below">
+        </div>
+        <div style="margin-top:20px"  class="line-below">
           <div class="row">
             <div class="col-12 col-md-12">
-                Search:
-                <input v-model="query_text" @change="update()" @keyup="update()" placeholder="Search races by name" type="textbox" />
+              Search:
+              <input style="width:350px;" v-model="query_text" @change="update()" @keyup="update()" placeholder="Search races by name" type="textbox" />
+              Number of Displayed Results:
+              <select v-model="limit" @change="update()">
+                <option selected>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+              </select>
             </div>
           </div>
-        </section>
+        </div>
 
         <section class="line-below">
-          <table class="table">
+          <table class="table ">
              <thead>
               <tr>
-                <th colspan="18">Race</th>
-                <th class="course" colspan="16">Courses</th>
+                <th colspan="20">Race</th>
+                <th class="course" colspan="17">Courses</th>
               <tr>
                 <th></th>
                 <th>#</th>
@@ -33,6 +40,7 @@
                 <th>City Longitude</th>
                 <th>Min KM Dist.</th>
                 <th>Max KM Dist.</th>
+                <th>Photo URL</th>
                 <th>Website</th>
                 <th>Facebook</th>
                 <th>Twitter</th>
@@ -51,10 +59,11 @@
                 <th class="course">average_finish_time</th>
                 <th class="course">participants</th>
                 <th class="course">course_time_limit</th>
-                <th class="course">divisions</th>
-                <th class="course">waves</th>
-                <th class="course">amenities</th>
-                <th class="course">records</th>
+                <th style="min-width: 135px" class="course">divisions</th>
+                <th style="min-width: 115px" class="course">waves</th>
+                <th style="min-width: 200px" class="course">amenities</th>
+                <th class="course">Male Record</th>
+                <th class="course">Female Record</th>
                 <th class="course">expo</th>
                 <th class="course">map</th>
               </tr>
@@ -73,6 +82,7 @@
                 <td :rowspan="race.courses.length"><input type="number" v-model.number="race.location.coordinates.lng"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.distance_km_min"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.distance_km_max"/></td>
+                <td :rowspan="race.courses.length"><input type="text" v-model="race.banner_picture"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.website"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.facebook"/></td>
                 <td :rowspan="race.courses.length"><input type="text" v-model="race.twitter"/></td>
@@ -91,10 +101,44 @@
                 <td><input type="text" v-model="race.courses[0].average_finish_time"/></td>
                 <td><input type="number" v-model.number="race.courses[0].participants"/></td>
                 <td><input type="text" v-model="race.courses[0].course_time_limit"/></td>
-                <td><input type="text" disabled v-model="race.courses[0].divisions"/></td> <!-- todo array of strings -->
-                <td><input type="text" disabled v-model="race.courses[0].waves"/></td> <!-- todo array of strings -->
-                <td><input type="text" disabled v-model="race.courses[0].amenities"/></td> <!-- todo array of strings -->
-                <td><input type="text" disabled v-model="race.courses[0].records"/></td> <!-- todo object of male/female strings -->
+                <td>
+                  <div class="array-input" v-for="division in race.courses[0].divisions">
+                    <input class="division" type="number" v-model.number="division.min"/> - 
+                    <input class="division" type="number" v-model.number="division.max"/>
+                    <div class="delete" @click="removeDivision(race.courses[0], division)">x</div>
+                  </div>
+                  <button class="hollow" @click="addDivision(race.courses[0])">Add Division</button>
+                </td>
+                <td>
+                  <div class="array-input" v-for="wave in race.courses[0].waves">
+                    <input class="wave" type="text" v-model="wave.time"/>
+                    <div class="delete" @click="removeWave(race.courses[0], wave)">x</div>
+                  </div>
+                  <button class="hollow" @click="addWave(race.courses[0])">Add Wave</button>
+                </td> <!-- todo array of strings -->
+                <td>
+                  <button class="hollow" v-show="!race.courses[0].showAmenities" @click="race.courses[0].showAmenities = true">Show Amenities</button>
+                  <div v-show="race.courses[0].showAmenities">
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" id="c" value="Finisher medal"/> Finisher medal </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" id="a"  value="Electronic certificate"/> Electronic certificate </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" id="b"  value="T-shirt"/> T-shirt </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Technical long-sleeve"/> Technical long-sleeve </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Water / beverages"/> Water / beverages </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Heat sheet"/> Heat sheet </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Free race photos"/> Free race photos </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Medical care"/> Medical care </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Free transit"/> Free transit </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Free parking"/> Free parking </label>
+                    <label><input type="checkbox" v-model="race.courses[0].amenities" value="Portable bathrooms"/> Portable bathrooms </label>
+                    <button class="hollow" @click="race.courses[0].showAmenities = false">Hide Amenities</button>
+                  </div>
+                </td> <!-- todo array of strings -->
+                <td>
+                  <input type="text" v-model="race.courses[0].records.male"/>
+                </td>
+                <td>
+                  <input type="text" v-model="race.courses[0].records.female"/>
+                </td>
                 <td><input type="text" disabled v-model="race.courses[0].expo"/></td> <!-- todo object with lat/num, lng/num, date/str, location/str, admission/str -->
                 <td><input type="text" disabled v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
               </tr>
@@ -110,10 +154,44 @@
                     <td><input type="text" v-model="course.average_finish_time"/></td>
                     <td><input type="number" v-model.number="course.participants"/></td>
                     <td><input type="text" v-model="course.course_time_limit"/></td>
-                    <td><input disabled type="text" v-model="course.divisions"/></td>
-                    <td><input disabled type="text" v-model="course.waves"/></td>
-                    <td><input disabled type="text" v-model="course.amenities"/></td>
-                    <td><input disabled type="text" v-model="course.records"/></td>
+                    <td>
+                      <div class="array-input" v-for="division in course.divisions">
+                        <input class="division" type="number" v-model.number="division.min"/> - 
+                        <input class="division" type="number" v-model.number="division.max"/>
+                        <div class="delete" @click="removeDivision(course, division)">x</div>
+                      </div>
+                      <button class="hollow" @click="addDivision(course)">Add Division</button>
+                    </td>
+                    <td>
+                      <div class="array-input" v-for="wave in course.waves">
+                        <input class="wave" type="text" v-model="wave.time"/>
+                        <div class="delete" @click="removeWave(course, wave)">x</div>
+                      </div>
+                      <button class="hollow" @click="addWave(course)">Add Wave</button>
+                    </td>
+                    <td>
+                      <button class="hollow" v-show="!course.showAmenities" @click="course.showAmenities = true">Show Amenities</button>
+                      <div v-show="course.showAmenities">
+                        <label><input type="checkbox" v-model="course.amenities" id="c" value="Finisher medal"/> Finisher medal </label>
+                        <label><input type="checkbox" v-model="course.amenities" id="a"  value="Electronic certificate"/> Electronic certificate </label>
+                        <label><input type="checkbox" v-model="course.amenities" id="b"  value="T-shirt"/> T-shirt </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Technical long-sleeve"/> Technical long-sleeve </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Water / beverages"/> Water / beverages </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Heat sheet"/> Heat sheet </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Free race photos"/> Free race photos </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Medical care"/> Medical care </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Free transit"/> Free transit </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Free parking"/> Free parking </label>
+                        <label><input type="checkbox" v-model="course.amenities" value="Portable bathrooms"/> Portable bathrooms </label>
+                        <button class="hollow" @click="course.showAmenities = false">Hide Amenities</button>
+                      </div>
+                    </td>
+                    <td>
+                      <input type="text" v-model="course.records.male"/>
+                    </td>
+                    <td>
+                      <input type="text" v-model="course.records.female"/>
+                    </td>
                     <td><input disabled type="text" v-model="course.expo"/></td>
                     <td><input disabled type="text" v-model="course.map"/></td>
                   </tr>
@@ -133,6 +211,7 @@ import rp from '../rp'
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import MapStyles from '../mapstyle'
+import toastr from 'toastr'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -154,6 +233,19 @@ export default {
         query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
       })
       rp.get('race2?limit=' + this.limit + '&query=' + JSON.stringify(query)).then((races) => {
+        // pre-process for missing variables, add in temp variables used in display
+        for (var i = 0; i < races.length; i++) {
+          for (var k = 0; k < races[i].courses.length; k++) {
+            var course = races[i].courses[k]
+            course.showAmenities = false
+            if (!course.amenities) {
+              course.amenities = []
+            }
+            if (!course.records) {
+              course.records = {}
+            }
+          }
+        }
         this.races = races
         console.log(races)
       })
@@ -164,7 +256,11 @@ export default {
         this.$set(race, 'wasSaved', false)
       }, 1000)
     },
-    save (race) {
+    save (raceToSave) {
+      var race = Object.assign({}, raceToSave)
+      for (var k = 0; k < race.courses.length; k++) {
+        delete race.courses[k].showAmenities
+      }
       var data = {
         $set: {
           'name': race.name,
@@ -183,16 +279,44 @@ export default {
           'terms': race.terms,
         }
       }
-      // fix number conversions
       console.log(data)
-      rp.post('race2/' + race._id + '/update', data)
+      /* rp.post('race2/' + race._id + '/update', data)
       .then((result) => {
         console.log(result)
+        toastr.success('Saved ' + race.name + ' successfully')
       }, (err) => {
         console.error('error signing in')
         console.error(err)
-      })
+        toastr.error(err.message || 'Error while attempting to save ' + race.name)
+      }) */
+    },
+    addDivision (course) {
+      if (!course.divisions) {
+        this.$set(course, 'divisions', [])
+      }
+      course.divisions.push({})
+      toastr.success('Added division')
+    },
+    removeDivision (course, division) {
+      var index = course.divisions.indexOf(division)
+      if (index > -1) {
+        course.divisions.splice(index, 1)
+      }
+    },
+    addWave (course) {
+      if (!course.waves) {
+        this.$set(course, 'waves', [])
+      }
+      course.waves.push({})
+      toastr.success('Added wave')
+    },
+    removeWave (course, wave) {
+      var index = course.waves.indexOf(wave)
+      if (index > -1) {
+        course.waves.splice(index, 1)
+      }
     }
+
   },
   mounted () {
     this.update()
@@ -228,6 +352,28 @@ table {
 .course-row:nth-child(odd) {
   background-color: #292929
 }
+.table .array-input input {
+  border: 1px solid #444;
+  margin-bottom: 4px;
+}
+.table input.division {
+  width: 40px;
+}
+.table input.wave {
+  width: 60px;
+}
+
+
+
+
+.delete {
+  display: none;
+  cursor: pointer;
+}
+div.array-input:hover .delete {
+  display: inline-block;
+}
+.course-row button,
 .race-row button {
   font-size: 12px;
   padding: 2px 10px;
@@ -236,7 +382,7 @@ th.course {
   background-color: #444;
 }
 td, th {
-  max-width: 150px;
+  max-width: 200px;
   min-width: 50px;
   word-wrap: break-word;
 }
