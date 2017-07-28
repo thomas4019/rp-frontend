@@ -300,7 +300,7 @@ export default {
         }
       }
       console.log(data)
-      /* rp.post('race2/' + race._id + '/update', data)
+      rp.post('race2/' + race._id + '/update', data)
       .then((result) => {
         console.log(result)
         toastr.success('Saved ' + race.name + ' successfully')
@@ -308,7 +308,7 @@ export default {
         console.error('error signing in')
         console.error(err)
         toastr.error(err.message || 'Error while attempting to save ' + race.name)
-      }) */
+      })
     },
     addDivision (course) {
       if (!course.divisions) {
