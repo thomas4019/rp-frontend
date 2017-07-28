@@ -23,6 +23,9 @@
         </div>
 
         <section class="line-below">
+          <!-- <RpDrawableMap></RpDrawableMap> -->
+
+
           <table class="table ">
              <thead>
               <tr>
@@ -62,9 +65,13 @@
                 <th style="min-width: 135px" class="course">divisions</th>
                 <th style="min-width: 115px" class="course">waves</th>
                 <th style="min-width: 200px" class="course">amenities</th>
-                <th class="course">Male Record</th>
-                <th class="course">Female Record</th>
-                <th class="course">expo</th>
+                <th style="min-width: 140px" class="course">Male Record</th>
+                <th style="min-width: 140px" class="course">Female Record</th>
+                <th class="course">Expo Latitude</th>
+                <th class="course">Expo Longitude</th>
+                <th class="course">Expo Date</th>
+                <th class="course">Expo Location</th>
+                <th class="course">Expo Admission</th>
                 <th class="course">map</th>
               </tr>
             </thead>
@@ -139,7 +146,11 @@
                 <td>
                   <input type="text" v-model="race.courses[0].records.female"/>
                 </td>
-                <td><input type="text" disabled v-model="race.courses[0].expo"/></td> <!-- todo object with lat/num, lng/num, date/str, location/str, admission/str -->
+                <td><input type="text" disabled v-model="race.courses[0].expo.lat"/></td>
+                <td><input type="text" disabled v-model="race.courses[0].expo.lng"/></td>
+                <td><input type="text" disabled v-model="race.courses[0].expo.date"/></td> 
+                <td><input type="text" disabled v-model="race.courses[0].expo.location"/></td> 
+                <td><input type="text" disabled v-model="race.courses[0].expo.admission"/></td>
                 <td><input type="text" disabled v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
               </tr>
                 <template v-for="(course, index) in race.courses">
@@ -192,7 +203,11 @@
                     <td>
                       <input type="text" v-model="course.records.female"/>
                     </td>
-                    <td><input disabled type="text" v-model="course.expo"/></td>
+                    <td><input type="text" disabled v-model="course.expo.lat"/></td>
+                    <td><input type="text" disabled v-model="course.expo.lng"/></td>
+                    <td><input type="text" disabled v-model="course.expo.date"/></td> 
+                    <td><input type="text" disabled v-model="course.expo.location"/></td> 
+                    <td><input type="text" disabled v-model="course.expo.admission"/></td>
                     <td><input disabled type="text" v-model="course.map"/></td>
                   </tr>
                 </template>
@@ -212,6 +227,7 @@ import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import MapStyles from '../mapstyle'
 import toastr from 'toastr'
+import RpDrawableMap from '@/components/DrawableMap'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -222,6 +238,7 @@ Vue.use(VueGoogleMaps, {
 export default {
   name: 'RaceEditor',
   components: {
+    RpDrawableMap
   },
   methods: {
     update () {
@@ -243,6 +260,9 @@ export default {
             }
             if (!course.records) {
               course.records = {}
+            }
+            if (!course.expo) {
+              course.expo = {}
             }
           }
         }
@@ -319,7 +339,8 @@ export default {
 
   },
   mounted () {
-    this.update()
+    /* this.update() */
+    console.log('Mounted')
   },
   data () {
     return {
