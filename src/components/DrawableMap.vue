@@ -6,8 +6,15 @@
       :zoom="zoom"
       style="width: 90%; height: 640px; margin: 0 5%;"
       @click="placePolylinePoint($event)"
+      ref="map"
     >
-        <gmap-polyline v-if="path.length > 0" :path="path"  :editable="true" @mouseup="updatePath($event)"
+        <gmap-polyline 
+            v-if="path.length > 0" 
+            :path="path" 
+            :deepWatch="true" 
+            :editable="true" 
+            @path_changed="updatePath"
+            @dblclick="setVertexAsAidStation"
             @rightclick="handleClickForDelete"
             ref="polyline">
         </gmap-polyline>
@@ -37,98 +44,101 @@
   // import rp from '../rp'
   import * as VueGoogleMaps from 'vue2-google-maps'
   import Vue from 'vue'
-  import moment from 'moment'
   import MapStyles from '../mapstyle'
 
   Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyAYMq0Meyau1Q9hMFlyETxUdcv-io5NjwI',
-      // libraries: 'places', //// If you need to use place input
     }
   })
 
   export default {
     name: 'rp-drawable-map',
+    props: {
+      path: {
+        type: Array,
+        default: function () { return [] }
+      }
+    },
     methods: {
       select (marker) {
-        var race = marker.race
-        // check if its the same marker that was selected if yes toggle
-        if (this.selected === marker.race_id) {
-          this.infoWinOpen = !this.infoWinOpen
-        } else {
-           // if different marker set infowindow to open and reset current marker index
-          this.infoWinOpen = true
-          this.selected = marker.race_id
-          this.infoWindowPos = marker.position
-          this.infoContent = '<div class="infowindow-body">' +
-            '<div class="name">' + race.name + '</div>' +
-            '<div class="distances">' + race.courses.map((course) => course.distance).join(' • ') + '</div>' +
-            '<div>' + moment(race.datetime).format('MM/DD/YYYY') +
-            ' • ' + race.location.city + ', ' + race.location.state +
-            '</div>' +
-            '</div>'
-        }
+        this.infoWinOpen = true
+        this.infoWindowPos = marker.position
+        this.infoContent = '<div class="infowindow-body">' +
+          '<div class="name">' + marker.text + '</div>' +
+          '</div>'
       },
-      placePolylinePoint (obj) {
-        console.log('Place poly point', obj)
-        var part = {}
-        this.$set(part, 'lat', obj.latLng.lat())
-        this.$set(part, 'lng', obj.latLng.lng())
-        this.path.push(part)
+      repositionMarkers () {
+        if (this.path.length === 1) {
+          this.markers = [{
+            icon: {
+              labelOrigin: {x: 15, y: 40},
+              url: '/static/imgs/mapiconA2x.png',
+              scaledSize: {width: 20, height: 34},
+            },
+            'position': this.path[0],
+          }]
+        } else {
+          this.markers = [{
+            'text': 'Start',
+            icon: {
+              labelOrigin: {x: 15, y: 40},
+              url: '/static/imgs/mapiconA2x.png',
+              scaledSize: {width: 20, height: 34},
+            },
+            'position': this.path[0],
+          },
+          {
+            'text': 'Finish',
+            icon: {
+              labelOrigin: {x: 15, y: 40},
+              url: '/static/imgs/mapiconA2x.png',
+              scaledSize: {width: 20, height: 34},
+            },
+            'position': this.path[this.path.length - 1]
+          }]
+        }
       },
       updatePath (event) {
-        console.log('Path updated', event, event.latLng.lat(), event.latLng.lng())
-        if (event.vertex) {
-          this.path[event.vertex].lat = event.latLng.lat()
-          this.path[event.vertex].lng = event.latLng.lng()
-        }
+        this.path = event.b
+        this.repositionMarkers()
+        this.$emit('route_changed', this.path)
+      },
+      placePolylinePoint (obj) {
+        this.path.push(obj.latLng)
+        this.repositionMarkers()
       },
       handleClickForDelete ($event) {
         if ($event.vertex) {
           this.$refs.polyline.$polylineObject.getPath().removeAt($event.vertex)
         }
       },
-      update (b) {
-        /* var querytime = new Date()
-        rp.get('race2?limit=' + this.limit + '&query=' + JSON.stringify(query))
-          .then((races) => {
-            if (this.last_update_time > querytime) {
-              return
+      setVertexAsAidStation ($event) {
+        console.log('Aid station', $event) // todo: implement this.
+      },
+      getElevationsForPath () {
+        if (this.elevationService) {
+          this.elevationService.getElevationForLocations({
+            'locations': this.path
+          }, (results, status) => {
+            console.log('Elevation Service', results, this.path)
+            for (var k = 0; k < results.length; k++) {
+              this.$set(this.path[k], 'elevation', results[k].elevation)
+              console.log('Lat', this.path[k].lat, typeof this.path[k].lat)
+              // this.path[k].lat = this.path[k].lat()
+              // this.path[k].lng = this.path[k].lng()
             }
-            this.last_update_time = querytime
-            this.races = races
-            this.markers = races.map((race) => ({
-              'race_id': race._id,
-              'race': race,
-              icon: {
-                labelOrigin: {x: 15, y: 40},
-                url: '/static/imgs/mapiconA2x.png',
-                scaledSize: {width: 20, height: 34},
-              },
-              'position': {
-                'lat': parseFloat(race.location.coordinates.lat),
-                'lng': parseFloat(race.location.coordinates.lng)
-              }
-            }))
-          }) */
+          })
+        }
       }
     },
-    watch: {
-      filters: {
-        handler: function () {
-          this.update()
-        },
-        deep: true
-      }
+    mounted () {
+      this.elevationService = new window.google.maps.ElevationService()
     },
     computed: {
       center () {
         return (this.$store.state.user.address || {}).coordinates || {lat: 39.82, lng: -106.58}
       },
-      filters () {
-        this.update()
-        return this.$store.state.filters
-      }
     },
     data () {
       console.log(this.$route.path)
@@ -141,8 +151,9 @@
           url: '/static/imgs/mapicon2x.png',
           scaledSize: {width: 20, height: 34},
         },
-        path: [],
         markers: [],
+        elevation: [],
+        elevationService: null,
         zoom: zoom,
         selected: '',
         prevQuery: {},

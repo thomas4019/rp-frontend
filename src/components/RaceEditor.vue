@@ -22,8 +22,15 @@
           </div>
         </div>
 
+        <modal classes="rp-modal" :adaptive="true" :height="700" :width="1200" name="map" @closed="getElevationFromRoute()">
+          <p>Click to place markers starting at where your race begins. Right click on points to remove them.</p>
+          <p>When finished, close the window and make sure to save the race</p>
+          <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('map')"><span aria-hidden="true">&times;</span></button>
+          <RpDrawableMap ref="drawablemap" :path="selectedMap.route"></RpDrawableMap>
+        </modal>
+
         <section class="line-below">
-          <!-- <RpDrawableMap></RpDrawableMap> -->
+          
 
 
           <table class="table ">
@@ -151,7 +158,9 @@
                 <td><input type="text" disabled v-model="race.courses[0].expo.date"/></td> 
                 <td><input type="text" disabled v-model="race.courses[0].expo.location"/></td> 
                 <td><input type="text" disabled v-model="race.courses[0].expo.admission"/></td>
-                <td><input type="text" disabled v-model="race.courses[0].map"/></td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
+                <td>
+                  <button class="hollow" @click="showMap(race.courses[0].map)">Show Map</button>
+                </td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
               </tr>
                 <template v-for="(course, index) in race.courses">
                   <tr class="course-row" v-show="index !== 0">
@@ -208,7 +217,9 @@
                     <td><input type="text" disabled v-model="course.expo.date"/></td> 
                     <td><input type="text" disabled v-model="course.expo.location"/></td> 
                     <td><input type="text" disabled v-model="course.expo.admission"/></td>
-                    <td><input disabled type="text" v-model="course.map"/></td>
+                    <td>
+                      <button class="hollow" @click="showMap(course.map)">Show Map</button>
+                      </td>
                   </tr>
                 </template>
             </tbody>
@@ -264,11 +275,23 @@ export default {
             if (!course.expo) {
               course.expo = {}
             }
+            if (!course.map) {
+              course.map = {
+                route: []
+              }
+            }
           }
         }
         this.races = races
         console.log(races)
       })
+    },
+    showMap (map) {
+      this.selectedMap = map
+      this.$modal.show('map')
+    },
+    getElevationFromRoute () {
+      this.$refs.drawablemap.getElevationsForPath()
     },
     saveSuccessful (race) {
       this.$set(race, 'wasSaved', true)
@@ -277,6 +300,7 @@ export default {
       }, 1000)
     },
     save (raceToSave) {
+      console.log(raceToSave)
       var race = Object.assign({}, raceToSave)
       for (var k = 0; k < race.courses.length; k++) {
         delete race.courses[k].showAmenities
@@ -348,6 +372,7 @@ export default {
       races: [],
       query_text: '',
       limit: 10,
+      selectedMap: {},
     }
   }
 }
