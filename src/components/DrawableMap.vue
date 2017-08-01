@@ -4,7 +4,7 @@
       :options="{styles: styles}"
       :center="center"
       :zoom="zoom"
-      style="width: 90%; height: 640px; margin: 0 5%;"
+      style="width: 100%; height: 100%;"
       @click="placePolylinePoint($event)"
       ref="map"
     >
@@ -44,7 +44,7 @@
   // import rp from '../rp'
   import * as VueGoogleMaps from 'vue2-google-maps'
   import Vue from 'vue'
-  import MapStyles from '../mapstyle'
+  import MapStyles from '../mapstyle-withroadnames'
 
   Vue.use(VueGoogleMaps, {
     load: {
@@ -58,6 +58,10 @@
       path: {
         type: Array,
         default: function () { return [] }
+      },
+      editable: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
@@ -100,15 +104,24 @@
         }
       },
       updatePath (event) {
+        if (!this.editable) {
+          return
+        }
         this.path = event.b
         this.repositionMarkers()
         this.$emit('route_changed', this.path)
       },
       placePolylinePoint (obj) {
+        if (!this.editable) {
+          return
+        }
         this.path.push(obj.latLng)
         this.repositionMarkers()
       },
       handleClickForDelete ($event) {
+        if (!this.editable) {
+          return
+        }
         if ($event.vertex) {
           this.$refs.polyline.$polylineObject.getPath().removeAt($event.vertex)
         }
@@ -117,6 +130,10 @@
         console.log('Aid station', $event) // todo: implement this.
       },
       getElevationsForPath () {
+        if (!this.editable) {
+          return
+        }
+
         if (this.elevationService) {
           this.elevationService.getElevationForLocations({
             'locations': this.path
@@ -133,16 +150,22 @@
       }
     },
     mounted () {
+      if (!this.editable) {
+        return
+      }
       this.elevationService = new window.google.maps.ElevationService()
     },
     computed: {
       center () {
-        return (this.$store.state.user.address || {}).coordinates || {lat: 39.82, lng: -106.58}
+        if (this.path && this.path.length > 0) {
+          return this.path[0]
+        }
+        return {lat: 39.82, lng: -106.58}
       },
     },
     data () {
       console.log(this.$route.path)
-      var zoom = this.$route.path.includes('/app') ? 10 : 4
+      var zoom = 12
       return {
         styles: MapStyles,
         // center: {lat: 10.0, lng: 10.0},

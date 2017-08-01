@@ -26,24 +26,24 @@
           <p>Click to place markers starting at where your race begins. Right click on points to remove them.</p>
           <p>When finished, close the window and make sure to save the race</p>
           <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('map')"><span aria-hidden="true">&times;</span></button>
-          <RpDrawableMap ref="drawablemap" :path="selectedMap.route"></RpDrawableMap>
+          <RpDrawableMap class="map" ref="drawablemap" :path="selectedMap.route"></RpDrawableMap>
         </modal>
 
         <section class="line-below">
           
 
-
+          <div class="table-container">
           <table class="table ">
              <thead>
               <tr>
                 <th colspan="20">Race</th>
-                <th class="course" colspan="17">Courses</th>
+                <th class="course" colspan="21">Courses</th>
               <tr>
                 <th></th>
                 <th>#</th>
-                <th>Name</th>
-                <th>Date & Time</th>
-                <th>City</th>
+                <th style="min-width: 185px">Name</th>
+                <th style="min-width: 100px">Date & Time</th>
+                <th style="min-width: 100px">City</th>
                 <th>State</th>
                 <th>Country</th>
                 <th>City Latitude</th>
@@ -51,20 +51,20 @@
                 <th>Min KM Dist.</th>
                 <th>Max KM Dist.</th>
                 <th>Photo URL</th>
-                <th>Website</th>
-                <th>Facebook</th>
-                <th>Twitter</th>
+                <th style="min-width: 200px">Website</th>
+                <th style="min-width: 200px">Facebook</th>
+                <th style="min-width: 200px">Twitter</th>
                 <th>Source</th>
-                <th>Status</th>
+                <th style="min-width: 110px">Status</th>
                 <th>Prominance</th>
-                <th>Slug</th>
-                <th>Terms</th>
+                <th style="min-width: 200px">Slug</th>
+                <th style="min-width: 200px">Terms</th>
                 <th class="course">distance</th>
                 <th class="course">distance_km</th>
-                <th class="course">about</th>
+                <th style="min-width: 200px" class="course">about</th>
                 <th class="course">awards</th>
-                <th class="course">bibs</th>
-                <th class="course">transit</th>
+                <th style="min-width: 200px" class="course">bibs</th>
+                <th style="min-width: 200px" class="course">transit</th>
                 <th class="course">scoring</th>
                 <th class="course">average_finish_time</th>
                 <th class="course">participants</th>
@@ -79,7 +79,7 @@
                 <th class="course">Expo Date</th>
                 <th class="course">Expo Location</th>
                 <th class="course">Expo Admission</th>
-                <th class="course">map</th>
+                <th style="min-width: 115px" class="course">Map</th>
               </tr>
             </thead>
 
@@ -153,11 +153,11 @@
                 <td>
                   <input type="text" v-model="race.courses[0].records.female"/>
                 </td>
-                <td><input type="text" disabled v-model="race.courses[0].expo.lat"/></td>
-                <td><input type="text" disabled v-model="race.courses[0].expo.lng"/></td>
-                <td><input type="text" disabled v-model="race.courses[0].expo.date"/></td> 
-                <td><input type="text" disabled v-model="race.courses[0].expo.location"/></td> 
-                <td><input type="text" disabled v-model="race.courses[0].expo.admission"/></td>
+                <td><input type="text" v-model="race.courses[0].expo.lat"/></td>
+                <td><input type="text" v-model="race.courses[0].expo.lng"/></td>
+                <td><input type="text" v-model="race.courses[0].expo.date"/></td> 
+                <td><input type="text" v-model="race.courses[0].expo.location"/></td> 
+                <td><input type="text" v-model="race.courses[0].expo.admission"/></td>
                 <td>
                   <button class="hollow" @click="showMap(race.courses[0].map)">Show Map</button>
                 </td> <!-- object with stations array/string, elevation array/num, start_coordinate (lat, lng, location/string), end_coordinate -->
@@ -212,11 +212,11 @@
                     <td>
                       <input type="text" v-model="course.records.female"/>
                     </td>
-                    <td><input type="text" disabled v-model="course.expo.lat"/></td>
-                    <td><input type="text" disabled v-model="course.expo.lng"/></td>
-                    <td><input type="text" disabled v-model="course.expo.date"/></td> 
-                    <td><input type="text" disabled v-model="course.expo.location"/></td> 
-                    <td><input type="text" disabled v-model="course.expo.admission"/></td>
+                    <td><input type="text" v-model="course.expo.lat"/></td>
+                    <td><input type="text" v-model="course.expo.lng"/></td>
+                    <td><input type="text" v-model="course.expo.date"/></td> 
+                    <td><input type="text" v-model="course.expo.location"/></td> 
+                    <td><input type="text" v-model="course.expo.admission"/></td>
                     <td>
                       <button class="hollow" @click="showMap(course.map)">Show Map</button>
                       </td>
@@ -224,6 +224,7 @@
                 </template>
             </tbody>
           </table>
+          </div>
         </section>
       </div>
     </div>
@@ -236,7 +237,6 @@
 import rp from '../rp'
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import MapStyles from '../mapstyle'
 import toastr from 'toastr'
 import RpDrawableMap from '@/components/DrawableMap'
 
@@ -254,12 +254,15 @@ export default {
   methods: {
     update () {
       var query = {
-        status: 'visible',
         $and: []
       }
-      this.query_text.split(' ').forEach(function (word) {
-        query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
-      })
+      if (this.query_text.startsWith('B') || (this.query_text <= '9' && this.query_text >= '0')) {
+        query['$and'].push({'_id': {'$eq': this.query_text}})
+      } else {
+        this.query_text.split(' ').forEach(function (word) {
+          query['$and'].push({'terms': {'$regex': word, '$options': 'i'}})
+        })
+      }
       rp.get('race2?limit=' + this.limit + '&query=' + JSON.stringify(query)).then((races) => {
         // pre-process for missing variables, add in temp variables used in display
         for (var i = 0; i < races.length; i++) {
@@ -283,7 +286,7 @@ export default {
           }
         }
         this.races = races
-        console.log(races)
+        // console.log(races)
       })
     },
     showMap (map) {
@@ -368,7 +371,6 @@ export default {
   },
   data () {
     return {
-      styles: MapStyles,
       races: [],
       query_text: '',
       limit: 10,
@@ -379,6 +381,9 @@ export default {
 </script>
 
 <style scoped>
+.table-container {
+  overflow-x: scroll;
+}
 .table input[type=number],
 .table input[type=text] {
   border: none;
@@ -410,7 +415,10 @@ table {
 }
 
 
-
+.map {
+  width: 1200px;
+  height: 600px;
+}
 
 .delete {
   display: none;

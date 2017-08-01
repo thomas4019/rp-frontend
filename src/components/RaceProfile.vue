@@ -15,7 +15,7 @@
             <div class="col-md-8 col-12 pull-md-4">
               <section id="race-title" class="line-below">
                   <h1 class="race-profile-title">{{race.name}}</h1>
-                  <h3>{{race.location.city}} {{race.location.state}} {{race.location.country}}</h3>
+                  <h3 v-if="race.location">{{race.location.city}} {{race.location.state}} {{race.location.country}}</h3>
               </section>
               <section class="line-below">
                 <div class="row">
@@ -25,7 +25,7 @@
                   <div class="col-12 col-md-8">
                       <ul class="radio-buttons">
                           <li v-for="option in race.courses" v-bind:key="option">
-                              <input v-model="course" v-bind:value="option" type="radio" ><label>{{ option.distance }}</label>
+                              <label><input v-model="course" :value="option" type="radio" >{{ option.distance }}</label>
                           </li>
                       </ul>
                   </div>
@@ -44,8 +44,8 @@
 
             </div>
           </div>
-          <RpAbout :about="'cat'" v-if="course.about"></RpAbout>
-          <RpSponsors :sponsors="['cat']" v-if="course.sponsors"></RpSponsors>
+          <RpAbout :about="course.about" v-if="course.about"></RpAbout>
+          <RpSponsors :sponsors="course.sponsors" v-if="course.sponsors"></RpSponsors>
 
           <section class="line-below" v-if="course.map || course.participants || course.average_finish_time || course.course_time_limit">
             <div class="row">
@@ -66,6 +66,7 @@
                     <dd>{{course.participants}}</dd>
                 </dl>
                 <dl v-if="course.average_finish_time">
+                    <dt>Avg. finisher time</dt>
                     <dd>{{course.average_finish_time}}</dd>
                 </dl>
                 <dl v-if="course.course_time_limit">
@@ -78,7 +79,7 @@
 
           <section class="line-below" v-if="course.map">
             <h3>Course map</h3>
-            <RpMap class="map"></RpMap>
+            <RpDrawableMap class="map" ref="drawablemap" :path="course.map.route" :editable="false"></RpDrawableMap>
             <div class="row" v-if="course.map.stations">
               <div class="col-12 col-md-1">
                 <h3>Aid stations</h3>
@@ -126,11 +127,8 @@
                 <h3>Waves</h3>
               </div>
               <div class="col-12 col-md-11">
-                <dl>
-                    <dt>Wave 1</dt> <dd>5:30am</dd>
-                    <dt>Wave 2</dt> <dd>5:32am</dd>
-                    <dt>Wave 3</dt> <dd>5:42am</dd>
-                    <dt>Wave 4</dt> <dd>5:52am</dd>
+                <dl v-for="(wave, index) in course.waves">
+                    <dt>Wave {{index + 1}}</dt> <dd>{{wave.time}}</dd>
                 </dl>
               </div>
             </div>
@@ -157,7 +155,7 @@
                 <h3>Awards</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>Gifts will be issued to the top...</p>
+                <p>{{course.awards}}</p>
               </div>
             </div>
           </section>
@@ -169,7 +167,7 @@
                 <h3>Scoring</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>The top 3 overall Men and Women in the full...</p>
+                <p>{{course.scoring}}</p>
               </div>
             </div>
           </section>
@@ -180,13 +178,15 @@
                 <h3>Divisions</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>Open & Masters</p>
-                <p>Age groups:</p>
+                <p>Age groups:
                 <ul>
-                  <li>19 and under</li>
-                  <li>20-24</li>
-                  <li>25-29</li>
+                  <li v-for="division in course.divisions">
+                    <span v-if="division.min && division.max">{{division.min}}-{{division.max}}</span>
+                    <span v-else-if="!division.min">{{division.max}} and under</span>
+                    <span v-else-if="!division.max">{{division.min}}+</span>
+                  </li>
                 </ul>
+                </p>
               </div>
             </div>
           </section>
@@ -198,12 +198,13 @@
                 <h3>Course Records</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>Male/Female</p>
+                <dl><dt>Male</dt> <dd>{{course.records.male}}</dd></dl>
+                <dl><dt>Female</dt> <dd>{{course.records.female}}</dd></dl>
               </div>
             </div>
           </section>
 
-          <section class="line-below" v-if="course.expo">
+          <section class="line-below" v-if="course.expo && course.expo.location">
             <h3>Expo</h3>
             <dl>
                 <dt>Date(s) & Time(s)</dt> <dd>.....</dd>
@@ -225,7 +226,7 @@
                 <h3>Bib pick-up</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>All Marathon, 1st Half Marathon, 2nd Half Marathon, 5k and Ultramarathon.</p>
+                <p>{{course.bibs}}</p>
               </div>
             </div>
           </section>
@@ -237,7 +238,7 @@
                 <h3>Parking & transit</h3>
               </div>
               <div class="col-12 col-md-11">
-                <p>Parking at the Expo is etremely difficult during race....</p>
+                <p>{{course.transit}}</p>
               </div>
             </div>
           </section>
@@ -254,13 +255,12 @@
 
 
 <script>
-import RpMap from '@/components/RaceProfileMap'
+import RpDrawableMap from '@/components/DrawableMap'
 import RpAbout from '@/components/RaceProfileAbout'
 import RpSponsors from '@/components/RaceProfileSponsors'
 import rp from '../rp'
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import MapStyles from '../mapstyle'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -271,7 +271,7 @@ Vue.use(VueGoogleMaps, {
 export default {
   name: 'race-profile',
   components: {
-    RpMap,
+    RpDrawableMap,
     RpAbout,
     RpSponsors,
   },
@@ -279,7 +279,7 @@ export default {
     update () {
       var query = {'_id': {'$eq': this.$route.params.route_id}}
       rp.get('race2?query=' + JSON.stringify(query)).then((races) => {
-        console.log(races, races[0])
+        console.log(races[0])
         this.race = races[0] || {}
         this.course = this.race.courses[0]
       })
@@ -290,7 +290,6 @@ export default {
   },
   data () {
     return {
-      styles: MapStyles,
       race: {},
       course: {}
     }
@@ -390,6 +389,8 @@ button {
 }
 .map {
     margin: 10px 0px 10px 0px;
+    width: 100%;
+    height: 290px;
 }
 section {
     padding-bottom: 13px;
