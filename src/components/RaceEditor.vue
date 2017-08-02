@@ -69,6 +69,7 @@
                 <th class="course">average_finish_time</th>
                 <th class="course">participants</th>
                 <th class="course">course_time_limit</th>
+                <th class="course">cost</th>
                 <th style="min-width: 135px" class="course">divisions</th>
                 <th style="min-width: 115px" class="course">waves</th>
                 <th style="min-width: 200px" class="course">amenities</th>
@@ -115,6 +116,7 @@
                 <td><input type="text" v-model="race.courses[0].average_finish_time"/></td>
                 <td><input type="number" v-model.number="race.courses[0].participants"/></td>
                 <td><input type="text" v-model="race.courses[0].course_time_limit"/></td>
+                <td><input type="text" v-model="race.courses[0].cost"/></td>
                 <td>
                   <div class="array-input" v-for="division in race.courses[0].divisions">
                     <input class="division" type="number" v-model.number="division.min"/> - 
@@ -174,6 +176,7 @@
                     <td><input type="text" v-model="course.average_finish_time"/></td>
                     <td><input type="number" v-model.number="course.participants"/></td>
                     <td><input type="text" v-model="course.course_time_limit"/></td>
+                    <td><input type="text" v-model="course.cost"/></td>
                     <td>
                       <div class="array-input" v-for="division in course.divisions">
                         <input class="division" type="number" v-model.number="division.min"/> - 
