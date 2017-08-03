@@ -18,11 +18,11 @@
                   <h3 v-if="race.location">{{race.location.city}} {{race.location.state}} {{race.location.country}}</h3>
               </section>
               <section class="line-below">
-                <div class="row">
+                <div class="row align-items-center">
                   <div class="col-12 col-md-4">
                       <h2>Event distances</h2>
                   </div>
-                  <div class="col-12 col-md-8">
+                  <div class="col-12 col-md-8" style="margin-top: 8px;">
                       <ul class="radio-buttons">
                           <li v-for="option in race.courses" v-bind:key="option">
                               <label><input v-model="course" :value="option" type="radio" >{{ option.distance }}</label>
@@ -33,11 +33,14 @@
               </section>
               <section class="line-below quick-look">
                 <div class="row">
-                  <div class="col-md-3">
-                    <span class="icon">{{course.distance}}</span> Race distance
+                  <div class="col-md-3" v-if="course.distance">
+                    <span class="icon">{{course.distance.toLowerCase()}}</span> Race <br>distance
                   </div>
                   <div class="col-md-3">
-                    <span class="icon">{icon}</span>{{race.datetime}}
+                    <span class="icon">{icon}</span>{{race.datetime | formatDate}}
+                  </div>
+                  <div class="col-md-3">
+                    <span class="icon">{icon}</span>{{course.average_finish_time}} <br> Avg. finish
                   </div>
                 </div>
               </section>
@@ -63,7 +66,7 @@
                 </dl>
                 <dl v-if="course.participants">
                     <dt>Participants</dt>
-                    <dd>{{course.participants}}</dd>
+                    <dd>{{course.participants | formatParticipants}}</dd>
                 </dl>
                 <dl v-if="course.average_finish_time">
                     <dt>Avg. finisher time</dt>
@@ -94,10 +97,11 @@
             </div>
           </section>              
 
-          <section class="line-below" v-if="course.map && course.map.elevation">
+          <section class="line-below" v-if="course.map && course.map.route">
+            <h3>Elevation Map</h3>
+            <RpElevation :route="course.map.route" :options="{}"></RpElevation>
             <div class="row">
               <div class="col-12 col-md-1">
-                <h3>Elevation Map</h3>
               </div>
               <div class="col-12 col-md-11">
                 <h3>Summary</h3>
@@ -141,9 +145,11 @@
                 <h3>Amenities</h3>
               </div>
               <div class="col-12 col-md-11">
-                <dl>
-                    <dt>Amenities</dt> <dd>Finisher Medal</dd>
-                </dl>
+                <div class="row">
+                  <div class="col-12 col-md-4" v-for="amenity in course.amenities">
+                    <p>{{amenity}}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -258,8 +264,10 @@
 import RpDrawableMap from '@/components/DrawableMap'
 import RpAbout from '@/components/RaceProfileAbout'
 import RpSponsors from '@/components/RaceProfileSponsors'
+import RpElevation from '@/components/RaceProfileElevation.js'
 import rp from '../rp'
 import Vue from 'vue'
+import moment from 'moment'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
@@ -274,6 +282,7 @@ export default {
     RpDrawableMap,
     RpAbout,
     RpSponsors,
+    RpElevation,
   },
   methods: {
     update () {
@@ -295,19 +304,34 @@ export default {
     }
   }
 }
+Vue.filter('formatDate', function (value) {
+  if (value) {
+    return moment(String(value)).format('MMMM Do YYYY')
+  }
+})
+Vue.filter('formatParticipants', function (value) {
+  if (value) {
+    return value.toLocaleString()
+  }
+})
 </script>
 
 <style>
 /* This applies to all Components included */
 .race-profile h1 {
   font-size: 24px;
+  font-weight: 900;
 }
 .race-profile h2 {
   font-size: 18px;
+  font-weight: 300;
+  line-height: 25px;
   display: inline-block;
 }
 .race-profile h3 {
   font-size: 14px;
+  font-weight: 300;
+  line-height: 19px;
   display: inline-block;
 }
 .race-profile p {
@@ -315,6 +339,11 @@ export default {
   color: #9B9B9B;
   font-weight: 300;
   line-height: 19px;
+}
+.race-profile h1,
+.race-profile h2,
+.race-profile h3 {
+  color: #D6D6D6;
 }
 </style>
 
@@ -336,12 +365,7 @@ export default {
 hr {
   border-bottom: 1px solid #4A4A4A;
 }
-.race-profile h1,
-.race-profile h2,
-.race-profile h3 {
-  font-weight: 300;
-  color: #D6D6D6;
-}
+
 dl {
     margin: 3px;
     margin: 0px 0px 0px 0px;

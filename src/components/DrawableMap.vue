@@ -12,7 +12,7 @@
             v-if="path.length > 0" 
             :path="path" 
             :deepWatch="true" 
-            :editable="true" 
+            :editable="editable" 
             @path_changed="updatePath"
             @dblclick="setVertexAsAidStation"
             @rightclick="handleClickForDelete"
