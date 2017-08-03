@@ -327,6 +327,7 @@ export default {
           'prominance': race.prominance,
           'slug': race.slug,
           'terms': race.terms,
+          'banner_image': race.banner_image,
         }
       }
       console.log(data)
