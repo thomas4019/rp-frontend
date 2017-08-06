@@ -1,20 +1,17 @@
 <template>
-  <div class="qa container"
+  <div class="qa"
     :class="{collapsed: isCollapsed}"
     @click="isCollapsed = !isCollapsed" 
     :aria-expanded="!isCollapsed" 
     :aria-controls="id">
     <div class="row">
-      <div class="col-10 col-md-11">
+      <div class="col">
         <div class="question">
           <slot name="question"></slot>
         </div>
         <div :id="id" v-show="!isCollapsed" class="answer">
           <slot name="answer"></slot>
         </div>
-      </div>
-      <div class="col align-self-center">
-        <span class="sym"></span>
       </div>
     </div>
   </div>
@@ -45,33 +42,25 @@ export default {
 
 <style scoped>
 .qa {
-  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.25);
-	background-color: #323237;
-	border-radius: 8px;
 	font-size: 18px;
-	margin: 19px 0px;
 	cursor: pointer;
   color: #FFFFFF;
   line-height: 25px;
+  border-top: 0.5px solid #CECECE;
 }
 .question {
-  padding: 17px 0px 13px 0px;
-  font-size: 18px;
+  padding: 20px 0px 20px 0px;
+  color: #4A4A4A;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 900;
 }
 .answer {
   padding: 0px 0px 13px 0px;
-	font-size: 16px;
-	color: #abaeb7;
-}
-.qa .sym::after {
-  color: #0dffae;
-  content: "-";
-  float: right;
-}
-.collapsed .sym::after {
-  color: #0dffae;
-  content: "+";
-  float: right;
+	font-size: 14px;
+  line-height: 19px;
+  font-weight: 300;
+	color: #3A3A3A;
 }
 @media screen and (max-width: 799px) {
   .question {

@@ -155,8 +155,8 @@
                 <td>
                   <input type="text" v-model="race.courses[0].records.female"/>
                 </td>
-                <td><input type="text" v-model="race.courses[0].expo.lat"/></td>
-                <td><input type="text" v-model="race.courses[0].expo.lng"/></td>
+                <td><input type="text" v-model.number="race.courses[0].expo.lat"/></td>
+                <td><input type="text" v-model.number="race.courses[0].expo.lng"/></td>
                 <td><input type="text" v-model="race.courses[0].expo.date"/></td> 
                 <td><input type="text" v-model="race.courses[0].expo.location"/></td> 
                 <td><input type="text" v-model="race.courses[0].expo.admission"/></td>
@@ -215,8 +215,8 @@
                     <td>
                       <input type="text" v-model="course.records.female"/>
                     </td>
-                    <td><input type="text" v-model="course.expo.lat"/></td>
-                    <td><input type="text" v-model="course.expo.lng"/></td>
+                    <td><input type="text" v-model.number="course.expo.lat"/></td>
+                    <td><input type="text" v-model.number="course.expo.lng"/></td>
                     <td><input type="text" v-model="course.expo.date"/></td> 
                     <td><input type="text" v-model="course.expo.location"/></td> 
                     <td><input type="text" v-model="course.expo.admission"/></td>

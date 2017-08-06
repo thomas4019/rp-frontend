@@ -5,7 +5,7 @@
     <login :isCreation="false" />
   </modal>
   <nav id="landing-nav">
-    <router-link to="/" class="hide-on-mobile"><img src="/static/imgs/logo_transparent.png" id="logo" /></router-link>
+    <router-link to="/" class="hide-on-mobile"><img src="/static/imgs/logo.jpg" id="logo" /></router-link>
     <ul id="primary-menu">
       <div class="hide-on-desktop" id="logo-mobile" @click="showMobileMenu()">
         <div class="row no-gutters justify-content-start">
@@ -21,22 +21,21 @@
           </div>
           <div class="col-6">
             <router-link v-scroll-to="'#choose-pass, 0px'" to="/#choose-pass">
-            <div id="getracepass" class="button shadowed">Get Racepass</div>
+            <div id="getracepass" class="button">Get Racepass</div>
             </router-link>
           </div>  
           <div class="col-3" id="login-button">
-            <button class="hollow shadowed" @click="$modal.show('login-header')">Login</button>
+            <button class="hollow" @click="$modal.show('login-header')">Login</button>
           </div>
         </div>
       </div>
-      <li class="hide-on-mobile" id="menu-about"><router-link to="/about">About</router-link></li>
-      <li class="hide-on-mobile" id="menu-find-races" v-scroll-to="'#choose-from, 0px'"><router-link to="/#choose-from">Find Races</router-link></li>
-      <li class="hide-on-mobile" id="menu-explore-passes" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass">Explore Passes</router-link></li>
-      <li class="hide-on-mobile" id="menu-faq"><router-link to="/faq">FAQ</router-link></li>
-      <li class="hide-on-mobile" id="menu-blog"><a href="https://medium.com/racepass" target="_blank">Blog</a></li>
-      <li class="hide-on-mobile" id="menu-directors"><router-link to="/race-directors">Race Directors</router-link></li>
-      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'"><router-link to="/#choose-pass"><div id="getracepass" class="button shadowed">Get Racepass</div></router-link></li>
-      <li class="hide-on-mobile" id="login-button"><button class="hollow shadowed" @click="$modal.show('login-header')">Login</button></li>
+      <li class="hide-on-mobile"><span @click="$modal.show('login-header')">Log in</span></li>
+      <li class="hide-on-mobile" v-scroll-to="'#choose-pass, 0px'">
+        <router-link to="/#choose-pass">
+          <div id="getracepass" class="button hollow">Get Racepass</div>
+        </router-link>
+      </li>
+      <li><router-link to="/why">Why?</router-link></li>
     </ul>
   </nav>
   <MobileHeader ref="mobileHeader"></MobileHeader>
@@ -69,7 +68,6 @@ export default {
 	padding: 13px 15px 0px 0px;
 	margin-bottom: 0px;
   overflow: hidden;
-  background-color: #22262B;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
 }
 #logo {
@@ -143,7 +141,6 @@ export default {
 }
 #getracepass {
   font-size: 12px;
-  font-weight: 300;
   font-weight: 900;
 }
 .hollow {

@@ -15,7 +15,7 @@
             <div class="col-md-8 col-12 pull-md-4">
               <section id="race-title" class="line-below">
                   <h1 class="race-profile-title">{{race.name}}</h1>
-                  <h3 v-if="race.location">{{race.location.city}} {{race.location.state}} {{race.location.country}}</h3>
+                  <h2 style="font-size: 14px;" v-if="race.location">{{race.location.city}} {{race.location.state}} {{race.location.country}}</h2>
               </section>
               <section class="line-below">
                 <div class="row align-items-center">
@@ -24,8 +24,8 @@
                   </div>
                   <div class="col-12 col-md-8" style="margin-top: 8px;">
                       <ul class="radio-buttons">
-                          <li v-for="option in race.courses" v-bind:key="option">
-                              <label><input v-model="course" :value="option" type="radio" >{{ option.distance }}</label>
+                          <li v-for="(option, index) in race.courses" v-bind:key="option">
+                              <input v-model="course" :value="option" type="radio" :id="'c-' + index" ><label :for="'c-' + index">{{ option.distance }}</label>
                           </li>
                       </ul>
                   </div>
@@ -37,10 +37,10 @@
                     <span class="icon">{{course.distance.toLowerCase()}}</span> Race <br>distance
                   </div>
                   <div class="col-md-3">
-                    <span class="icon">{icon}</span>{{race.datetime | formatDate}}
+                    <span class="icon"><img src="/static/imgs/Calendar_Icon.png"></span>{{race.datetime | formatDate}}
                   </div>
                   <div class="col-md-3">
-                    <span class="icon">{icon}</span>{{course.average_finish_time}} <br> Avg. finish
+                    <span class="icon"><img src="/static/imgs/Stopwatch_Icon.png"></span>{{course.average_finish_time}} <br> Avg. finish
                   </div>
                 </div>
               </section>
@@ -99,27 +99,31 @@
 
           <section class="line-below" v-if="course.map && course.map.route">
             <h3>Elevation Map</h3>
-            <RpElevation :route="course.map.route" :options="{}"></RpElevation>
-            <div class="row">
+            <RpElevation 
+              :route="course.map.route" 
+              :options="{responsive: true, maintainAspectRatio: false}" 
+              :height="200">
+              </RpElevation>
+            <div class="row" v-if="course.map.route.length > 0">
               <div class="col-12 col-md-1">
+                <h3>Summary</h3>
               </div>
               <div class="col-12 col-md-11">
-                <h3>Summary</h3>
                 <dl>
                   <dt>Race start elevation</dt>
-                    <dd>356’</dd>
+                    <dd>{{course.map.route[0].elevation | formatElevation(0)}}'</dd>
                 </dl>
                 <dl>
                     <dt>Race finish altitude</dt>
-                    <dd>10’</dd>
+                    <dd>{{course.map.route[course.map.route.length - 1].elevation | formatElevation(0)}}'</dd>
                 </dl>
                 <dl>
                     <dt>Elevation Gain</dt>
-                    <dd>+2,182’</dd>
+                    <dd>+{{elevationGain | formatElevation}}'</dd>
                 </dl>
                 <dl>
                     <dt>Elevation Drop</dt>
-                    <dd>-2,528’</dd>
+                    <dd>-{{elevationLost | formatElevation}}'</dd>
                 </dl>
               </div>
             </div>
@@ -211,18 +215,22 @@
           </section>
 
           <section class="line-below" v-if="course.expo && course.expo.location">
-            <h3>Expo</h3>
-            <dl>
-                <dt>Date(s) & Time(s)</dt> <dd>.....</dd>
-                <dt>Location</dt> <dd>.....</dd>
-                <dt>Admission</dt> <dd>Free to the public</dd>
-            </dl>
+            <div class="row">
+              <div class="col-12 col-md-1">
+                <h3>Expo</h3>
+              </div>
+              <div class="col-12 col-md-11">
+                <dl><dt>Date(s) & Time(s)</dt> <dd>{{course.expo.date}}</dd></dl>
+                <dl><dt>Location</dt> <dd>{{course.expo.location}}</dd></dl>
+                <dl><dt>Admission</dt> <dd>{{course.expo.admission}}</dd></dl>
+              </div>
+            </div>
           </section>
 
 
           <section class="line-below" v-if="course.expo && course.expo.lat">
             <h3>Expo map</h3>
-            <RpMap class="map"></RpMap>
+            <RpMap :expo="course.expo" class="map"></RpMap>
           </section>
 
 
@@ -261,6 +269,7 @@
 
 
 <script>
+import RpMap from '@/components/RaceProfileMap'
 import RpDrawableMap from '@/components/DrawableMap'
 import RpAbout from '@/components/RaceProfileAbout'
 import RpSponsors from '@/components/RaceProfileSponsors'
@@ -283,6 +292,7 @@ export default {
     RpAbout,
     RpSponsors,
     RpElevation,
+    RpMap,
   },
   methods: {
     update () {
@@ -296,6 +306,28 @@ export default {
   },
   mounted () {
     this.update()
+  },
+  computed: {
+    elevationGain () {
+      var route = this.course.map.route
+      var gain = 0
+      for (var k = 0; k < route.length - 1; k++) {
+        if (route[k + 1].elevation > route[k].elevation) {
+          gain += route[k + 1].elevation - route[k].elevation
+        }
+      }
+      return gain
+    },
+    elevationLost () {
+      var route = this.course.map.route
+      var lost = 0
+      for (var k = 0; k < route.length - 1; k++) {
+        if (route[k].elevation > route[k + 1].elevation) {
+          lost += route[k].elevation - route[k + 1].elevation
+        }
+      }
+      return lost
+    }
   },
   data () {
     return {
@@ -314,6 +346,14 @@ Vue.filter('formatParticipants', function (value) {
     return value.toLocaleString()
   }
 })
+Vue.filter('formatElevation', function (value, places) {
+  if (places === undefined) {
+    places = 2
+  }
+  if (value) {
+    return (value * 3.28084).toFixed(places)
+  }
+})
 </script>
 
 <style>
@@ -321,29 +361,27 @@ Vue.filter('formatParticipants', function (value) {
 .race-profile h1 {
   font-size: 24px;
   font-weight: 900;
+  color: #4A4A4A;
 }
 .race-profile h2 {
   font-size: 18px;
   font-weight: 300;
   line-height: 25px;
   display: inline-block;
+  color: #4A4A4A;
 }
 .race-profile h3 {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 900;
   line-height: 19px;
   display: inline-block;
+  color: #4A4A4A;
 }
 .race-profile p {
   font-size: 14px;
-  color: #9B9B9B;
+  color: #323237;
   font-weight: 300;
   line-height: 19px;
-}
-.race-profile h1,
-.race-profile h2,
-.race-profile h3 {
-  color: #D6D6D6;
 }
 </style>
 
@@ -378,7 +416,7 @@ dl.editable::after {
     padding-top: 4px;
 }
 dt {
-	color: #9B9B9B;
+	color: #4A4A4A;
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 15px;
@@ -386,7 +424,7 @@ dt {
   width: 20%;
 }
 dd {
-	color: #D8D8D8;
+	color: #4A4A4A;
 	font-size: 14px;
 	font-weight: 900;
 	line-height: 15px;
@@ -394,7 +432,7 @@ dd {
   margin-bottom: 0px;
 }
 .quick-look {
-  color: #9B9B9B;
+  color: #323237;
   font-size: 12px;
   font-weight: 300;
   text-align: center;
@@ -404,7 +442,12 @@ span.icon {
   width: 100%;
   display: block;
   font-size: 18px;
-  color: #D8D8D8;
+  font-weight: 900;
+  color: #4A4A4A;
+  margin-bottom: 10px;
+}
+span.icon img {
+  max-height: 25px;
 }
 button {
   width: 100%;
@@ -424,7 +467,7 @@ section:first-child {
   margin-top: 0px;
 }
 section.line-below {
-    border-bottom: 1px solid #4A4A4A;
+    border-bottom: 1px solid #D8D8D8;
 }
 span.race-profile-check {
     color: #9B9B9B;

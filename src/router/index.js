@@ -8,7 +8,8 @@ import Faq from '@/components/Faq'
 import Partnerships from '@/components/Partnerships'
 import Privacy from '@/components/Privacy'
 import RaceDirectors from '@/components/RaceDirectors'
-import Team from '@/components/Team'
+import RaceDirectorsFaq from '@/components/RaceDirectorsFaq'
+import RunnerFaq from '@/components/RunnerFaq'
 import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
@@ -19,6 +20,7 @@ import RaceProfile from '@/components/RaceProfile'
 import RaceEditor from '@/components/RaceEditor'
 import NotFoundComponent from '@/components/NotFoundComponent'
 import StyleGuide from '@/components/StyleGuide'
+import Why from '@/components/Why'
 
 Vue.use(Router)
 
@@ -136,14 +138,24 @@ export default new Router({
       component: RaceDirectors
     },
     {
+      path: '/race-directors-faq',
+      name: 'RaceDirectorsFaq',
+      component: RaceDirectorsFaq
+    },
+    {
+      path: '/runners-faq',
+      name: 'RunnerFaq',
+      component: RunnerFaq
+    },
+    {
       path: '/payment',
       name: 'Payment',
       component: Payment
     },
     {
-      path: '/team',
-      name: 'Team',
-      component: Team
+      path: '/why',
+      name: 'Why',
+      component: Why
     },
     {
       path: '/terms',

@@ -18,15 +18,18 @@ html {
 }
 body {
 	margin: 0px;
-	background-color: #24272A;
-	color: #F7F7F7;
+	background-color: #fff;
+	color: #323237;
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 14px;
 }
+button, input, optgroup, select, textarea {
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
 a, a:hover, a:visited {
-	color: #F7F7F7;
+	color: #4A4A4A;
 	text-decoration: none;
 }
 em {
@@ -50,18 +53,24 @@ h3.bottom-margin,
 h4.bottom-margin {
 	margin-bottom: 40px;
 }
-h1, h2, h3 {
-	color: #D8D8D8;
+h1, h2 {
+  color: #323237;
+  font-weight: 900;
 }
 h1 {
 	font-size: 48px;
 	font-weight: lighter;
 }
 h2 {
-	font-size: 36px;
+  font-size: 20px;
+  line-height: 27px;
+  margin-bottom: 15px;
 }
 h3 {
-	font-size: 24px;
+  color: #4A4A4A;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 900;
 }
 
 @media screen and (max-width: 799px) {
@@ -87,10 +96,9 @@ button, .button {
 	text-align: center;
 	padding: 4px 10px;
 
-	background: linear-gradient(180deg, #1EFFD7 0%, #0DFFAE 100%);
+	background: linear-gradient(180deg, #1EFFD7 0%, #0FDA96 100%);
 	border: 1px solid transparent;
-	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
-	border-radius: 8px;
+	border-radius: 6px;
 	color: #10383D;
 	cursor: pointer;
 }
@@ -104,21 +112,20 @@ button:hover, .button:hover {
 }
 button.hollow, .button.hollow {
 	background: transparent;
-	border: 1px solid #0DFFAE;
-	padding: 3px 9px;
-	color: #0DFFAE;
+	padding: 9px 10px;
+	color: #0FDA96;
+	border: 2px solid #0FDA96;
 }
 button.hollow[disabled="disabled"] {
-	border: 1px solid #9B9B9B;
 	color: #9B9B9B;
 }
 button.hollow:hover, .button.hollow:hover {
-	background: #323237;
+	background: #fafafa;
 }
 button.rounded, .button.rounded {
 	width: 226px;
 	height: 40px;
-	background-color: #0DFFAE;
+	background-color: #0FDA96;
 	border-radius: 100px;
 }
 button.grey {
@@ -128,7 +135,7 @@ button.grey {
 	box-shadow: none;
 }
 p {
-	color: #ABAEB7;
+	color: #3A3A3A;
 }
 input {
 	border-radius: 4px;
@@ -169,7 +176,7 @@ table.divided tr:last-child td {
 }
 footer,
 section {
-	margin-top: 100px;
+	margin-top: 60px;
 }
 section.solo {
 	width: 492px;
@@ -254,20 +261,20 @@ section.solo {
 	z-index: 100;
 }
 .radio-buttons input[type="radio"]:checked + label {
-	background: #0DFFAE;
-	color: #10383D;
+	background-color: #0FDA96;
+	color: #fff;
 }
 .radio-buttons label {
 	padding: 6px;
-	border:1px solid #0DFFAE;
-	color: #0DFFAE;
+	border:1px solid #0FDA96;
+	color: #0FDA96;
 	cursor:pointer;
 	z-index:90;
 	border-radius: 6px;
 	text-align: center;
 }
 .radio-buttons label:hover {
-	background: #424247;
+	background: #fafafa;
 }
 .radio-buttons-tall li, .radio-buttons-tall label {
 	height: 55px;
@@ -363,7 +370,7 @@ section.solo {
 }
 .date-picker {
   background: transparent;
-  color: #0DFFAE;
+  color: #0EC487;
   font-size: 12px;
   width: 60px;
   padding: 0px 0px 0px 0px; 
@@ -390,7 +397,8 @@ section.solo {
 }
 select {
   background: transparent;
-  color: #0DFFAE;
+  color: #0EC487;
+  font-weight: 900;
   border: none;
   padding: 0px 5px 0px 5px; 
   margin-left: -5px;

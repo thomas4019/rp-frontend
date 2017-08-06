@@ -3,7 +3,7 @@
     <div class="hide-on-desktop container">
       <div class="row">
         <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
-          <img class="search" src="/static/imgs/search_icon.png"/>
+          <img class="search" src="/static/imgs/light_search_icon.png"/>
           <span>{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</span>
           <span class="bullet"></span>
           <span v-if="filter_state==='ALL'">Anywhere</span>
@@ -17,36 +17,23 @@
       </div>
     </div>
     <div class="row hide-on-mobile">
-      <div class="filter col" style="w idth:345px;">
+      <div class="filter col">
         <div class="summary">
-          <img class="search" src="/static/imgs/search_icon.png"/>
-          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races, locations" class="nameless"></div>
+          <img class="search" src="/static/imgs/light_search_icon.png"/>
+          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="nameless"></div>
       </div>
-      <div class="filter  col-md-2" style="w idth:120px;" @click="showRacePopup($event)">
+      <div class="filter  col-md-2" style="width:120px;" @click="showRacePopup($event)">
         <div class="name">Distance</div>
-        <div class="summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any race distance' : distances[0] + ' - '+ distances[1]}}</div>
+        <div class="summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</div>
         <div class="popup" v-if="popup == 'distance'">
           <br/><br/>
           <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
         </div>
       </div>
-      <div class="filter  col-md-auto" style="w idth:150px;">
-        <div class="name">Dates</div>
-        <div class="summary">
-          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker> - 
-          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker>
-          
-          <!--<span @click="start_hidden=!start_hidden">{{start_date | formatDate}}</span>
-          <span v-show="start_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="start_date"></datepicker></span>
-                    
-          - <span @click="end_hidden=!end_hidden">{{end_date | formatDate}}</span>
-          <span v-show="end_hidden"><datepicker wrapper-class="date-picker-wrapper" :inline="true" input-class="date-picker" format="M/d/yyyy" v-model="end_date"></datepicker></span>-->
-        </div>
-      </div>
-      <div class="filter  col-md-2" style="w idth:140px;">
-        <div class="name">Location</div>
+      <div class="filter  col-md-2">
+        <div class="name">Where</div>
         <select v-model="filter_state" @change="updateFilter()">
-          <option value="ALL">All</option>
+          <option value="ALL">Anywhere</option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
           <option value="AZ">Arizona</option>
@@ -99,10 +86,14 @@
           <option value="WY">Wyoming</option>
         </select>
       </div>
-      <div class="filter col-md-auto" style="w idth:70px;">
-        <div id="switcher">
-          <img src="/static/imgs/pin.png" @click="changeMode('map')" />
-          <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+      <div class="filter  col-md-3">
+        <div class="name">When</div>
+        <div class="summary" v-if="showDatePickers">
+          <datepicker  wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="start_date"></datepicker> - 
+          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="end_date"></datepicker>
+        </div>
+        <div class="summary" v-else>
+          <span v-if="start_date == original_start_date && end_date == original_end_date" @click="showDates()">Anytime</span>
         </div>
       </div>
     </div>
@@ -148,6 +139,9 @@ export default {
         ]
       }
       this.$store.commit('filter', filter)
+    },
+    showDates () {
+      this.showDatePickers = true
     },
     changeMode (_mode) {
       this.$store.commit('updateHomeSearchMode', _mode)
@@ -216,49 +210,50 @@ export default {
       },
       distances: ['1K', '26.2 mile'],
       filter_state: 'ALL',
-      search_text: ''
+      search_text: '',
+      showDatePickers: false,
     }
   }
 }
 </script>
 <style scoped>
 .filter-row {
-  //position: relative;
-  //display: flex;
-  border: 0.5px solid #4A4A4A;
+  border: 1px solid #D8D8D8;
   margin: 0px auto 10px auto;
   border-radius: 4px;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.15);
 }
 .filter {
-  //position: relative;
   padding: 5px 10px 0px 10px;
-  border-left: 0.5px solid #4A4A4A;
-  //min-width: 80px;
+  border-left: 1px solid #9B9B9B;
 }
-.filter:first-child{
-    padding: 4px 10px 4px 15px;
+.filter:first-child {
+    padding: 4px 10px 10px 15px;
 }
-.filter:first-child, 
-.filter:nth-child(2) {
+.filter:first-child {
   border-left: none;
 }
 .name {
-  color: #9B9B9B;
-  font-size: 12px;
-  line-height: 16px;
+  color: #323237;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 900;
   padding: 2px 0px 0px 0px;
+  text-align: left;
 }
 .summary {
-  color: #0DFFAE;
-  font-size: 12px;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: left;
+  color: #0EC487;
 }
 .summary i.fa {
-  color: #9B9B9B;
+  color: #D8D8D8;
   font-size: 1.2em;
 }
 .summary .search {
-  height: 20px;
+  height: 25px;
   margin-top: -3px;
   padding-left: 10px;
 }
@@ -275,20 +270,21 @@ export default {
 }
 input[type=text] {
   background: transparent;
-  color: #F7F7F7;
+  color: #0EC487;
   border: none;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 900;
   width: 85%;
-  padding-right: 0px;
 }
 .nameless {
-  padding-top: 10px;
+  padding: 15px 0px 0px 0px;
 }
 input:focus {
     outline:none;
 }
 input[type=text]::placeholder {
-  color: #F7F7F7;
+  color: #0EC487;
 }
 #switcher {
   padding: 5px 5px 0px 0px;
@@ -313,6 +309,11 @@ input[type=text]::placeholder {
   height: 20px;
   padding-left: 5px;
 }
+.filter select {
+  font-size: 15px;
+  padding-top: 2px;
+}
+
 @media screen and (max-width: 1100px) { 
     input[type=text] {
       width: 80%;
@@ -339,5 +340,11 @@ input[type=text]::placeholder {
     height: 18px;
     padding-right: 5px;
   }
+}
+</style>
+<style>
+.filter .date-picker {
+  font-weight: 900;
+  font-size: 16px;
 }
 </style>
