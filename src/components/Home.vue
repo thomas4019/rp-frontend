@@ -1,113 +1,124 @@
 <template>
   <div id="home">
-    <div id="banner1">
-      <div id="find-races-panel">
-        <div class="subtitle"><h1>Find the best endurance races</h1></div>
-        <div class="button-row hide-on-desktop">
-          <div id="findbyme" class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Find races near me</div>
-          <div class="button-continue-icon">⌵</div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <HomeFilterRow />
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <section id="banner1" class="no-margin">
+          <div class="row justify-content-center">
+            <div class="col-6">
+                <div id="find-races-panel">
+                  <div class="subtitle"><h1>Find the best endurance races</h1></div>
+                  <div class="button-row hide-on-desktop">
+                    <div id="findbyme" class="button-continue shadowed" v-scroll-to="'#choose-pass, 0px'">Find races near me</div>
+                    <div class="button-continue-icon">⌵</div>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12">
+                        <HomeFilterRow />
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
-        </div>
+        </section>
+        <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
+          <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
+          <login :isCreation="true" />
+        </modal>
       </div>
     </div>
-    <modal classes="rp-modal" :adaptive="true" :height="450" :width="750" name="login">
-      <button type="button" class="rp-modal-close" aria-label="Close" @click="$modal.hide('login')"><span aria-hidden="true">&times;</span></button>
-      <login :isCreation="true" />
-    </modal>
-    <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h2>Help the running community</h2>
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-md-8 col-lg-6">
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2>Help the running community</h2>
+              </div>
+              <div class="col-12 col-md-6">
+                <p>With more than 20,000 races, we’ve built the largest search engine for race events. Help the running community find the best races by sharing your experiences and keeping event details accurate & up to date. </p>
+                <button class="hollow">Write a review</button>
+              </div>
+              <div class="col-12 col-md-6">
+                <img src="/static/imgs/map.png" style="width: 100%">
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-md-6">
-            <p>With more than 20,000 races, we’ve built the largest search engine for race events. Help the running community find the best races by sharing your experiences and keeping event details accurate & up to date. </p>
-            <button class="hollow">Write a review</button>
-          </div>
-          <div class="col-12 col-md-6">
-             { { image of us} }
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section>
-      <div class="container">
-        <div class="row location-icons">
-          <div class="col-12">
-          <h2>Destination races</h2>
+        <section>
+          <div class="container">
+            <div class="row location-icons">
+              <div class="col-12">
+              <h2>Destination races</h2>
+              </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Jungfrau.png"> <span>Jungfrau, Switzerland</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Toyko.png"> <span>Tokyo, Japan</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Patagonia.png"> <span>Patagonia, Chile</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Great_Wall_of_China.png"> <span>Great Wall of China</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Havana.png"> <span>Havana, Cuba</span> </div>
+            </div>
           </div>
-          <div class="col"> <img src="/static/imgs/locations/Jungfrau.jpg"> <span>Jungfrau, Switzerland</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Toyko.jpg"> <span>Tokyo, Japan</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Patagonia.jpg"> <span>Patagonia, Chile</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Great_Wall_of_China.jpg"> <span>Great Wall of China</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Havana.jpg"> <span>Havana, Cuba</span> </div>
-        </div>
-      </div>
-    </section>
-    
+        </section>
+        
 
-    <section>
-      <div class="container">
-        <div class="row location-icons">
-          <div class="col-12">
-          <h2>The Big 5</h2>
+        <section>
+          <div class="container">
+            <div class="row location-icons">
+              <div class="col-12">
+              <h2>The Big 5</h2>
+              </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Boston.png"> <span>Boston</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Brooklyn_Bridge.png"><span>New York</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Chicago.png"> <span>Chicago</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/London.png"> <span>London</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Berlin.png"> <span>Berlin</span> </div>
+            </div>
           </div>
-          <div class="col"> <img src="/static/imgs/locations/Boston.jpg"> <span>Boston</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Brooklyn_Bridge.png"><span>New York</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Boston.jpg"> <span>Chicago</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/London.jpg"> <span>London</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Berlin.jpg"> <span>Berlin</span> </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h3 class="local-race-title">Local race events near San Francisco</h3>
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="local-race-title">Local race events near San Francisco</h3>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section style="margin-top: 20px;">
-      <div class="container">
-        <div class="row location-icons">
-          <div class="col-12">
-          <h2>Regional Half & Full Marathons</h2>
+        <section style="margin-top: 20px;">
+          <div class="container">
+            <div class="row location-icons">
+              <div class="col-12">
+              <h2>Regional Half & Full Marathons</h2>
+              </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Marin_Headlands.png"> <span>Marin</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Golden_Gate.png"> <span>San Francisco</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/San_Jose.png"> <span>San Jose</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Big_Sur.png"> <span>Big Sur</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Napa_Valley.png"> <span>Napa</span> </div>
+            </div>
           </div>
-          <div class="col"> <img src="/static/imgs/locations/Marin_Headlands.jpg"> <span>Marin</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Golden_Gate.jpg"> <span>San Francisco</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/San_Jose.jpg"> <span>San Jose</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Big_Sur.jpg"> <span>Big Sur</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Napa_Valley.jpg"> <span>Napa</span> </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section>
-      <div class="container">
-        <div class="row location-icons">
-          <div class="col-12">
-          <h2>Local 5Ks & 10Ks</h2>
+        <section>
+          <div class="container">
+            <div class="row location-icons">
+              <div class="col-12">
+              <h2>Local 5Ks & 10Ks</h2>
+              </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Mission_SF.png"> <span>Mission</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Presidio.png"> <span>Presidio</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Marina.png"> <span>Marina</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Embarcadero.png"> <span>Embarcadero</span> </div>
+              <div class="col-sm-4 col-md"> <img src="/static/imgs/locations/Twin_Peaks.png"> <span>Twin Peaks</span> </div>
+            </div>
           </div>
-          <div class="col"> <img src="/static/imgs/locations/Mission_SF.jpg"> <span>Mission</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Presidio.jpg"> <span>Presidio</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Marina.jpg"> <span>Marina</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Embarcadero.jpg"> <span>Embarcadero</span> </div>
-          <div class="col"> <img src="/static/imgs/locations/Twin_Peaks.jpg"> <span>Twin Peaks</span> </div>
-        </div>
+        </section>
       </div>
-    </section>
-    
+    </div>
   </div>
 </template>
 

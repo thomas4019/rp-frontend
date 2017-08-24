@@ -227,6 +227,7 @@ export default {
 .filter {
   padding: 5px 10px 0px 10px;
   border-left: 1px solid #9B9B9B;
+  text-align: left;
 }
 .filter:first-child {
     padding: 4px 10px 10px 15px;

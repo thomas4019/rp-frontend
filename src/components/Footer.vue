@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="row justify-content-center">
-      <div class="col-lg-8 col-10">
+      <div class="col-6">
         <div id="footer-top" class="container">
           <div class="row justify-content-between">
             <div class="col-12 col-lg-6">
@@ -23,8 +23,8 @@
             <div class="col-12 col-lg-6 align-self-end right hide-on-mobile">
               <div class="social">
                 <!-- <a class="heap" href="https://heapanalytics.com/?utm_source=badge" rel="nofollow"><img style="width:70px" src="//heapanalytics.com/img/badge.png" alt="Heap | Mobile and Web Analytics" /></a> -->
-                <a href="https://www.facebook.com/RacepassUSA/"><img style="width:35px" src="/static/imgs/fb_icon.png"  /></a>
-                <a href="https://twitter.com/racepassusa?lang=en"><img style="width:35px" src="/static/imgs/twitter_icon.png"  /></a>
+                <a href="https://www.facebook.com/RacepassUSA/"><img style="width:35px" src="/static/imgs/icons/social/fb_icon.png"  /></a>
+                <a href="https://twitter.com/racepassusa?lang=en"><img style="width:35px" src="/static/imgs/icons/social/twitter_icon.png"  /></a>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
               <div class="copyright">2017 Racepass Inc. 450 Franklin Street, Mountain View, CA 94041</div>
             </div>
             <div class="col col-md-4 right terms-section hide-on-mobile">
-              <router-link to="/terms">Terms of Use</router-link>
+              <router-link to="/terms" style="padding-right:15px">Terms of Use</router-link>
               <router-link to="/privacy">Privacy Policy</router-link>
             </div>
           </div>
@@ -64,7 +64,8 @@ export default {
 
 <style scoped>
 footer {
-	padding: 40px 15px 5px 15px;
+  padding-top: 40px;
+  padding-bottom: 5px;
 }
 footer .disclaimer {
 	margin-top: 33px;
@@ -73,8 +74,8 @@ footer .disclaimer {
   font-weight: 300;
 }
 #footer-top {
+  padding-bottom: 25px;
 	border-bottom: 0.5px solid #FFFFFF;
-	padding: 0px 0px 10px 0px;
 }
 .right {
   text-align: right;
@@ -98,7 +99,6 @@ ul.bottom-menu {
 }
 #footer-bottom {
 	text-align: center;
-  padding: 15px 0px 5px 0px;
   border-top: 0.5px solid #CECECE;
 }
 #footer-bottom a {
@@ -120,6 +120,7 @@ ul.bottom-menu {
 	font-weight: lighter;
 	margin-top: 8px;
   text-align: left;
+  font-size: 12px;
 }
 #footer-bottom .disclaimer a {
   padding: 0;
