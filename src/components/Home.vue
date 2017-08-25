@@ -156,7 +156,7 @@ h1 {
 #banner1 {
   height: 500px;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-image: url('/static/imgs/races/B9826.jpg');
   background-size: cover;
   background-repeat: no-repeat;

@@ -95,7 +95,7 @@ button, .button {
 	text-align: center;
 	padding: 4px 10px;
 	border: none;
-	background-color: #0EC487;
+	background-color: #0FDA96;
 	border-radius: 6px;
 	color: #ffffff;
   cursor: pointer;
@@ -155,6 +155,10 @@ textarea {
 	font-weight: 300;
 	line-height: 19px;
 	color: #4A4A4A;
+}
+.input-group-addon {
+	background: none;
+	border: none;
 }
 .full {
 	width: 100%;
@@ -374,7 +378,7 @@ section.solo {
 }
 .date-picker {
   background: transparent;
-  color: #0EC487;
+  color: #0FDA96;
   font-size: 12px;
   width: 60px;
   padding: 0px 0px 0px 0px; 
@@ -387,7 +391,7 @@ section.solo {
   outline: none;
 }
 .vdp-datepicker__calendar {
-  background-color: #323237 !important;
+  background-color: #FFFFFF !important;
   border: none;
 }
 .vdp-datepicker__calendar header {
@@ -401,7 +405,7 @@ section.solo {
 }
 select {
   background: transparent;
-  color: #0EC487;
+  color: #0FDA96;
   font-weight: 900;
   border: none;
   padding: 0px 5px 0px 5px; 
@@ -414,6 +418,6 @@ select {
   top: -2px;
 }
 option {
-  background-color: #323237;
-  color: #0DFFAE;
+  background-color: #FFFFFF;
+  color: #0FDA96;
 }

@@ -18,9 +18,18 @@
     </div>
     <div class="row hide-on-mobile">
       <div class="filter col">
-        <div class="summary">
+        <!-- <div class="summary">
           <img class="search" src="/static/imgs/light_search_icon.png"/>
-          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="nameless"></div>
+          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="nameless">
+        </div> -->
+
+      <div class="summary">
+        <div class="input-group nameless">
+          <span class="input-group-addon" style="padding: 10px 0px 0px 0px;"><img class="search" src="/static/imgs/light_search_icon.png"/></span>
+          <input style="padding: 6px 0px 0px 10px;" @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="form-control">
+        </div>
+      </div>
+
       </div>
       <div class="filter  col-md-2" style="width:120px;" @click="showRacePopup($event)">
         <div class="name">Distance</div>
@@ -200,7 +209,7 @@ export default {
       ],
       distanceValues: [0, 5, 10, 15, 21.09, 42.19],
       processStyle: {
-        'backgroundColor': '#0DFFAE',
+        'backgroundColor': '#0FDA96',
       },
       piecewiseStyle: {
         'backgroundColor': '#ccc',
@@ -247,7 +256,7 @@ export default {
   font-size: 15px;
   font-weight: 900;
   text-align: left;
-  color: #0EC487;
+  color: #0FDA96;
 }
 .summary i.fa {
   color: #D8D8D8;
@@ -264,14 +273,14 @@ export default {
   top: 30px;
   left: -5px;
   width: 227px;
-  background-color: #323237;
+  background-color: #FFFFFF;
   box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
   border-radius: 4px;
   z-index: 100;
 }
 input[type=text] {
   background: transparent;
-  color: #0EC487;
+  color: #0FDA96;
   border: none;
   font-size: 15px;
   line-height: 20px;
@@ -279,13 +288,13 @@ input[type=text] {
   width: 85%;
 }
 .nameless {
-  padding: 15px 0px 0px 0px;
+  padding: 8px 0px 0px 0px;
 }
 input:focus {
     outline:none;
 }
 input[type=text]::placeholder {
-  color: #0EC487;
+  color: #0FDA96;
 }
 #switcher {
   padding: 5px 5px 0px 0px;

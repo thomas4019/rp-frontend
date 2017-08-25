@@ -1,12 +1,15 @@
 <template>
   <div id="race-search">
-    <div class="container">
-      <FilterRow />
-    </div>
-    <br/>
-    <div class="container">
-      <RpMap v-if="mode == 'map'"/>
-      <RaceSearchList :showRegister="true" v-if="mode != 'map'" />
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-md-8 col-lg-6">
+        <section>
+          <FilterRow />
+        </section>
+        <section>
+          <RpMap v-if="mode == 'map'"/>
+          <RaceSearchList :showRegister="true" v-if="mode != 'map'" />
+        </section>
+      </div>
     </div>
   </div>
 </template>
