@@ -1,114 +1,139 @@
 <template>
-  <div class="filter-row">
-    <div class="hide-on-desktop container">
-      <div class="row">
-        <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
-          <img class="search" src="/static/imgs/light_search_icon.png"/>
-          <span>{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</span>
-          <span class="bullet"></span>
-          <span v-if="filter_state==='ALL'">Anywhere</span>
-          <span v-else>{{filter_state}}</span>
-          <span class="bullet"></span>
-          <span v-if="start_date == original_start_date && end_date == original_end_date">Anytime</span>
-          <span v-else>{{start_date | formatDate}} - {{end_date | formatDate}}</span>
-          <img src="/static/imgs/pin.png" @click="changeMode('map')" />
-          <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+<div class="#filters">
+  <div class="row">
+    <div class="col">
+      <div class="filter-row">
+        <div class="hide-on-desktop container">
+          <div class="row">
+            <div @click="expandSeachDropdown()" class="col condensed-filter-bar">
+              <img class="search" src="/static/imgs/light_search_icon.png"/>
+              <span>{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</span>
+              <span class="bullet"></span>
+              <span v-if="filter_state==='ALL'">Anywhere</span>
+              <span v-else>{{filter_state}}</span>
+              <span class="bullet"></span>
+              <span v-if="start_date == original_start_date && end_date == original_end_date">Anytime</span>
+              <span v-else>{{start_date | formatDate}} - {{end_date | formatDate}}</span>
+              <img src="/static/imgs/pin.png" @click="changeMode('map')" />
+              <img src="/static/imgs/list.png"  @click="changeMode('list')" />
+            </div>
+          </div>
         </div>
+        <div class="row hide-on-mobile">
+          <div class="filter col">
+            <!-- <div class="summary">
+              <img class="search" src="/static/imgs/light_search_icon.png"/>
+              <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="nameless">
+            </div> -->
+
+          <div class="summary">
+            <div class="input-group nameless">
+              <span class="input-group-addon" style="padding: 10px 0px 0px 0px;"><img class="search" src="/static/imgs/light_search_icon.png"/></span>
+              <input style="padding: 6px 0px 0px 10px;" @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="form-control">
+            </div>
+          </div>
+
+          </div>
+          <div class="filter  col-md-2" style="width:120px;" @click="showRacePopup($event)">
+            <div class="name">Distance</div>
+            <div class="summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</div>
+            <div class="popup" v-if="popup == 'distance'">
+              <br/><br/>
+              <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
+            </div>
+          </div>
+          <div class="filter  col-md-2">
+            <div class="name">Where</div>
+            <select v-model="filter_state" @change="updateFilter()">
+              <option value="ALL">Anywhere</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+          </div>
+          <div class="filter  col-md-3">
+            <div class="name">When</div>
+            <div class="summary" v-if="showDatePickers">
+              <datepicker  wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="start_date"></datepicker> - 
+              <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="end_date"></datepicker>
+            </div>
+            <div class="summary" v-else>
+              <span v-if="start_date == original_start_date && end_date == original_end_date" @click="showDates()">Anytime</span>
+            </div>
+          </div>
+        </div>
+        <MobileFilterDropdown :filter_state.sync="filter_state" ref="mobileSearch"></MobileFilterDropdown>
       </div>
     </div>
-    <div class="row hide-on-mobile">
-      <div class="filter col">
-        <!-- <div class="summary">
-          <img class="search" src="/static/imgs/light_search_icon.png"/>
-          <input @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="nameless">
-        </div> -->
 
-      <div class="summary">
-        <div class="input-group nameless">
-          <span class="input-group-addon" style="padding: 10px 0px 0px 0px;"><img class="search" src="/static/imgs/light_search_icon.png"/></span>
-          <input style="padding: 6px 0px 0px 10px;" @change="searchUpdate()" @keyup="searchUpdate()" v-model="search_text" type="text" placeholder="Search races or locations" class="form-control">
-        </div>
-      </div>
 
-      </div>
-      <div class="filter  col-md-2" style="width:120px;" @click="showRacePopup($event)">
-        <div class="name">Distance</div>
-        <div class="summary">{{distances[0] == data[0] && distances[1] == data[data.length-1] ? 'Any distance' : distances[0] + ' - '+ distances[1]}}</div>
-        <div class="popup" v-if="popup == 'distance'">
-          <br/><br/>
-          <vue-slider @change="updateFilter()" ref="slider" v-model="distances" :data="data" :tooltip="tooltip" :process-style="processStyle" :piecewise-style="piecewiseStyle" :piecewise="true" :piecewise-label="true" />
+    <div class="col-1"  v-if="showListSwitcher">
+      <div class="filter-row" style="width: 100%">
+        <div class="switcher row no-gutters">
+          <div class="filter col-md-6" >
+            <img src="/static/imgs/icons/filter/map.png" @click="changeMode('map')" />
+          </div>
+          <div class="filter  col-md-6">
+            <img src="/static/imgs/icons/filter/list.png"  @click="changeMode('list')" />
+          </div>
         </div>
-      </div>
-      <div class="filter  col-md-2">
-        <div class="name">Where</div>
-        <select v-model="filter_state" @change="updateFilter()">
-          <option value="ALL">Anywhere</option>
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-          <option value="AZ">Arizona</option>
-          <option value="AR">Arkansas</option>
-          <option value="CA">California</option>
-          <option value="CO">Colorado</option>
-          <option value="CT">Connecticut</option>
-          <option value="DE">Delaware</option>
-          <option value="FL">Florida</option>
-          <option value="GA">Georgia</option>
-          <option value="HI">Hawaii</option>
-          <option value="ID">Idaho</option>
-          <option value="IL">Illinois</option>
-          <option value="IN">Indiana</option>
-          <option value="IA">Iowa</option>
-          <option value="KS">Kansas</option>
-          <option value="KY">Kentucky</option>
-          <option value="LA">Louisiana</option>
-          <option value="ME">Maine</option>
-          <option value="MD">Maryland</option>
-          <option value="MA">Massachusetts</option>
-          <option value="MI">Michigan</option>
-          <option value="MN">Minnesota</option>
-          <option value="MS">Mississippi</option>
-          <option value="MO">Missouri</option>
-          <option value="MT">Montana</option>
-          <option value="NE">Nebraska</option>
-          <option value="NV">Nevada</option>
-          <option value="NH">New Hampshire</option>
-          <option value="NJ">New Jersey</option>
-          <option value="NM">New Mexico</option>
-          <option value="NY">New York</option>
-          <option value="NC">North Carolina</option>
-          <option value="ND">North Dakota</option>
-          <option value="OH">Ohio</option>
-          <option value="OK">Oklahoma</option>
-          <option value="OR">Oregon</option>
-          <option value="PA">Pennsylvania</option>
-          <option value="RI">Rhode Island</option>
-          <option value="SC">South Carolina</option>
-          <option value="SD">South Dakota</option>
-          <option value="TN">Tennessee</option>
-          <option value="TX">Texas</option>
-          <option value="UT">Utah</option>
-          <option value="VT">Vermont</option>
-          <option value="VA">Virginia</option>
-          <option value="WA">Washington</option>
-          <option value="WV">West Virginia</option>
-          <option value="WI">Wisconsin</option>
-          <option value="WY">Wyoming</option>
-        </select>
-      </div>
-      <div class="filter  col-md-3">
-        <div class="name">When</div>
-        <div class="summary" v-if="showDatePickers">
-          <datepicker  wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="start_date"></datepicker> - 
-          <datepicker wrapper-class="date-picker-wrapper" input-class="date-picker" format="M/d/yy" v-model="end_date"></datepicker>
-        </div>
-        <div class="summary" v-else>
-          <span v-if="start_date == original_start_date && end_date == original_end_date" @click="showDates()">Anytime</span>
-        </div>
+        <!-- <div id="switcher">
+            <img src="/static/imgs/icons/filter/map.png" @click="changeMode('map')" />
+            <img src="/static/imgs/icons/filter/list.png"  @click="changeMode('list')" />
+          </div> -->
       </div>
     </div>
-    <MobileFilterDropdown :filter_state.sync="filter_state" ref="mobileSearch"></MobileFilterDropdown>
-    
   </div>
+
+
+</div>
 </template>
 
 <script>
@@ -125,6 +150,12 @@ export default {
     Datepicker,
     vueSlider,
     MobileFilterDropdown
+  },
+  props: {
+    showListSwitcher: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     showRacePopup ($event) {
@@ -296,12 +327,12 @@ input:focus {
 input[type=text]::placeholder {
   color: #0FDA96;
 }
-#switcher {
-  padding: 5px 5px 0px 0px;
+.switcher .filter {
+  text-align: center;
+  padding: 16px 0px 13px 0px
 }
-#switcher img {
-  height: 22px;
-  padding: 0px 11px 0px 0px;
+.switcher img {
+  height: 25px;
 }
 .condensed-filter-bar {
   font-size: 12px;

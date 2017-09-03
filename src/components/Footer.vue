@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center no-gutters">
       <div class="col-6">
         <div id="footer-top" class="container">
           <div class="row justify-content-between">
@@ -8,15 +8,15 @@
               <div class="links">
                 <ul class="bottom-menu" style="padding-right: 20px;">
                   <li class="header"><h3>Runners</h3></li>
-                  <li><router-link to="/about">How it works</router-link></li>
+                  <li><router-link to="/runners">How it works</router-link></li>
                   <li><router-link to="/runners-faq">FAQ</router-link></li>
-                  <li><router-link to="/contact">Support</router-link></li>
+                  <li><router-link to="/runners-support">Support</router-link></li>
                 </ul>
                 <ul class="bottom-menu" style="padding-left: 10px;">
                   <li class="header"><h3>Race Directors</h3></li>
                   <li><router-link to="/race-directors">How it works</router-link></li>
                   <li><router-link to="/race-directors-faq">FAQ</router-link></li>
-                  <li><router-link to="/contact">Support</router-link></li>
+                  <li><router-link to="/race-directors-support">Support</router-link></li>
                 </ul>
               </div>
             </div>

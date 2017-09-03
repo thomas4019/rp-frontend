@@ -1,10 +1,11 @@
 <template>
-  <div>
+<div class="row justify-content-center no-gutters">
+    <div class="col-12 col-sm-8 col-md-8 col-lg-6">
     <section>
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1>Race Director FAQ</h1>
+            <h1>Runner FAQ</h1>
           </div>
         </div>
       </div>
@@ -125,6 +126,7 @@
       </div>
     </section>
   </div>
+</div>
 </template>
 
 <script>

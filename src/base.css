@@ -33,7 +33,7 @@ a, a:hover, a:visited {
 	text-decoration: none;
 }
 em {
-	color: #0DFFAE;
+	color: #0EC487;
 	font-style: normal;
 }
 header {
@@ -147,14 +147,14 @@ input {
 	border: 0px;
 }
 textarea {
-	background-color: #D6D6D6;
-	border: 0.5px solid #4A4A4A;
+	background-color: #f7f7f7;
 	border-radius: 4px;
     padding: 11px;
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 19px;
 	color: #4A4A4A;
+	border:none;
 }
 .input-group-addon {
 	background: none;
@@ -168,7 +168,7 @@ textarea {
 	clear: both;
 }
 .bordered {
-	border: 1px solid #4A4A4A;
+	border: 1px solid #D8D8D8;
 	border-radius: 4px;
 }
 table.divided tr td {
@@ -190,14 +190,10 @@ section.solo {
 	width: 492px;
 	margin: 77px auto 116px auto;
 	padding: 40px;
-	background-color: #323237;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
-	border-radius: 8px;
 }
 .solo h2 {
 	text-align: center;
 	margin: 5px auto 5px auto;
-	color: #0DFFAE;
 }
 .solo h3 {
 

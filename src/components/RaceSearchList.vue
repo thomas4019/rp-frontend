@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="display:none">{{search_text}}</div>
+    <!-- <div style="display:none">{{search_text}}</div> -->
     <RaceTable :showRegister="showRegister" :races="races" />
     <div id="navigation" class="hide-on-mobile">
       <span id="position">

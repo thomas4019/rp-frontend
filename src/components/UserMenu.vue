@@ -6,7 +6,7 @@
       <div class="name">{{user.first_name}} {{user.last_name}}</div>
       <div class="email">{{user.email}}</div>
       <div id="actions">
-        <router-link to="/app/useredit" class="button">Account</router-link>
+        <router-link to="/app/useredit" class="button hollow" style="margin-right:10px">Account</router-link>
         <button class="hollow" @click="sign_out()">Sign out</button>
       </div>
     </div>
@@ -58,15 +58,18 @@ export default {
   right: 10px;
 	width: 280px;
 	border-radius: 4px;
-	background-color: #323237;
+	background-color: #fff;
 	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
   padding: 10px;
 
-	color: #D8D8D8;
+	color: #4A4A4A;
 	font-family: Avenir;
 	font-size: 12px;
 	font-weight: 900;
 	line-height: 16px;
+}
+.email {
+  font-weight: 300;
 }
 .profile-photo {
 	height: 72px;
@@ -76,7 +79,8 @@ export default {
   float: left;
 }
 #lower-menu {
-  border-top: 1px solid #4A4A4A;
+  margin-top: 10px;
+  border-top: 1px solid #D8D8D8;
   padding: 10px;
 }
 button {

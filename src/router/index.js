@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import About from '@/components/About'
-import Contact from '@/components/Contact'
 import Copyright from '@/components/Copyright'
-import Faq from '@/components/Faq'
 import Partnerships from '@/components/Partnerships'
 import Privacy from '@/components/Privacy'
 import RaceDirectors from '@/components/RaceDirectors'
 import RaceDirectorsFaq from '@/components/RaceDirectorsFaq'
-import RunnerFaq from '@/components/RunnerFaq'
+import RaceDirectorsSupport from '@/components/RaceDirectorsSupport'
+import Runners from '@/components/Runners'
+import RunnersFaq from '@/components/RunnersFaq'
+import RunnersSupport from '@/components/RunnersSupport'
 import Terms from '@/components/Terms'
 import UserProfile from '@/components/UserProfile'
 import UserEdit from '@/components/UserEdit'
@@ -62,24 +62,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
-    },
-    {
-      path: '/contact',
-      name: 'Contact',
-      component: Contact
-    },
-    {
       path: '/copyright',
       name: 'Copyright',
       component: Copyright
-    },
-    {
-      path: '/faq',
-      name: 'Faq',
-      component: Faq
     },
     {
       path: '/login',
@@ -143,13 +128,28 @@ export default new Router({
       component: RaceDirectorsFaq
     },
     {
+      path: '/race-directors-support',
+      name: 'RaceDirectorsSupport',
+      component: RaceDirectorsSupport
+    },
+    {
+      path: '/runners',
+      name: 'Runners',
+      component: Runners
+    },
+    {
       path: '/runners-faq',
-      name: 'RunnerFaq',
-      component: RunnerFaq
+      name: 'RunnersFaq',
+      component: RunnersFaq
+    },
+    {
+      path: '/runners-support',
+      name: 'RunnersSupport',
+      component: RunnersSupport
     },
     {
       path: '/payment',
-      name: 'Payment',
+      name: 'Payment 2',
       component: Payment
     },
     {

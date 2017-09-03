@@ -1,10 +1,12 @@
 <template>
 <div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-8 col-lg-6">
     <section>
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1>For the love of the sport</h1>
+            <h1 style="text-align:center">For the love of the sport</h1>
           </div>
         </div>
       </div>
@@ -21,8 +23,8 @@
                 a race, you can also share your experiences with other 
                 runners and help anyone find the best events.</p>
           </div>
-          <div class="col col-md-4">
-            { {image} }
+          <div class="col col-md-4" style="text-align:center">
+            <img src="/static/imgs/icons/why/globe.png" style="width: 130px;">
           </div>
         </div>
       </div>
@@ -30,9 +32,10 @@
     <section>
       <div class="container">
         <div class="row">
-          <div class="col col-md-4">
+          <div class="col col-md-4" style="text-align:center">
+            <img src="/static/imgs/icons/why/calendar.png" style="width: 130px;">
           </div>
-          <div class="col col-md-8">
+          <div class="col col-md-8"  style="text-align:right">
             <h2>Manage your enire race calendar from one simple dashboard</h2>
             <p>Running is simple, but somehow that gets lost when you 
               try to research, plan and register for races. Manage your 
@@ -54,12 +57,15 @@
               discover the right kind of races just for you so you’re 
               always expanding your horizons.</p>
           </div>
-          <div class="col col-md-4">
+          <div class="col col-md-4" style="text-align:center">
+            <img src="/static/imgs/icons/why/gears.png" style="width: 130px;">
           </div>
         </div>
       </div>
     </section>
     </div>
+  </div>
+</div>
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div class="row justify-content-center no-gutters">
+    <div class="col-12 col-sm-8 col-md-8 col-lg-6">
     <section>
       <div class="container">
         <div class="row">
@@ -87,7 +88,7 @@
     <section>
       <div class="container">
       <div class="row justify-content-center">
-        <div class="col-8" style="text-align:center">
+        <div class="col-12 col-sm-8 col-md-6" style="text-align:center">
           <button class="large" style="width:100%; margin-bottom: 20px;">Claim my race events</button>
           <p style="font-weight: 900">Have additional questions? Check out our <em><router-link to="/race-directors-faq">Race Director FAQ</router-link></em></p>
         </div>
@@ -95,19 +96,12 @@
       </div>
     </section>
   </div>
+</div>
 </template>
 
 <script>
 export default {
   name: 'rp-race-directors',
-  components: {
-    'rp-question': () => import('@/components/Question')
-  }
 }
 </script>
 
-<style scoped>
-.container {
-  max-width: 1000px !important;
-}
-</style>

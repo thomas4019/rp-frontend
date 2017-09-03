@@ -1,14 +1,9 @@
 <template>
   <div id="race-search">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-8 col-md-8 col-lg-6">
-        <section>
-          <FilterRow />
-        </section>
-        <section>
+    <div class="row justify-content-center no-gutters">
+      <div class="col-12">
           <RpMap v-if="mode == 'map'"/>
           <RaceSearchList :showRegister="true" v-if="mode != 'map'" />
-        </section>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center no-gutters">
       <div class="col-12">
         <section id="banner1" class="no-margin">
           <div class="row justify-content-center">
@@ -28,7 +28,7 @@
         </modal>
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center no-gutters">
       <div class="col-12 col-sm-8 col-md-8 col-lg-6">
         <section>
           <div class="container">

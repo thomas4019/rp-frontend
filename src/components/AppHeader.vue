@@ -2,7 +2,7 @@
   <nav>
     <div id="menu-left" class="menu-section">
       <router-link to="/app/profile">
-        <img id="logo-mini" src="/static/imgs/rplogo.jpg" />
+        <img id="logo-mini" src="/static/imgs/rplogo.png" />
       </router-link>
     </div>
     <div id="menu-middle" class="menu-section">
@@ -13,15 +13,16 @@
           {{result.name}}
         </div>
       </div>
+      <!--
       <i class="fa fa-search" aria-hidden="true"></i>
       <input v-model="search_text" @change="searchUpdate()" @keyup="searchUpdate()" id="menu-search" placeholder="Search races or locations" type="textbox" />
+      -->
+      <HomeFilterRow :showListSwitcher="true" style="width:100%; margin-top:10px"/>
     </div>
     <div id="menu-right" class="menu-section">
-      <router-link class="link" to="/app/profile">Home</router-link>
       <UserMenu v-if="menu_open" />
       <div class="dropdown" @click="menu_toggle($event)">
         <img class="profile-photo" :src="photo" />
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
       </div>
     </div>
   </nav>
@@ -29,13 +30,15 @@
 
 <script>
 import UserMenu from '@/components/UserMenu'
+import HomeFilterRow from '@/components/HomeFilterRow'
 function onBodyClick () {
   this.menu_open = false
 }
 export default {
   name: 'app-header',
   components: {
-    UserMenu
+    UserMenu,
+    HomeFilterRow,
   },
   methods: {
     lostFocus () {
@@ -77,14 +80,12 @@ export default {
 <style scoped>
 nav {
 	display: flex;
-	border-bottom: 0.5px solid #4A4A4A;
 }
 #logo-mini {
 	height: 32px;
 }
 #menu-left {
-	padding: 15px 15px 0px 15px;
-	border-right: 0.5px solid #4A4A4A;
+	padding: 20px 15px 0px 15px;
 	flex-basis: 75px;
 }
 #menu-middle {
@@ -100,11 +101,11 @@ nav {
 }
 #menu-right {
 	flex-basis: 160px;
-	padding: 5px;
-	border-left: 0.5px solid #4A4A4A;
+	padding: 12px 25px 15px 5px;
 	font-size: 28px;
 	justify-content: flex-end;
-	white-space: nowrap;
+  white-space: nowrap;
+  text-align: right;
 }
 #menu-right .link {
 	font-size: 18px;

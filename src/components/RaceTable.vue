@@ -1,30 +1,27 @@
 <template>
   <div class="race-table">
-    <div class="row no-gutters hide-on-mobile" id="header">
-      <div class="col-md-1">Type</div>
-      <div class="col-md-3">Race</div>
-      <div class="col-md-2">Location</div>
-      <div class="col-md-2">Date</div>
-      <div class="col-md-2">Website</div>
-      <div class="col-md-2"></div>
+    <div class="row no-gutters hide-on-mobile" id="table-header">
+      <div class="offset-md-2 col-md-1">Distance</div>
+      <div class="col-md-3">Event name</div>
+      <div class="col-md-1">Location</div>
+      <div class="col-md-1">Date</div>
+      <div class="col-md-1">Price</div>
+      <div class="col-md-1"></div>
     </div>
     <div class="row no-gutters race" v-for="race in races" v-bind:key="race.id">
-      <div class="col-10 col-md-3 push-md-1 race-name">{{race.name}}</div>
-      <div class="col-2 col-md-2 push-md-7 actions">
+      <div class="col-10 col-md-3 push-md-3 race-name">{{race.name}}</div>
+      <div class="col-2 col-md-1 push-md-6 actions">
         <RaceActions :race="race" :showRegister="showRegister"></RaceActions>
       </div>
-      <div class="col-2 col-md-1 pull-md-5 distance">
+      <div class="col-2 offset-md-3 col-md-1 pull-md-5 distance">
         <span v-for="course in race.courses" :class="{ 'chosen': isSelectedDistance(race, course) }" v-bind:key="course.id">
           {{course.distance}}
         </span>
       </div>
-      <div class="col-5 col-md-2 pull-md-2 location">{{race.location.city}}, {{race.location.state}}</div>
-      <div class="col-3 col-md-2 pull-md-2 datetime">{{race.datetime | formatDate }}</div>
-      <div class="col-2 col-md-2 pull-md-2 website">
-        <a target="_blank" :href="race.website">
-          <em class="hide-on-mobile">{{race.website | formatURL }}</em>
-          <em class="hide-on-desktop">Visit Site</em>
-        </a>
+      <div class="col-5 col-md-1 pull-md-2 location">{{race.location.city}}, {{race.location.state}}</div>
+      <div class="col-3 col-md-1 pull-md-2 datetime">{{race.datetime | formatDate }}</div>
+      <div class="col-2 col-md-1 pull-md-2 price">
+        {{race.cost }}
       </div>
     </div>
   </div>
@@ -63,7 +60,7 @@ export default {
 }
 Vue.filter('formatDate', function (value) {
   if (value) {
-    return moment(String(value)).format('M/D/YYYY')
+    return moment(String(value)).format('M/D/YY')
   }
 })
 Vue.filter('formatURL', function (value) {
@@ -87,19 +84,20 @@ Vue.filter('formatURL', function (value) {
 .race-table{
   text-align: left;
   font-size: 14px;
-  color: #D6D6D6;
+  color: #4A4A4A;
 }
-#header {
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15);
-	background: #323237;
-  color: #FFFFFF;
-  font-weight: 300;
-  line-height: 19px;
+#table-header {
+	background-color: #DBDBDB;
+  color: #4A4A4A;
+  line-height: 22px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.15);
+  font-weight: 900;
+  font-size: 16px;
 }
-.race-table #header div {
-  padding: 5px 0px 7px 0px;
+.race-table #table-header div {
+  padding: 20px 0px 21px 0px;
 }
-#header.row {
+#table-header.row {
   margin: 15px 0px 0px 0px;
 }
 .row {
